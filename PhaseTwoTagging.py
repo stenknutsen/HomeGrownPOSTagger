@@ -1,6 +1,6 @@
-#Uses context to tag POS
+#uses immediate "right-headed context" to tag POS
 
-#tags anything 'to' before DT as IN (preposition)
+#tags anything 'to' before DT or PRP$ or NNP as 'IN'(preposition)
 def to_INtagger(sent):
     sentToReturn = []
 
@@ -8,7 +8,7 @@ def to_INtagger(sent):
         target = sent[i]
         context = sent[i+1]
 
-        if (target[0].lower()=="to")&(context[1]=='DT'):
+        if (target[0].lower()=="to")&((context[1]=='DT')|(context[1]=='PRP$')|(context[1]=='NNP')):
             newTup = (target[0], 'IN')
             sentToReturn += [newTup]
         else:
@@ -17,9 +17,51 @@ def to_INtagger(sent):
     return sentToReturn
 
 
+#tags anything 'to' before adverb as infinitive
+def to_RB_TOtagger(sent):
+    sentToReturn = []
 
+    for i in range(len(sent)-1):
+        target = sent[i]
+        context = sent[i+1]
 
+        if (target[0].lower()=="to")&(context[1]=='RB'):
+            newTup = (target[0], 'TO')
+            sentToReturn += [newTup]
+        else:
+            sentToReturn += [target]
+    sentToReturn += [sent[len(sent)-1]]
+    return sentToReturn
 
+#tags anything 'to' before AUX verbs (and a few favorites) as infinitive
+def to_AUX_TOtagger(sent):
+    sentToReturn = []
+    skip = False
+    for i in range(len(sent)-1):
+
+        if skip == True:
+            skip = False
+            continue
+
+        target = sent[i]
+        context = sent[i+1]
+
+        if (target[0].lower() == "to")&((context[0].lower() == 'have')|(context[0].lower() == 'do')|
+                                      (context[0].lower() == 'be')|(context[0].lower() == 'get')|
+                                        (context[0].lower() == 'make')|(context[0].lower() == 'see')|
+                                        (context[0].lower() == 'go')):
+
+            newTup = (target[0], 'TO')
+            sentToReturn += [newTup]
+            newTup = (context[0], 'VB')
+            sentToReturn += [newTup]
+            skip = True
+        else:
+            sentToReturn += [target]
+
+    sentToReturn += [sent[len(sent)-1]]
+
+    return sentToReturn
 
 
 

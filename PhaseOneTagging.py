@@ -7,11 +7,27 @@ import headers
 #dictionary of exceptions to ending clusters
 endingClusterExceptions = {"witness":"UNK","witnesses":"UNK", "priest":"NN","earliest":"UNK","ration":"UNK",
                            "station":"UNK","vacation":"UNK","rations":"UNK","stations":"UNK","vacations":"UNK",
-                           "questions":"UNK","question":"UNK","mention":"UNK","mentions":"UNK"}
+                           "questions":"UNK","question":"UNK","mention":"UNK","mentions":"UNK","function":"UNK",
+                           "functions":"UNK","sanction":"UNK","sanctions":"UNK","auction":"UNK","auctions":"UNK",
+                           "caution":"UNK","cautions":"UNK","motion":"UNK","motions":"UNK","option":"UNK",
+                           "options":"UNK","apportion":'UNK',"portion":"UNK","apportions":'UNK',"portions":"UNK",
+                           "licence":"UNK","reference":"UNK","silence":"UNK","sentence":"UNK","fence":"UNK","evidence":"UNK",
+                           "licences":"UNK","references":"UNK","silences":"UNK","sentences":"UNK","fences":"UNK",
+                           "evidences":"UNK","rally":"UNK","tally":"UNK"}
 
 #list of ending clusters
 endingClusterList = [("ness","NN"),("nesses","NNS"),("iest","JJS"),("ation","NN"),("ations","NNS"),("stion","NN"),
-                     ("stions","NNS"),("ntion","NN"),("ntions","NNS")]
+                     ("stions","NNS"),("ntion","NN"),("ntions","NNS"),("ction","NN"),("ctions","NNS"),("dence","NN"),
+                     ("dences","NNS"),("ency","NN"),("encies","NNS"),("ously","RB"),("city","NN"),("cities","NNS"),
+                     ("sity","NN"),("sities","NNS"),("ution","NN"),("utions","NNS"),("otion","NN"),("otions","NNS"),
+                     ("ption","NN"),("ptions","NNS"),("rtion","NN"),("rtions","NNS"),("nment","NN"),("tment","NN"),
+                     ("pment","NN"),("sment","NN"),("dment","NN"),("hment","NN"),("yment","NN"),("nments","NNS"),
+                     ("tments","NNS"),("pments","NNS"),("sments","NNS"),("dments","NNS"),("hments","NNS"),("yments","NNS"),
+                     ("cence","NN"),("rence","NN"),("lence","NN"),("sence","NN"),("tence","NN"),("dence","NN"),("fence","NN"),
+                     ("cences","NNS"),("rences","NNS"),("lences","NNS"),("sences","NNS"),("tences","NNS"),
+                     ("dences","NNS"),("fences","NNS"),("nence","NN"),("nences","NNS"),("matic","JJ"),("cally","RB"),
+                     ("eally","RB"),("vally","RB"),("ially","RB"),("rally","RB"),("mally","RB"),("nally","RB"),
+                     ("tally","RB"),("ette","NN"),("ettes","NNS"),("ably","RB")]
 
 tinyDictionary = {",":",",".":".",";":";","?":"?","!":"!",#punctuation
     "a":"DT","an":"DT","any":"DT","the":"DT","this":"DT","these":"DT","those":"DT",#determiners
@@ -23,111 +39,13 @@ tinyDictionary = {",":",",".":".",";":";","?":"?","!":"!",#punctuation
     "it":"PRP",#personal pronouns
     "cannot":"MD","could":"MD","may":"MD", "must":"MD", "ought":"MD", "shall":"MD", "should":"MD", "would":"MD",#modals
     "having":"VBG","has":"VBZ","be":"VB","was":"VBD","were":"VBD","been":"VBN","am":"VPB","are":"VBP",
-    "is":"VBP", "did":"VBD", "doing":"VBG", "done":"VBN", "does":"VBZ", "'ve":"VBP", "'d":"MD",
+    "is":"VBP", "do":"VBP","did":"VBD", "doing":"VBG", "done":"VBN", "does":"VBZ", "'ve":"VBP", "'d":"MD",
     "'m":"VBP", "'re":"VBP",#aux verbs
     "something":"NN", "nothing":"NN", "anything":"NN", "everything":"NN", "someone":"NN", "everyone":"NN",
     "anyone":"NN", "everybody":"NN", "somebody":"NN",#indefinite pronouns
-    "now":"RB", "then":"RB", "always":"RB","today":"RB","yesterday":"RB"#adverbs
+    "now":"RB", "then":"RB", "always":"RB","today":"RB","yesterday":"RB", "not":"RB","n't":"RB","also":"RB",
+    "never":"RB" #adverbs
     }
-#tags anything ending in -ntion(s) as NN(S)
-def NN_ntionTagger(sent):
-    sentToReturn = []
-    for word in sent:
-        if (word[0].lower()=="mention")|(word[0].lower()=="mentions"):
-            sentToReturn += [(word[0], 'UNK')]
-            continue
-        if word[0].lower().endswith("ntion"):
-            newTup = (word[0], "NN")
-            sentToReturn += [newTup]
-        elif word[0].lower().endswith("ntions"):
-            newTup = (word[0], "NNS")
-            sentToReturn += [newTup]
-        else:
-            sentToReturn += [word]
-    return sentToReturn
-
-#tags anything ending in -ction(s) as NN(S)
-def NN_ctionTagger(sent):
-    sentToReturn = []
-    for word in sent:
-        if (word[0].lower()=="function")|(word[0].lower()=="functions"):
-            sentToReturn += [(word[0], 'UNK')]
-            continue
-        if (word[0].lower()=="sanction")|(word[0].lower()=="sanctions"):
-            sentToReturn += [(word[0], 'UNK')]
-            continue
-        if (word[0].lower()=="auction")|(word[0].lower()=="auctions"):
-            sentToReturn += [(word[0], 'UNK')]
-            continue
-        if word[0].lower().endswith("ction"):
-            newTup = (word[0], 'NN')
-            sentToReturn += [newTup]
-        elif word[0].lower().endswith("ctions"):
-            newTup = (word[0], 'NNS')
-            sentToReturn += [newTup]
-        else:
-            sentToReturn += [word]
-    return sentToReturn
-
-
-#tags anything ending in -dence(s) as NN(S)
-def NN_denceTagger(sent):
-    sentToReturn = []
-    for word in sent:
-        if word[0].lower().endswith("dence"):
-            newTup = (word[0], 'NN')
-            sentToReturn += [newTup]
-        elif word[0].lower().endswith("dences"):
-            newTup = (word[0], 'NNS')
-            sentToReturn += [newTup]
-        else:
-            sentToReturn += [word]
-    return sentToReturn
-
-#tags anything ending in -enc/y(ies) as NN(S)
-def NN_encyTagger(sent):
-    sentToReturn = []
-    for word in sent:
-        if word[0].lower().endswith("ency"):
-            newTup = (word[0], 'NN')
-            sentToReturn += [newTup]
-        elif word[0].lower().endswith("encies"):
-            newTup = (word[0], 'NNS')
-            sentToReturn += [newTup]
-        else:
-            sentToReturn += [word]
-    return sentToReturn
-
-
-#tags anything ending in -ness(es) as NN(S)
-def NN_nessTagger(sent):
-    sentToReturn = []
-    for word in sent:
-        if (word[0].lower()=="witness")|(word[0].lower()=="witnesses"):
-            sentToReturn += [(word[0], 'UNK')]
-            continue
-        if word[0].lower().endswith("ness"):
-            newTup = (word[0], 'NN')
-            sentToReturn += [newTup]
-        elif word[0].lower().endswith("nesses"):
-            newTup = (word[0], 'NNS')
-            sentToReturn += [newTup]
-        else:
-            sentToReturn += [word]
-    return sentToReturn
-
-
-#tags anything ending in -ously as RB
-def RB_ouslyTagger(sent):
-    sentToReturn = []
-    for word in sent:
-        if word[0].lower().endswith("ously"):
-            newTup = (word[0], 'RB')
-            sentToReturn += [newTup]
-        else:
-            sentToReturn += [word]
-    return sentToReturn
-
 
 #Tags anything starting with a captial letter as NNP (excluding first word in sentence)
 def NNPTagger(sent):
@@ -144,7 +62,7 @@ def NNPTagger(sent):
     return sentToReturn
 
 
-#tags everything in dictionary
+#tags everything in tinyDictionary
 def tinyDictionaryTagger(sent):
     sentToReturn = []
     for word in sent:
@@ -156,7 +74,7 @@ def tinyDictionaryTagger(sent):
     return sentToReturn
 
 
-#tagger for all endings and their exceptions
+#tagger for all endings, minus their exceptions
 def endingClusterTagger(sent):
     sentToReturn = []
     newTuple = ()
