@@ -29,18 +29,19 @@ endingClusterList = [("ness","NN"),("nesses","NNS"),("iest","JJS"),("ation","NN"
                      ("eally","RB"),("vally","RB"),("ially","RB"),("rally","RB"),("mally","RB"),("nally","RB"),
                      ("tally","RB"),("ette","NN"),("ettes","NNS"),("ably","RB")]
 
-tinyDictionary = {",":",",".":".",";":";","?":"?","!":"!",#punctuation
+tinyDictionary = {",":",",".":".",";":";","?":"?","!":"!",":":":",#punctuation
     "a":"DT","an":"DT","any":"DT","the":"DT","this":"DT","these":"DT","those":"DT",#determiners
     "my":"PRP$", "your":"PRP$","its":"PRP$","our":"PRP$", "their":"PRP$","his":"PRP$",#posessive pronouns
-    "and":"CC","or":"CC", "but":"CC","&":"CC", "nor":"CC",#coordingating conjuctions
-    "in":"IN","by":"IN", "of":"IN","for":"IN","with":"IN","on":"IN","at":"IN","from":"IN","into":"IN",
-    "through":"IN", "after":"IN", "over":"IN","between":"IN","before":"IN","during":"IN","under":"IN",#prepositions
+    "and":"CC","or":"CC", "but":"CC","&":"CC", "nor":"CC","yet":"CC",#coordingating conjuctions
+    "in":"IN","by":"IN", "of":"IN","for":"IN","with":"IN","on":"IN","at":"IN","from":"IN","into":"IN","because":"IN",
+    "through":"IN", "after":"IN", "over":"IN","between":"IN","before":"IN","during":"IN","under":"IN",
+    "whether":"IN",#prepositions
     "me":"PRP","him":"PRP","us":"PRP","them":"PRP","i":"PRP","she":"PRP","he":"PRP","we":"PRP","they":"PRP",
     "it":"PRP",#personal pronouns
     "cannot":"MD","could":"MD","may":"MD", "must":"MD", "ought":"MD", "shall":"MD", "should":"MD", "would":"MD",#modals
     "having":"VBG","has":"VBZ","be":"VB","was":"VBD","were":"VBD","been":"VBN","am":"VPB","are":"VBP",
-    "is":"VBP", "do":"VBP","did":"VBD", "doing":"VBG", "done":"VBN", "does":"VBZ", "'ve":"VBP", "'d":"MD",
-    "'m":"VBP", "'re":"VBP",#aux verbs
+    "is":"VBZ", "do":"VBP","did":"VBD", "doing":"VBG", "done":"VBN", "does":"VBZ", "'ve":"VBP", "'d":"MD",
+    "'m":"VBP", "'re":"VBP", "'ll":"MD", "had":"VBD", #aux verbs
     "something":"NN", "nothing":"NN", "anything":"NN", "everything":"NN", "someone":"NN", "everyone":"NN",
     "anyone":"NN", "everybody":"NN", "somebody":"NN",#indefinite pronouns
     "now":"RB", "then":"RB", "always":"RB","today":"RB","yesterday":"RB", "not":"RB","n't":"RB","also":"RB",

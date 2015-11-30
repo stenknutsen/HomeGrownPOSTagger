@@ -1,12 +1,15 @@
 from nltk.tokenize import sent_tokenize
-from nltk import *
+from nltk import*
 from PhaseOneTagging import*
 from PhaseTwoTagging import*
+from PhaseThreeTagging import*
 
+#s=  "It was going to give people small sums of money to see whether the market forces, the information held by different people being aggregated in the market, could serve as a kind of predictive tool to lay alongside all the other predictive tools that people use."
 #s="it was brillig, and the slithy toves did gyre and gimble in the wabe all mimsy were the borogoves and the mome raths outgrabe."
-#s = "The automatic reticence of Americans to go to Europe, and Russians to visit Turkey, is likely to drive down holiday prices"
-s = "Of admissible physicians who were aware of and received Medicare bonus payments, 37 percent said it made a small difference in their ability to serve their Medicare patients, and 5 percent said it made a big difference. "
-#s ="I'd go to the convention for inventions now, but don't mention that it has an auction or any restrictions, no matter what the coincidence or imprudences."
+#s="And, Levenson says that according to the prevailing science of the time, there was a clear explanation for that: another planet that we hadn't yet discovered, inside the orbit of Mercury, that could tug it just slightly off its expected course."
+s = "A study suggests that's because the pain of loneliness activates the immune pattern of a primordial response commonly known as fight or flight."
+#s = "It was going to give people small sums of money to see whether the market forces, the information held by different people being aggregated in the market, could serve as a kind of predictive tool to lay alongside all the other predictive tools that people use."
+
 #takes sentence, tokenizes and renders default POS tag form
 def conditionSentence(sent):
     str = word_tokenize(sent)
@@ -28,8 +31,36 @@ finalSent = endingClusterTagger(finalSent)
 #tags instances of 'to' that are prepositions. Uses context.
 finalSent = to_INtagger(finalSent)
 
-##order of thesr rules matters!
+##order of these rules matters!
 finalSent = to_RB_TOtagger(finalSent)
 
+#
 finalSent = to_AUX_TOtagger(finalSent)
+
+#
+finalSent = to_be_VBGTagger(finalSent)
+
+#
+finalSent = thats_Tagging(finalSent)
+
+#phase three tagging
+#
+#
+#
+finalSent = DT_IN_NounTagger(finalSent)
+
+finalSent = PRP_IN_VerbTagger(finalSent)
+
+finalSent = N_DT_VerbTagger(finalSent)
+
+finalSent = DT_PuctuationNounTagger(finalSent)
+
+finalSent = N_by_VerbTagger(finalSent)
+
+finalSent = MD_as_VerbTagger(finalSent)
+
+finalSent = IN_that_PucntuationTagging(finalSent)
+
+finalSent = that_P_VThatTagger(finalSent)
+
 print(finalSent)
