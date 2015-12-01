@@ -13,9 +13,11 @@ endingClusterExceptions = {"witness":"UNK","witnesses":"UNK", "priest":"NN","ear
                            "options":"UNK","apportion":'UNK',"portion":"UNK","apportions":'UNK',"portions":"UNK",
                            "licence":"UNK","reference":"UNK","silence":"UNK","sentence":"UNK","fence":"UNK","evidence":"UNK",
                            "licences":"UNK","references":"UNK","silences":"UNK","sentences":"UNK","fences":"UNK",
-                           "evidences":"UNK","rally":"UNK","tally":"UNK"}
+                           "evidences":"UNK","rally":"UNK","tally":"UNK","sizes":"UNK","prizes":"UNK","prize":"UNK",
+                           "size":"UNK","maize":"NN","random":"UNK","seldom":"RB"}
 
 #list of ending clusters
+#NOTE: added "ize" as VB. Will later disambiguate base and present tense form.
 endingClusterList = [("ness","NN"),("nesses","NNS"),("iest","JJS"),("ation","NN"),("ations","NNS"),("stion","NN"),
                      ("stions","NNS"),("ntion","NN"),("ntions","NNS"),("ction","NN"),("ctions","NNS"),("dence","NN"),
                      ("dences","NNS"),("ency","NN"),("encies","NNS"),("ously","RB"),("city","NN"),("cities","NNS"),
@@ -27,7 +29,8 @@ endingClusterList = [("ness","NN"),("nesses","NNS"),("iest","JJS"),("ation","NN"
                      ("cences","NNS"),("rences","NNS"),("lences","NNS"),("sences","NNS"),("tences","NNS"),
                      ("dences","NNS"),("fences","NNS"),("nence","NN"),("nences","NNS"),("matic","JJ"),("cally","RB"),
                      ("eally","RB"),("vally","RB"),("ially","RB"),("rally","RB"),("mally","RB"),("nally","RB"),
-                     ("tally","RB"),("ette","NN"),("ettes","NNS"),("ably","RB")]
+                     ("tally","RB"),("ette","NN"),("ettes","NNS"),("ably","RB"),("izes","VBZ"),("ize","VB"),("hood","NN"),
+                     ("hoods","NNS"),("dom","NN"),("doms","NNS")]
 
 tinyDictionary = {",":",",".":".",";":";","?":"?","!":"!",":":":",#punctuation
     "a":"DT","an":"DT","any":"DT","the":"DT","this":"DT","these":"DT","those":"DT",#determiners

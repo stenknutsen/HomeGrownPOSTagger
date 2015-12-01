@@ -1,6 +1,6 @@
-#uses both L and R immediate context to tag (provisionally, in cases of N and V)
+#uses two points of context (left or right) to tag (provisionally, in cases of N and V)
 
-#tags anything between a DT and IN as NN note *****(add plural filter later)*******
+#tags anything between a DT and IN as NN. Note *****(add plural filter later)*******
 def DT_IN_NounTagger(sent):
     sentToReturn = []
     skip = False
@@ -30,6 +30,8 @@ def DT_IN_NounTagger(sent):
 
     return sentToReturn
 
+
+#verbs tagged between PRPs & INs
 def PRP_IN_VerbTagger(sent):
     sentToReturn = []
     skip = False
@@ -59,6 +61,8 @@ def PRP_IN_VerbTagger(sent):
 
     return sentToReturn
 
+
+#verbs tagged between N & DT
 def N_DT_VerbTagger(sent):
     sentToReturn = []
     skip = False
@@ -88,6 +92,7 @@ def N_DT_VerbTagger(sent):
 
     return sentToReturn
 
+#nouns tagged between DT & [punctuation]
 def DT_PuctuationNounTagger(sent):
     sentToReturn = []
     skip = False
@@ -118,6 +123,7 @@ def DT_PuctuationNounTagger(sent):
 
     return sentToReturn
 
+#verbs between N and "by" tagged
 def N_by_VerbTagger(sent):
     sentToReturn = []
     skip = False
@@ -147,7 +153,7 @@ def N_by_VerbTagger(sent):
 
     return sentToReturn
 
-
+#verbs tagged between MD and as
 def MD_as_VerbTagger(sent):
     sentToReturn = []
     skip = False
@@ -177,6 +183,8 @@ def MD_as_VerbTagger(sent):
 
     return sentToReturn
 
+
+#nouns tagged at end of IN "that" [punctuation mark] sequence
 def IN_that_PucntuationTagging(sent):
     sentToReturn = []
     skip = False
@@ -208,6 +216,9 @@ def IN_that_PucntuationTagging(sent):
 
     return sentToReturn
 
+
+
+#"that" P V sequence, "that" tagged as WDT
 def that_P_VThatTagger(sent):
     sentToReturn = []
     skip = False

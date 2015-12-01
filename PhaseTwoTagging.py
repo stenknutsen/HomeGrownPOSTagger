@@ -97,8 +97,8 @@ def to_be_VBGTagger(sent):
 
     return sentToReturn
 
-
-def thats_Tagging(sent):#####<+++++a work in progresss.  . .  .. . . .  . . .
+#PRPs, EX, WPs, WRBs tagged next to "is/'s"
+def thats_Tagging(sent):
     sentToReturn = []
     skip = False
     for i in range(len(sent)-1):
