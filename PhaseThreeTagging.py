@@ -92,7 +92,7 @@ def N_DT_VerbTagger(sent):
 
     return sentToReturn
 
-#nouns tagged between DT & [punctuation]
+#nouns tagged between DT & [punctuation]####NOTE: DUPLICATES NOUN AT END OF SENTENCE****************
 def DT_PuctuationNounTagger(sent):
     sentToReturn = []
     skip = False

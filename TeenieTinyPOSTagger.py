@@ -4,10 +4,12 @@ from PhaseOneTagging import*
 from PhaseTwoTagging import*
 from PhaseThreeTagging import*
 
+s="He then emphasizes how investments in technology in particular can solve these problems."
+#s ="Take his efforts to limit carbon emissions through the Environmental Protection Agency, or put a price on carbon."
 #s=  "It was going to give people small sums of money to see whether the market forces, the information held by different people being aggregated in the market, could serve as a kind of predictive tool to lay alongside all the other predictive tools that people use."
 #s="it was brillig, and the slithy toves did gyre and gimble in the wabe all mimsy were the borogoves and the mome raths outgrabe."
 #s="And, Levenson says that according to the prevailing science of the time, there was a clear explanation for that: another planet that we hadn't yet discovered, inside the orbit of Mercury, that could tug it just slightly off its expected course."
-s = "He emphasizes, a study suggests that's because the pain of loneliness activates the immune pattern of a primordial response commonly known as fight or flight or childhood."
+#s = "He emphasizes, a study suggests that's because the pain of loneliness activates the immune pattern of a primordial response commonly known as fight or flight or qualities of childhood."
 #s = "It was going to give people small sums of money to see whether the market forces, the information held by different people being aggregated in the market, could serve as a kind of predictive tool to lay alongside all the other predictive tools that people use."
 
 #takes sentence, tokenizes and renders default POS tag form
@@ -53,7 +55,7 @@ finalSent = PRP_IN_VerbTagger(finalSent)
 
 finalSent = N_DT_VerbTagger(finalSent)
 
-finalSent = DT_PuctuationNounTagger(finalSent)
+finalSent = DT_PuctuationNounTagger(finalSent)##NOTE: DUPLICATES NOUN AT END OF SENTENCE
 
 finalSent = N_by_VerbTagger(finalSent)
 
