@@ -55,6 +55,7 @@ finalSent = PRP_IN_VerbTagger(finalSent)
 
 finalSent = N_DT_VerbTagger(finalSent)
 
+##needs to be fixed****************************
 finalSent = DT_PuctuationNounTagger(finalSent)##NOTE: DUPLICATES NOUN AT END OF SENTENCE
 
 finalSent = N_by_VerbTagger(finalSent)
