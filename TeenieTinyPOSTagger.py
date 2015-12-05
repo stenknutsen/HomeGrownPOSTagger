@@ -3,7 +3,7 @@ from nltk import*
 from PhaseOneTagging import*
 from PhaseTwoTagging import*
 from PhaseThreeTagging import*
-
+##I often eat apples
 s="He then emphasizes how investments in technology in particular can solve these problems."
 #s ="Take his efforts to limit carbon emissions through the Environmental Protection Agency, or put a price on carbon."
 #s=  "It was going to give people small sums of money to see whether the market forces, the information held by different people being aggregated in the market, could serve as a kind of predictive tool to lay alongside all the other predictive tools that people use."
