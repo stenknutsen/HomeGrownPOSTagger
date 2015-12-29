@@ -92,36 +92,33 @@ def N_DT_VerbTagger(sent):
 
     return sentToReturn
 
-#nouns tagged between DT & [punctuation]####NOTE: DUPLICATES NOUN AT END OF SENTENCE****************
+#nouns tagged between DT & [punctuation]
 def DT_PuctuationNounTagger(sent):
     sentToReturn = []
-    skip = False
-    for i in range(len(sent)-2):
 
-        if skip == True:
-            skip = False
+    for i in range(len(sent)):
+
+        if (i-1)<0 | (i+1)>=len(sent):
+            sentToReturn += [sent[i]]
             continue
 
-        leftContext = sent[i]
-        target = sent[i+1]
-        rightContext = sent[i+2]
+        leftContext = sent[i-1]
+        target = sent[i]
+        rightContext = sent[i+1]
 
         if (leftContext[1]=="DT")&(target[1]=="UNK")&((rightContext[1] == ".")|(rightContext[1] == ",")|(rightContext[1] == "!")|
-                                   (rightContext[1] == "?")|(rightContext[1] == ":")|(rightContext[1] == "?")):
+                                   (rightContext[1] == "?")|(rightContext[1] == ":")|(rightContext[1] == ";")):
 
-            sentToReturn += [leftContext]
+
             newTup = (target[0], "N")
             sentToReturn += [newTup]
 
-            skip = True
         else:
-
-          sentToReturn += [leftContext]
-
-    sentToReturn += [sent[len(sent)-2]]
-    sentToReturn += [sent[len(sent)-1]]
+            sentToReturn += [target]
 
     return sentToReturn
+
+
 
 #verbs between N and "by" tagged
 def N_by_VerbTagger(sent):
