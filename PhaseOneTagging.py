@@ -36,7 +36,7 @@ endingClusterList = [("ness","NN"),("nesses","NNS"),("iest","JJS"),("ation","NN"
                      ("ships","NNS"),("ity","NN"),("ities","NNS"),("ology","NN"),("ologies","NNS")]
 
 tinyDictionary = {",":",",".":".",";":";","?":"?","!":"!",":":":",#punctuation
-    "a":"DT","an":"DT","any":"DT","the":"DT","this":"DT","these":"DT","those":"DT",#determiners
+    "a":"DT","an":"DT","any":"DT","the":"DT","this":"DT","these":"DT","those":"DT", "another":"DT", #determiners
     "my":"PRP$", "your":"PRP$","its":"PRP$","our":"PRP$", "their":"PRP$","his":"PRP$",#posessive pronouns
     "and":"CC","or":"CC", "but":"CC","&":"CC", "nor":"CC","yet":"CC",#coordingating conjuctions
     "in":"IN","by":"IN", "of":"IN","for":"IN","with":"IN","on":"IN","at":"IN","from":"IN","into":"IN","because":"IN",

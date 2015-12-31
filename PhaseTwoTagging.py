@@ -128,3 +128,19 @@ def thats_Tagging(sent):
     sentToReturn += [sent[len(sent)-1]]
 
     return sentToReturn
+
+def existentialThereTagger(sent):
+    sentToReturn = []
+
+    for i in range(len(sent)-1):
+        target = sent[i]
+        context = sent[i+1]
+
+        if (target[0].lower()=="there")&((context[0]=='is')|(context[0]=="'s")|(context[0]=='was')|(context[0]=='were')|
+                                             (context[0]=='are')):
+            newTup = (target[0], 'EX')
+            sentToReturn += [newTup]
+        else:
+            sentToReturn += [target]
+    sentToReturn += [sent[len(sent)-1]]
+    return sentToReturn

@@ -181,7 +181,7 @@ def MD_as_VerbTagger(sent):
     return sentToReturn
 
 
-#wh-pronouns tagged at end of IN "that" [punctuation mark] sequence****************
+#wh-pronouns tagged at end of IN "that" [punctuation mark] sequence
 def IN_that_PucntuationTagging(sent):
     sentToReturn = []
 
@@ -200,7 +200,7 @@ def IN_that_PucntuationTagging(sent):
             (rightContext[0] == ".")|(rightContext[0] == ",")|(rightContext[0] == "!")|
             (rightContext[0] == "?")|(rightContext[0] == ":")|(rightContext[0] == "?")):
 
-            newTup = (target[0], "WP")
+            newTup = (target[0], "DT")
             sentToReturn += [newTup]
 
         else:
@@ -208,7 +208,7 @@ def IN_that_PucntuationTagging(sent):
 
     return sentToReturn
 
-#"that" P V sequence, "that" tagged as WDT
+#"that" P V sequence, "that" tagged as IN
 def that_P_VThatTagger(sent):
     sentToReturn = []
     skip = False
@@ -226,7 +226,7 @@ def that_P_VThatTagger(sent):
                 (rightContext[1].startswith("V")):
 
 
-            newTup = (leftContext[0], "WDT")
+            newTup = (leftContext[0], "IN")
             sentToReturn += [newTup]
             sentToReturn += [target]
 
