@@ -239,3 +239,29 @@ def that_P_VThatTagger(sent):
     sentToReturn += [sent[len(sent)-1]]
 
     return sentToReturn
+
+def modal_VB_DTTagger(sent):
+    sentToReturn = []
+
+    for i in range(len(sent)):
+
+        if (i-1)<0 | (i+1)>=len(sent):
+            sentToReturn += [sent[i]]
+            continue
+
+        leftContext = sent[i-1]
+        target = sent[i]
+        rightContext = sent[i+1]
+
+
+        if((leftContext[1] == "MD")|(leftContext[0].lower() == "will")|(leftContext[0].lower() == "can")|
+            (leftContext[0].lower() == "might"))&((rightContext[0].lower()=="her")|(rightContext[1]=="PRP")|
+            (rightContext[1]=="DT")|(rightContext[1].startswith("N"))):
+
+            newTup = (target[0], "VB")
+            sentToReturn += [newTup]
+
+        else:
+            sentToReturn += [target]
+
+    return sentToReturn
