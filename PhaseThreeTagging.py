@@ -1,6 +1,6 @@
 #uses two points of context (left or right) to tag (provisionally, in cases of N and V)
 
-#tags anything between a DT and IN as NN. Note *****(add plural filter later)*******
+#tags anything between a DT and IN as N. Note *****(add plural filter later)*******
 def DT_IN_NounTagger(sent):
     sentToReturn = []
     skip = False
@@ -106,7 +106,7 @@ def DT_PuctuationNounTagger(sent):
         target = sent[i]
         rightContext = sent[i+1]
 
-        if (leftContext[1]=="DT")&(target[1]=="UNK")&((rightContext[1] == ".")|(rightContext[1] == ",")|(rightContext[1] == "!")|
+        if (leftContext[1]=="DT")&(target[1]=="UNK")&((rightContext[1] == ".")|(rightContext[1] == "!")|
                                    (rightContext[1] == "?")|(rightContext[1] == ":")|(rightContext[1] == ";")):
 
 
@@ -240,6 +240,7 @@ def that_P_VThatTagger(sent):
 
     return sentToReturn
 
+#tags words between modal and prep/"her"/DT/N as VB
 def modal_VB_DTTagger(sent):
     sentToReturn = []
 
@@ -256,9 +257,36 @@ def modal_VB_DTTagger(sent):
 
         if((leftContext[1] == "MD")|(leftContext[0].lower() == "will")|(leftContext[0].lower() == "can")|
             (leftContext[0].lower() == "might"))&((rightContext[0].lower()=="her")|(rightContext[1]=="PRP")|
-            (rightContext[1]=="DT")|(rightContext[1].startswith("N"))):
+            (rightContext[1]=="DT")|(rightContext[1].startswith("N")|(rightContext[1]=="PRP$"))):
 
             newTup = (target[0], "VB")
+            sentToReturn += [newTup]
+
+        else:
+            sentToReturn += [target]
+
+    return sentToReturn
+
+#provisionally tags words between DT/POS/"her"/PRP$/WDT and N as J
+
+def DT_ADJ_NTagger(sent):
+    sentToReturn = []
+
+    for i in range(len(sent)):
+
+        if (i-1)<0 | (i+1)>=len(sent):
+            sentToReturn += [sent[i]]
+            continue
+
+        leftContext = sent[i-1]
+        target = sent[i]
+        rightContext = sent[i+1]
+
+
+        if((leftContext[1] == "WDT")|(leftContext[0].lower() == "her")|(leftContext[1] == "PRP$")|(leftContext[1] == "IN")|
+            (leftContext[1] == "POS")|(leftContext[1] == "DT"))&(rightContext[1].startswith("N"))&(target[1]=='UNK'):
+
+            newTup = (target[0], "J")
             sentToReturn += [newTup]
 
         else:

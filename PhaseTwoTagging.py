@@ -97,7 +97,7 @@ def to_be_VBGTagger(sent):
 
     return sentToReturn
 
-#PRPs, EX, WPs, WRBs tagged next to "is/'s"
+#PRPs, EX, WPs, WRBs tagged next to "is/'s"***************bug on "decade's"*********************genetive. . . .
 def thats_Tagging(sent):
     sentToReturn = []
     skip = False
@@ -129,6 +129,7 @@ def thats_Tagging(sent):
 
     return sentToReturn
 
+#taggs existential "there"
 def existentialThereTagger(sent):
     sentToReturn = []
 
@@ -139,6 +140,25 @@ def existentialThereTagger(sent):
         if (target[0].lower()=="there")&((context[0]=='is')|(context[0]=="'s")|(context[0]=='was')|(context[0]=='were')|
                                              (context[0]=='are')):
             newTup = (target[0], 'EX')
+            sentToReturn += [newTup]
+        else:
+            sentToReturn += [target]
+    sentToReturn += [sent[len(sent)-1]]
+    return sentToReturn
+
+
+
+#tags "can" "might" "will" after modal_VB tagger
+def can_might_will_VBTagger(sent):
+
+    sentToReturn = []
+
+    for i in range(len(sent)-1):
+        target = sent[i]
+        context = sent[i+1]
+
+        if ((target[0].lower()=="can")|(target[0].lower()=="might")|(target[0].lower()=="will"))&(context[1]=='VB'):
+            newTup = (target[0], 'MD')
             sentToReturn += [newTup]
         else:
             sentToReturn += [target]

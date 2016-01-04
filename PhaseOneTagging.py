@@ -51,7 +51,8 @@ tinyDictionary = {",":",",".":".",";":";","?":"?","!":"!",":":":",#punctuation
     "something":"NN", "nothing":"NN", "anything":"NN", "everything":"NN", "someone":"NN", "everyone":"NN",
     "anyone":"NN", "everybody":"NN", "somebody":"NN",#indefinite pronouns
     "now":"RB", "then":"RB", "always":"RB","today":"RB","yesterday":"RB", "not":"RB","n't":"RB","also":"RB",
-    "never":"RB" #adverbs
+    "never":"RB", #adverbs
+    "how":"WRB"
     }
 
 #Tags anything starting with a captial letter as NNP (excluding first word in sentence)
