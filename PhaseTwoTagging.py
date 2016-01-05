@@ -1,9 +1,6 @@
 #uses immediate context (left or right) to tag POS
 
 
-VBZ_is_context_dictionary = {"it":"PRP","he":"PRP","she":"PRP","that":"WP","there":"EX","what":"WP","who":"WP",
-                             "here":"RB","how":"WRB","why":"WRB","when":"WRB","where":"WRB"}
-
 #tags anything 'to' before DT or PRP$ or NNP as 'IN'(preposition)
 def to_INtagger(sent):
     sentToReturn = []
@@ -97,39 +94,8 @@ def to_be_VBGTagger(sent):
 
     return sentToReturn
 
-#PRPs, EX, WPs, WRBs tagged next to "is/'s"***************bug on "decade's"*********************genetive. . . .
-def thats_Tagging(sent):
-    sentToReturn = []
-    skip = False
-    for i in range(len(sent)-1):
 
-        if skip == True:
-            skip = False
-            continue
-
-        context = sent[i]
-        target = sent[i+1]
-
-        if (target[0].lower() == "is")|(target[0].lower() == "'s"):
-            if context[0].lower() in VBZ_is_context_dictionary:
-
-                newTup = (context[0], VBZ_is_context_dictionary[context[0]])
-                sentToReturn += [newTup]
-
-                newTup = (target[0],"VBZ")
-
-
-                sentToReturn += [newTup]
-                skip = True
-        else:
-
-          sentToReturn += [context]
-
-    sentToReturn += [sent[len(sent)-1]]
-
-    return sentToReturn
-
-#taggs existential "there"
+#tags existential "there" and "'s" as VBZ
 def existentialThereTagger(sent):
     sentToReturn = []
 
@@ -144,8 +110,21 @@ def existentialThereTagger(sent):
         else:
             sentToReturn += [target]
     sentToReturn += [sent[len(sent)-1]]
-    return sentToReturn
+    #now tag "'s" as VBZ
+    sentToReturn2 = []
+    for i in range(len(sentToReturn)-1):
+        target = sentToReturn[i]
+        context = sentToReturn[i-1]
 
+        if (context[0].lower()=="there")&(target[0].lower()=="'s"):
+
+            newTup = (target[0], 'VBZ')
+            sentToReturn2 += [newTup]
+        else:
+            sentToReturn2 += [target]
+    sentToReturn2 += [sent[len(sent)-1]]
+
+    return sentToReturn2
 
 
 #tags "can" "might" "will" after modal_VB tagger
@@ -159,6 +138,63 @@ def can_might_will_VBTagger(sent):
 
         if ((target[0].lower()=="can")|(target[0].lower()=="might")|(target[0].lower()=="will"))&(context[1]=='VB'):
             newTup = (target[0], 'MD')
+            sentToReturn += [newTup]
+        else:
+            sentToReturn += [target]
+    sentToReturn += [sent[len(sent)-1]]
+    return sentToReturn
+
+
+#tags "'s" after PRP as VBZ
+def PRP_isVBZTagger(sent):
+
+    sentToReturn = []
+
+    for i in range(len(sent)-1):
+        target = sent[i]
+        context = sent[i-1]
+
+        if ((target[0].lower()=="'s")&(target[1]=="UNK"))&(context[1]=='PRP'):
+            newTup = (target[0], 'VBZ')
+            sentToReturn += [newTup]
+        else:
+            sentToReturn += [target]
+    sentToReturn += [sent[len(sent)-1]]
+    return sentToReturn
+
+#tags "her" as prp when follwed by a DT
+def her_DT_PRPTagger(sent):
+
+    sentToReturn = []
+
+    for i in range(len(sent)-1):
+        target = sent[i]
+        context = sent[i+1]
+
+        if (target[1]=="UNK")&(target[0].lower()=="her")&(context[1]=='DT'):
+            newTup = (target[0], 'PRP')
+            sentToReturn += [newTup]
+        else:
+            sentToReturn += [target]
+    sentToReturn += [sent[len(sent)-1]]
+    return sentToReturn
+
+
+##tags words ending in "ed" followed by IN as VBN
+def ed_IN_VBNTagger(sent):
+
+    sentToReturn = []
+
+    for i in range(len(sent)-1):
+        target = sent[i]
+        context = sent[i+1]
+
+        if (target[1]=="UNK")&(target[0].endswith("ed"))&(context[1]=='IN'):
+            if (target[0].lower()=="need"):
+                newTup = (target[0], 'NN')
+            else:
+                newTup = (target[0], 'VBN')
+
             sentToReturn += [newTup]
         else:
             sentToReturn += [target]

@@ -106,7 +106,7 @@ def DT_PuctuationNounTagger(sent):
         target = sent[i]
         rightContext = sent[i+1]
 
-        if (leftContext[1]=="DT")&(target[1]=="UNK")&((rightContext[1] == ".")|(rightContext[1] == "!")|
+        if ((leftContext[1]=="DT")|(leftContext[1]=="PRP$"))&((rightContext[1] == ".")|(rightContext[1] == "!")|
                                    (rightContext[1] == "?")|(rightContext[1] == ":")|(rightContext[1] == ";")):
 
 
@@ -268,7 +268,6 @@ def modal_VB_DTTagger(sent):
     return sentToReturn
 
 #provisionally tags words between DT/POS/"her"/PRP$/WDT and N as J
-
 def DT_ADJ_NTagger(sent):
     sentToReturn = []
 
@@ -293,3 +292,52 @@ def DT_ADJ_NTagger(sent):
             sentToReturn += [target]
 
     return sentToReturn
+
+#tags words between DT and "'s" as NN
+def DT_noun_POSTagger(sent):
+    sentToReturn = []
+    ##first tag NN
+    for i in range(len(sent)):
+
+        if (i-1)<0 | (i+1)>=len(sent):
+            sentToReturn += [sent[i]]
+            continue
+
+        leftContext = sent[i-1]
+        target = sent[i]
+        rightContext = sent[i+1]
+
+
+        if (leftContext[1] == "DT")&(rightContext[0].lower()=="'s")&(target[1]=='UNK'):
+
+            newTup = (target[0], "NN")
+            sentToReturn += [newTup]
+
+        else:
+            sentToReturn += [target]
+
+
+    #then tag 's as POS
+    sentToReturn2 = []
+    for i in range(len(sentToReturn)):
+
+        if (i-1)<0 | (i+1)>=len(sentToReturn):
+            sentToReturn2 += [sentToReturn[i]]
+            continue
+
+        leftContext = sentToReturn[i-1]
+        target = sentToReturn[i]
+        rightContext = sentToReturn[i+1]
+
+
+        if (leftContext[1] == "NN")&(target[0].lower()=="'s"):
+
+            newTup = (target[0], "POS")
+            sentToReturn2 += [newTup]
+
+        else:
+            sentToReturn2 += [target]
+    return sentToReturn2
+
+
+
