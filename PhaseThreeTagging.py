@@ -339,5 +339,30 @@ def DT_noun_POSTagger(sent):
             sentToReturn2 += [target]
     return sentToReturn2
 
+##tags words between "have" and DT as VBN
+def have_DT_VBNTagger(sent):
+    sentToReturn = []
+
+    for i in range(len(sent)):
+
+        if (i-1)<0 | (i+1)>=len(sent):
+            sentToReturn += [sent[i]]
+            continue
+
+        leftContext = sent[i-1]
+        target = sent[i]
+        rightContext = sent[i+1]
+
+
+        if((leftContext[0].lower() == "having")|(leftContext[0].lower() == "has")|(leftContext[0].lower() == "have")|
+               (leftContext[0].lower() == "had"))&(rightContext[1] == "DT")&(target[1]=='UNK'):
+
+            newTup = (target[0], "VBN")
+            sentToReturn += [newTup]
+
+        else:
+            sentToReturn += [target]
+
+    return sentToReturn
 
 
