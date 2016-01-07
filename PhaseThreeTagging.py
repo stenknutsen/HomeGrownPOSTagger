@@ -365,4 +365,127 @@ def have_DT_VBNTagger(sent):
 
     return sentToReturn
 
+#tags words ending with "ing" between IN and DT as VBG
+def IN_DT_VBGTagger(sent):
+    sentToReturn = []
 
+    for i in range(len(sent)):
+
+        if (i-1)<0 | (i+1)>=len(sent):
+            sentToReturn += [sent[i]]
+            continue
+
+        leftContext = sent[i-1]
+        target = sent[i]
+        rightContext = sent[i+1]
+
+
+        if(leftContext[1] == "IN")&(rightContext[1] == "DT")&(target[1]=='UNK')&(target[0].lower().endswith("ing")):
+
+            newTup = (target[0], "VBG")
+            sentToReturn += [newTup]
+
+        else:
+            sentToReturn += [target]
+
+    return sentToReturn
+
+
+
+#provisionally tags words between PRP and DT as V
+def PRP_DT_VerbTagger(sent):
+    sentToReturn = []
+
+    for i in range(len(sent)):
+
+        if (i-1)<0 | (i+1)>=len(sent):
+            sentToReturn += [sent[i]]
+            continue
+
+        leftContext = sent[i-1]
+        target = sent[i]
+        rightContext = sent[i+1]
+
+
+        if(leftContext[1] == "PRP")&(rightContext[1] == "DT")&(target[1]=='UNK'):
+
+            newTup = (target[0], "V")
+            sentToReturn += [newTup]
+
+        else:
+            sentToReturn += [target]
+
+    return sentToReturn
+
+
+#tags words ending in "ing" between N and PRP as VBG
+def N_ing_PRP_VerbTagger(sent):
+    sentToReturn = []
+
+    for i in range(len(sent)):
+
+        if (i-1)<0 | (i+1)>=len(sent):
+            sentToReturn += [sent[i]]
+            continue
+
+        leftContext = sent[i-1]
+        target = sent[i]
+        rightContext = sent[i+1]
+
+
+        if(leftContext[1].startswith("N"))&(rightContext[1] == "PRP")&(target[1]=='UNK')&(target[0].lower().endswith("ing")):
+
+            newTup = (target[0], "VBG")
+            sentToReturn += [newTup]
+
+        else:
+            sentToReturn += [target]
+
+    return sentToReturn
+
+
+#tags words between "to" and DT as VB, and then tags "to" as TO
+def to_DT_VerbTagger(sent):
+    sentToReturn = []
+    ##first tag NN
+    for i in range(len(sent)):
+
+        if (i-1)<0 | (i+1)>=len(sent):
+            sentToReturn += [sent[i]]
+            continue
+
+        leftContext = sent[i-1]
+        target = sent[i]
+        rightContext = sent[i+1]
+
+
+        if (leftContext[0].lower() == "to")&(rightContext[1]=="DT")&(target[1]=='UNK'):
+
+            newTup = (target[0], "VB")
+            sentToReturn += [newTup]
+
+        else:
+            sentToReturn += [target]
+
+
+    #then tag 's as POS
+    sentToReturn2 = []
+    for i in range(len(sentToReturn)):
+
+        if (i-1)<0 | (i+1)>=len(sentToReturn):
+            sentToReturn2 += [sentToReturn[i]]
+            continue
+
+        leftContext = sentToReturn[i-1]
+        target = sentToReturn[i]
+        rightContext = sentToReturn[i+1]
+
+
+        if (rightContext[1] == "VB")&(target[0].lower()=="to"):
+
+            newTup = (target[0], "TO")
+            sentToReturn2 += [newTup]
+
+        else:
+            sentToReturn2 += [target]
+    return sentToReturn2

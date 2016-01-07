@@ -43,7 +43,7 @@ tinyDictionary = {",":",",".":".",";":";","?":"?","!":"!",":":":",#punctuation
     "and":"CC","or":"CC", "but":"CC","&":"CC", "nor":"CC","yet":"CC",#coordingating conjuctions
     "in":"IN","by":"IN", "of":"IN","for":"IN","with":"IN","on":"IN","at":"IN","from":"IN","into":"IN","because":"IN",
     "through":"IN", "after":"IN", "over":"IN","between":"IN","before":"IN","during":"IN","under":"IN",
-    "whether":"IN", "while":"IN", #prepositions
+    "whether":"IN", "while":"IN","about":"IN",#prepositions
     "me":"PRP","him":"PRP","us":"PRP","them":"PRP","i":"PRP","she":"PRP","he":"PRP","we":"PRP","they":"PRP",
     "it":"PRP",#personal pronouns
     "cannot":"MD","could":"MD","may":"MD", "must":"MD", "ought":"MD", "shall":"MD", "should":"MD", "would":"MD",#modals
@@ -54,7 +54,8 @@ tinyDictionary = {",":",",".":".",";":";","?":"?","!":"!",":":":",#punctuation
     "anyone":"NN", "everybody":"NN", "somebody":"NN",#indefinite pronouns
     "now":"RB", "then":"RB", "always":"RB","today":"RB","yesterday":"RB", "not":"RB","n't":"RB","also":"RB",
     "never":"RB", "here":"RB", #adverbs
-    "how":"WRB", "why":"WRB","when":"WRB","where":"WRB","what":"WP","who":"WP"
+    "how":"WRB", "why":"WRB","when":"WRB","where":"WRB","what":"WP","who":"WP",
+    "other":"JJ"
     }
 
 #Tags anything starting with a captial letter as NNP (excluding first word in sentence)
@@ -64,7 +65,7 @@ def NNPTagger(sent):
     sentToReturn += [next(iterSent)]
     for word in iterSent:
         token = word[0]
-        if token[0].isupper():
+        if ((token[0].isupper())& (word[1]=="UNK")):
             tup = (word[0], 'NNP')
         else:
             tup = (word[0], word[1])
@@ -76,7 +77,7 @@ def NNPTagger(sent):
 def tinyDictionaryTagger(sent):
     sentToReturn = []
     for word in sent:
-        if word[0].lower() in tinyDictionary:
+        if ((word[0].lower() in tinyDictionary)):
             newTup = (word[0], tinyDictionary[word[0].lower()])
             sentToReturn += [newTup]
         else:
