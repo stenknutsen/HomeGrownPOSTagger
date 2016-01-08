@@ -28,9 +28,11 @@ from PhaseThreeTagging import*
 
 #s="If The Force represents some kind of cosmic consciousness, an abstract representation of a deity, the movie tells us that, even in the divine, good and evil must coexist. "
 
-#s="His mother tries to tell him about the town where she grew up and, maddeningly, the boy doesn't really care, so ignores her and her voice fades into the background."
+s="His mother tries to tell him about the town where she grew up and, maddeningly, the boy doesn't really care, so ignores her and her voice fades into the background."
 
-s="North Korea was celebratory in its claims that it detonated its first hydrogen bomb on Wednesday."
+#s="North Korea was celebratory in its claims that it detonated its first hydrogen bomb on Wednesday."
+
+#s="Chipotle Mexican Grill is struggling to convince its customers it's a safe place to eat, after several outbreaks of foodborne illnesses have sickened hundreds of its customers. "
 
 #takes sentence, tokenizes and renders default POS tag form
 def conditionSentence(sent):

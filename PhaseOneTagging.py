@@ -16,7 +16,7 @@ endingClusterExceptions = {"witness":"UNK","witnesses":"UNK", "priest":"NN","ear
                            "evidences":"UNK","rally":"UNK","tally":"UNK","sizes":"UNK","prizes":"UNK","prize":"UNK",
                            "size":"UNK","maize":"NN","random":"UNK","seldom":"RB","ship":"UNK","worship":"UNK",
                            "ships":"UNK","worships":"UNK","pity":"UNK","fruity":"UNK","quality":"UNK","uppity":"UNK",
-                           "pities":"VBZ","static":"UNK"}
+                           "pities":"VBZ","static":"UNK", "kingly":"JJ"}
 
 #list of ending clusters
 #NOTE: added "ize" as VB. Will later disambiguate base and present tense form.
@@ -35,7 +35,7 @@ endingClusterList = [("ness","NN"),("nesses","NNS"),("iest","JJS"),("ation","NN"
                      ("hoods","NNS"),("dom","NN"),("doms","NNS"),("geous","JJ"),("geously","RB"),("ship","NN"),
                      ("ships","NNS"),("ity","NN"),("ities","NNS"),("ology","NN"),("ologies","NNS"),("ental","J"),
                      ("ers","NNS"),("osis","NN"),("ents","NNS"),("ors","NNS"),("aire","NN"),("aires","NNS"),("ful","J"),
-                     ("atic","J"),("ives","NNS"),("ables","NNS"), ("ians","NNS"),("ions","NNS")]
+                     ("atic","J"),("ives","NNS"),("ables","NNS"), ("ians","NNS"),("ions","NNS"),("ingly","RB")]
 
 tinyDictionary = {",":",",".":".",";":";","?":"?","!":"!",":":":",#punctuation
     "a":"DT","an":"DT","any":"DT","the":"DT","this":"DT","these":"DT","those":"DT", "another":"DT", #determiners
