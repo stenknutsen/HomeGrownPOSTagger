@@ -447,7 +447,7 @@ def N_ing_PRP_VerbTagger(sent):
 #tags words between "to" and DT as VB, and then tags "to" as TO
 def to_DT_VerbTagger(sent):
     sentToReturn = []
-    ##first tag NN
+    ##first tag VB
     for i in range(len(sent)):
 
         if (i-1)<0 | (i+1)>=len(sent):
@@ -468,7 +468,7 @@ def to_DT_VerbTagger(sent):
             sentToReturn += [target]
 
 
-    #then tag 's as POS
+    #then tag 'to' as TO
     sentToReturn2 = []
     for i in range(len(sentToReturn)):
 
@@ -484,6 +484,172 @@ def to_DT_VerbTagger(sent):
         if (rightContext[1] == "VB")&(target[0].lower()=="to"):
 
             newTup = (target[0], "TO")
+            sentToReturn2 += [newTup]
+
+        else:
+            sentToReturn2 += [target]
+    return sentToReturn2
+
+#tags words between MD and PUNC as VB
+def MD_UNK_PUNC_VerbTagger(sent):
+    sentToReturn = []
+
+    for i in range(len(sent)):
+
+        if (i-1)<0 | (i+1)>=len(sent):
+            sentToReturn += [sent[i]]
+            continue
+
+        leftContext = sent[i-1]
+        target = sent[i]
+        rightContext = sent[i+1]
+
+
+        if(leftContext[1]=="MD")&(rightContext[0] == ".")&(target[1]=='UNK'):
+
+            newTup = (target[0], "VB")
+            sentToReturn += [newTup]
+
+        else:
+            sentToReturn += [target]
+
+    return sentToReturn
+
+#tags words between DT amd WRB as N
+def DT_UNK_WRB_NounTagger(sent):
+    sentToReturn = []
+
+    for i in range(len(sent)):
+
+        if (i-1)<0 | (i+1)>=len(sent):
+            sentToReturn += [sent[i]]
+            continue
+
+        leftContext = sent[i-1]
+        target = sent[i]
+        rightContext = sent[i+1]
+
+
+        if(leftContext[1]=="DT")&(rightContext[1] == "WRB")&(target[1]=='UNK'):
+
+            newTup = (target[0], "N")
+            sentToReturn += [newTup]
+
+        else:
+            sentToReturn += [target]
+
+    return sentToReturn
+
+#tags anything between DT and V as N
+def DT_UNK_V_NounTagger(sent):
+    sentToReturn = []
+
+    for i in range(len(sent)):
+
+        if (i-1)<0 | (i+1)>=len(sent):
+            sentToReturn += [sent[i]]
+            continue
+
+        leftContext = sent[i-1]
+        target = sent[i]
+        rightContext = sent[i+1]
+
+
+        if(leftContext[1]=="DT")&(rightContext[1].startswith("V"))&(target[1]=='UNK'):
+
+            newTup = (target[0], "N")
+            sentToReturn += [newTup]
+
+        else:
+            sentToReturn += [target]
+
+    return sentToReturn
+
+#tags anything between "to" and PRP($) as TO and VB
+def to_UNK_PRP_VerbTagger(sent):
+    sentToReturn = []
+
+    for i in range(len(sent)):
+
+        if (i-1)<0 | (i+1)>=len(sent):
+            sentToReturn += [sent[i]]
+            continue
+
+        leftContext = sent[i-1]
+        target = sent[i]
+        rightContext = sent[i+1]
+
+
+        if(leftContext[0]=="to")&(rightContext[1].startswith("PRP"))&(target[1]=='UNK'):
+
+            newTup = (target[0], "VB")
+            sentToReturn += [newTup]
+
+        else:
+            sentToReturn += [target]
+
+     #then tag 'to' as TO
+    sentToReturn2 = []
+    for i in range(len(sentToReturn)):
+
+        if (i-1)<0 | (i+1)>=len(sentToReturn):
+            sentToReturn2 += [sentToReturn[i]]
+            continue
+
+        leftContext = sentToReturn[i-1]
+        target = sentToReturn[i]
+        rightContext = sentToReturn[i+1]
+
+
+        if (rightContext[1] == "VB")&(target[0].lower()=="to"):
+
+            newTup = (target[0], "TO")
+            sentToReturn2 += [newTup]
+
+        else:
+            sentToReturn2 += [target]
+    return sentToReturn2
+
+
+#tags anything between N or PRP and "up" as V
+def N_UNK_up_VerbTagger(sent):
+    sentToReturn = []
+
+    for i in range(len(sent)):
+
+        if (i-1)<0 | (i+1)>=len(sent):
+            sentToReturn += [sent[i]]
+            continue
+
+        leftContext = sent[i-1]
+        target = sent[i]
+        rightContext = sent[i+1]
+
+
+        if((leftContext[1]=="PRP")|(leftContext[1].startswith("N")))&(rightContext[0]=="up")&(target[1]=='UNK'):
+
+            newTup = (target[0], "V")
+            sentToReturn += [newTup]
+
+        else:
+            sentToReturn += [target]
+
+    #then tag 'up' as RB
+    sentToReturn2 = []
+    for i in range(len(sentToReturn)):
+
+        if (i-1)<0 | (i+1)>=len(sentToReturn):
+            sentToReturn2 += [sentToReturn[i]]
+            continue
+
+        leftContext = sentToReturn[i-1]
+        target = sentToReturn[i]
+        rightContext = sentToReturn[i+1]
+
+
+        if (leftContext[1] == "V")&(target[0].lower()=="up"):
+
+            newTup = (target[0], "RB")
             sentToReturn2 += [newTup]
 
         else:
