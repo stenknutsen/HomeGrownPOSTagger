@@ -200,3 +200,42 @@ def ed_IN_VBNTagger(sent):
             sentToReturn += [target]
     sentToReturn += [sent[len(sent)-1]]
     return sentToReturn
+
+#tags anything ending in "s" followed by him/me/them as VBZ
+def s_him_VBZTagger(sent):
+
+    sentToReturn = []
+
+    for i in range(len(sent)-1):
+        target = sent[i]
+        context = sent[i+1]
+
+        if (target[1]=="UNK")&(target[0].endswith("s"))&((context[0].lower()=='him')|(context[0].lower()=='me')|(context[0].lower()=='them')):
+
+            newTup = (target[0], 'VBZ')
+
+            sentToReturn += [newTup]
+        else:
+            sentToReturn += [target]
+    sentToReturn += [sent[len(sent)-1]]
+    return sentToReturn
+
+#tags anything following "have" verbs that ends in "ed" sd VBN
+def have_ed_VBNTagger(sent):
+
+    sentToReturn = []
+
+    for i in range(len(sent)-1):
+        target = sent[i]
+        context = sent[i-1]
+
+        if (target[1]=="UNK")&(target[0].endswith("ed"))&((context[0]=='have')|(context[0]=='has')|(context[0]=='has')|
+                                                          (context[0]=='having')):
+
+            newTup = (target[0], 'VBN')
+
+            sentToReturn += [newTup]
+        else:
+            sentToReturn += [target]
+    sentToReturn += [sent[len(sent)-1]]
+    return sentToReturn

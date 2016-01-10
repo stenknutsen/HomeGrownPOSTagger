@@ -15,7 +15,7 @@ from PhaseThreeTagging import*
 ##s="The rise of vegetables and focus on food waste are the culmination of more than a decade's worth of government, consumer and food and environmental activists' concerns that have finally trickled into the mainstream."
 ######s = "But the current process of diagnosis amounts to giving a questionnaire to parents and doctors."
 
-#s="Iliff studied the glymphatic system in living mice by looking through a window created in the skull."
+s="Iliff studied the glymphatic system in living mice by looking through a window created in the skull."
 
 #s="The Justice Department has gained a reputation in recent years for forcing companies to pay big fines, while sparing the executives involved. "
 
@@ -37,9 +37,9 @@ from PhaseThreeTagging import*
 #s="American forces are increasingly being drawn back into the fight, even though President Obama declared an end to the combat mission last fall. "
 
 
-s="The bluntness of this statement is remarkable, in part, because the Dietary Guidelines released Thursday are, in other ways, anything but direct."
+#s="The bluntness of this statement is remarkable, in part, because the Dietary Guidelines released Thursday are, in other ways, anything but direct."
 
-
+#s="That is no way to behave."
 
 #takes sentence, tokenizes and renders default POS tag form
 def conditionSentence(sent):
@@ -51,18 +51,40 @@ def conditionSentence(sent):
 
 finalSent = conditionSentence(s)
 
-
-
-
-
+######################################
+#
+#
+#PHASE ONE TAGGING
+#
+#
 #tag anything starting in caps as NNP
 finalSent = NNPTagger(finalSent)
 
-
-
 finalSent = tinyDictionaryTagger(finalSent)
+
 #tags unique morphological/orthographical endings (minus a few exceptions)
 finalSent = endingClusterTagger(finalSent)
+#
+#
+#END PHASE ONE TAGGING
+#
+#
+######################################
+
+
+
+#tags anything following "have" verbs that ends in "ed" as VBN  ****NEW****
+finalSent =  have_ed_VBNTagger(finalSent)
+
+
+
+#tags anything ending in "s" followed by him/me/them as VBZ  ****NEW****
+finalSent = s_him_VBZTagger(finalSent)
+#tags anything ending in "s" followed by "her" and a DT/CC/IN or PRP$ as a VBZ, and tags "her" as PRP  ****NEW****
+finalSent =  s_her_DT_VerbTagger(finalSent)
+
+
+
 
 
 
@@ -92,7 +114,7 @@ finalSent = her_DT_PRPTagger(finalSent)
 #
 
 finalSent = to_DT_VerbTagger(finalSent)
-#tags anything between "to" and PRP($) as TO and VB  ****NEW***
+
 finalSent = to_UNK_PRP_VerbTagger(finalSent)
 
 finalSent = DT_noun_POSTagger(finalSent)
@@ -130,14 +152,16 @@ finalSent = IN_DT_VBGTagger(finalSent)
 finalSent = PRP_DT_VerbTagger(finalSent)
 
 finalSent = N_ing_PRP_VerbTagger(finalSent)
-##tags words between MD and PUNC as VB  ****NEW****
+
 finalSent = MD_UNK_PUNC_VerbTagger(finalSent)
-#tags words between DT amd WRB as N  ****NEW****
+
 finalSent = DT_UNK_WRB_NounTagger(finalSent)
-#tags anything between DT and V as N  ****NEW****
+
 finalSent = DT_UNK_V_NounTagger(finalSent)
-#tags anythin between N or PRP and "up" as V  ****NEW****
+
 finalSent =  N_UNK_up_VerbTagger(finalSent)
+
+
 
 
 print(finalSent)

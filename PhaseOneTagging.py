@@ -43,13 +43,13 @@ tinyDictionary = {",":",",".":".",";":";","?":"?","!":"!",":":":",#punctuation
     "and":"CC","or":"CC", "but":"CC","&":"CC", "nor":"CC","yet":"CC",#coordingating conjuctions
     "in":"IN","by":"IN", "of":"IN","for":"IN","with":"IN","on":"IN","at":"IN","from":"IN","into":"IN","because":"IN",
     "through":"IN", "after":"IN", "over":"IN","between":"IN","before":"IN","during":"IN","under":"IN",
-    "whether":"IN", "while":"IN","about":"IN",#prepositions
+    "whether":"IN", "while":"IN","about":"IN", "toward":"IN" , "towards":"IN", "as":"IN", #prepositions
     "me":"PRP","him":"PRP","us":"PRP","them":"PRP","i":"PRP","she":"PRP","he":"PRP","we":"PRP","they":"PRP",
     "it":"PRP",#personal pronouns
     "cannot":"MD","could":"MD","may":"MD", "must":"MD", "ought":"MD", "shall":"MD", "should":"MD", "would":"MD",#modals
-    "have":"V","having":"VBG","has":"VBZ","be":"VB","was":"VBD","were":"VBD","been":"VBN","am":"VPB","are":"VBP",
+    "have":"V","having":"VBG","has":"VBZ","be":"VB","was":"VBD","were":"VBD","been":"VBN","am":"VPB","are":"VBP", "bring":"V",
     "is":"VBZ", "do":"VBP","did":"VBD", "doing":"VBG", "done":"VBN", "does":"VBZ", "'ve":"VBP", "'d":"MD",
-    "'m":"VBP", "'re":"VBP", "'ll":"MD", "had":"VBD", #aux verbs
+    "'m":"VBP", "'re":"VBP", "'ll":"MD", "had":"VBD", "need":"V", #aux verbs
     "something":"NN", "nothing":"NN", "anything":"NN", "everything":"NN", "someone":"NN", "everyone":"NN",
     "anyone":"NN", "everybody":"NN", "somebody":"NN",#indefinite pronouns
     "now":"RB", "then":"RB", "always":"RB","today":"RB","yesterday":"RB", "not":"RB","n't":"RB","also":"RB",

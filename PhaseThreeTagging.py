@@ -655,3 +655,51 @@ def N_UNK_up_VerbTagger(sent):
         else:
             sentToReturn2 += [target]
     return sentToReturn2
+
+#tags anything ending in "s" followed by "her" and a DT/CC/IN or PRP$ as a VBZ, and tags "her" as PRP
+def s_her_DT_VerbTagger(sent):
+    sentToReturn = []
+
+    for i in range(len(sent)):
+
+        if (i-1)<0 | (i+1)>=len(sent):
+            sentToReturn += [sent[i]]
+            continue
+
+        leftContext = sent[i-1]
+        target = sent[i]
+        rightContext = sent[i+1]
+
+
+        if (leftContext[0].endswith("s")&(target[1]=='UNK')&(target[0].lower()=="her")&((rightContext[1]=="CC")|
+                                                                                        (rightContext[1]=="DT")|
+                                                                                        (rightContext[1]=="IN")|
+                                                                                        (rightContext[1]=="PRP$"))):
+
+            newTup = (target[0], "PRP")
+            sentToReturn += [newTup]
+
+        else:
+            sentToReturn += [target]
+
+    #then tag 'up' as RB
+    sentToReturn2 = []
+    for i in range(len(sentToReturn)):
+
+        if (i-1)<0 | (i+1)>=len(sentToReturn):
+            sentToReturn2 += [sentToReturn[i]]
+            continue
+
+        leftContext = sentToReturn[i-1]
+        target = sentToReturn[i]
+        rightContext = sentToReturn[i+1]
+
+
+        if (rightContext[1] == "PRP")&(rightContext[0].lower() == "her")&(target[0].endswith("s")):
+
+            newTup = (target[0], "VBZ")
+            sentToReturn2 += [newTup]
+
+        else:
+            sentToReturn2 += [target]
+    return sentToReturn2
