@@ -52,7 +52,7 @@ tinyDictionary = {",":",",".":".",";":";","?":"?","!":"!",":":":",#punctuation
     "'m":"VBP", "'re":"VBP", "'ll":"MD", "had":"VBD", "need":"V", #aux verbs
     "something":"NN", "nothing":"NN", "anything":"NN", "everything":"NN", "someone":"NN", "everyone":"NN",
     "anyone":"NN", "everybody":"NN", "somebody":"NN",#indefinite pronouns
-    "now":"RB", "then":"RB", "always":"RB","today":"RB","yesterday":"RB", "not":"RB","n't":"RB","also":"RB",
+    "now":"RB", "then":"RB", "always":"RB","today":"RB","yesterday":"RB", "not":"RB","n't":"RB","also":"RB", "else":"RB",
     "never":"RB", "here":"RB", #adverbs
     "how":"WRB", "why":"WRB","when":"WRB","where":"WRB","what":"WP","who":"WP",
     "other":"JJ"

@@ -1,6 +1,6 @@
 #uses two points of context (left or right) to tag (provisionally, in cases of N and V)
 
-#tags anything between a DT and IN as N. Note *****(add plural filter later)*******
+#tags anything between a DT and IN/PRP/PRP$/"her" as N. Note *****(add plural filter later)*******
 def DT_IN_NounTagger(sent):
     sentToReturn = []
     skip = False
@@ -14,7 +14,8 @@ def DT_IN_NounTagger(sent):
         target = sent[i+1]
         rightContext = sent[i+2]
 
-        if (leftContext[1] == "DT")&(rightContext[1] == "IN")&(target[1]=="UNK"):
+        if (leftContext[1] == "DT")&((rightContext[1] == "IN")|(rightContext[1]=="PRP")|(rightContext[1]=="PRP$")|
+                                         (rightContext[0].lower()=="her"))&(target[1]=="UNK"):
 
             sentToReturn += [leftContext]
             newTup = (target[0], "N")
@@ -682,7 +683,7 @@ def s_her_DT_VerbTagger(sent):
         else:
             sentToReturn += [target]
 
-    #then tag 'up' as RB
+
     sentToReturn2 = []
     for i in range(len(sentToReturn)):
 
@@ -703,3 +704,132 @@ def s_her_DT_VerbTagger(sent):
         else:
             sentToReturn2 += [target]
     return sentToReturn2
+
+
+
+
+#tags anything ending in "ed" followed by "her" and a DT/CC/IN or PRP$ as a VBD, and tags "her" as PRP
+def ed_her_DT_VerbTagger(sent):
+    sentToReturn = []
+
+    for i in range(len(sent)):
+
+        if (i-1)<0 | (i+1)>=len(sent):
+            sentToReturn += [sent[i]]
+            continue
+
+        leftContext = sent[i-1]
+        target = sent[i]
+        rightContext = sent[i+1]
+
+
+        if (leftContext[0].endswith("ed")&(target[1]=='UNK')&(target[0].lower()=="her")&((rightContext[1]=="CC")|
+                                                                                        (rightContext[1]=="DT")|
+                                                                                        (rightContext[1]=="IN")|
+                                                                                        (rightContext[1]=="PRP$"))):
+
+            newTup = (target[0], "PRP")
+            sentToReturn += [newTup]
+
+        else:
+            sentToReturn += [target]
+
+
+    sentToReturn2 = []
+    for i in range(len(sentToReturn)):
+
+        if (i-1)<0 | (i+1)>=len(sentToReturn):
+            sentToReturn2 += [sentToReturn[i]]
+            continue
+
+        leftContext = sentToReturn[i-1]
+        target = sentToReturn[i]
+        rightContext = sentToReturn[i+1]
+
+
+        if (rightContext[1] == "PRP")&(rightContext[0].lower() == "her")&(target[0].endswith("ed")):
+
+            newTup = (target[0], "VBD")
+            sentToReturn2 += [newTup]
+
+        else:
+            sentToReturn2 += [target]
+    return sentToReturn2
+
+
+#tags words between to/IN/PRP$ as N, and then tags "to" as IN
+def IN_UNK_CC_NounTagger(sent):
+    sentToReturn = []
+    ##first tag N
+    for i in range(len(sent)):
+
+        if (i-1)<0 | (i+1)>=len(sent):
+            sentToReturn += [sent[i]]
+            continue
+
+        leftContext = sent[i-1]
+        target = sent[i]
+        rightContext = sent[i+1]
+
+
+        if ((leftContext[1]=="IN")|(leftContext[1]=="PRP$"))&(rightContext[1]=="CC")&(target[1]=='UNK'):
+
+            newTup = (target[0], "N")
+            sentToReturn += [newTup]
+
+        else:
+            sentToReturn += [target]
+
+
+    #then tag 'to' as IN
+    sentToReturn2 = []
+    for i in range(len(sentToReturn)):
+
+        if (i-1)<0 | (i+1)>=len(sentToReturn):
+            sentToReturn2 += [sentToReturn[i]]
+            continue
+
+        leftContext = sentToReturn[i-1]
+        target = sentToReturn[i]
+        rightContext = sentToReturn[i+1]
+
+
+        if (rightContext[1] == "N")&(target[0].lower()=="to")&(target[1]=="UNK"):
+
+            newTup = (target[0], "IN")
+            sentToReturn2 += [newTup]
+
+        else:
+            sentToReturn2 += [target]
+    return sentToReturn2
+
+
+
+
+
+
+#tags anything ***at beginning of sent*** between DT and "that" as N. Tags "that" as WDT
+def DT_UNK_that_NounTagger(sent):
+    sentToReturn = []
+    first = sent[0]
+    second = sent[1]
+    third = sent[2]
+    if (first[1]== "DT")&(second[1]== "UNK")&(third[0].lower()== "that"):
+        newFirst = first
+        newSecond = (second[0],"N")
+        newThird = (third[0],"WDT")
+    else:
+        newFirst = first
+        newSecond = second
+        newThird = third
+
+    sentToReturn.append(newFirst)
+    sentToReturn.append(newSecond)
+    sentToReturn.append(newThird)
+
+    for i in range(3,len(sent)):
+        sentToReturn.append(sent[i])
+
+
+
+    return sentToReturn

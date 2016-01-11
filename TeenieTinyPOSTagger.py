@@ -15,7 +15,7 @@ from PhaseThreeTagging import*
 ##s="The rise of vegetables and focus on food waste are the culmination of more than a decade's worth of government, consumer and food and environmental activists' concerns that have finally trickled into the mainstream."
 ######s = "But the current process of diagnosis amounts to giving a questionnaire to parents and doctors."
 
-s="Iliff studied the glymphatic system in living mice by looking through a window created in the skull."
+#s="Iliff studied the glymphatic system in living mice by looking through a window created in the skull."
 
 #s="The Justice Department has gained a reputation in recent years for forcing companies to pay big fines, while sparing the executives involved. "
 
@@ -28,7 +28,7 @@ s="Iliff studied the glymphatic system in living mice by looking through a windo
 
 #s="If The Force represents some kind of cosmic consciousness, an abstract representation of a deity, the movie tells us that, even in the divine, good and evil must coexist. "
 
-#s="His mother tries to tell him about the town where she grew up and, maddeningly, the boy doesn't really care, so ignores her and her voice fades into the background."
+s="His mother tries to tell him about the town where she grew up and, maddeningly, the boy doesn't really care, so ignores her and her voice fades into the background."
 
 #s="North Korea was celebratory in its claims that it detonated its first hydrogen bomb on Wednesday."
 
@@ -39,7 +39,15 @@ s="Iliff studied the glymphatic system in living mice by looking through a windo
 
 #s="The bluntness of this statement is remarkable, in part, because the Dietary Guidelines released Thursday are, in other ways, anything but direct."
 
-#s="That is no way to behave."
+#s="The cart banged her the minute she left."
+
+s="These changes in the county have led to debates over government overreach, income inequality and immigration."
+
+s="The question at the heart of the conversation is whether the influx of refugees and migrants is changing Germany in unacceptable ways."
+
+s="The president is proposing requiring many more people who sell guns to get federal licenses and conduct background checks."
+
+s="Disappointed applicants complain that when it comes to discerning between hundreds of students who seem to have the grades, teacher recommendations and test scores, the process comes down to luck."
 
 #takes sentence, tokenizes and renders default POS tag form
 def conditionSentence(sent):
@@ -71,18 +79,23 @@ finalSent = endingClusterTagger(finalSent)
 #
 ######################################
 
+#tags anything ***at beginning of sent*** between DT and "that" as N. Tags "that" as WDT  ****NEW****
+finalSent = DT_UNK_that_NounTagger(finalSent)
 
-
-#tags anything following "have" verbs that ends in "ed" as VBN  ****NEW****
+#tags anything following "have" verbs that ends in "ed" as VBN
 finalSent =  have_ed_VBNTagger(finalSent)
 
 
 
-#tags anything ending in "s" followed by him/me/them as VBZ  ****NEW****
+#tags anything ending in "s" followed by him/me/them as VBZ
 finalSent = s_him_VBZTagger(finalSent)
-#tags anything ending in "s" followed by "her" and a DT/CC/IN or PRP$ as a VBZ, and tags "her" as PRP  ****NEW****
+#tags anything ending in "s" followed by "her" and a DT/CC/IN or PRP$ as a VBZ, and tags "her" as PRP
 finalSent =  s_her_DT_VerbTagger(finalSent)
 
+#tags anything ending in "ed" followed by him/me/them as VBD  ****NEW****
+finalSent =  ed_him_VBNTagger(finalSent)
+#tags anything ending in "ed" followed by "her" and a DT/CC/IN or PRP$ as a VBD, and tags "her" as PRP  ****NEW****
+finalSent =  ed_her_DT_VerbTagger(finalSent)
 
 
 
@@ -160,6 +173,9 @@ finalSent = DT_UNK_WRB_NounTagger(finalSent)
 finalSent = DT_UNK_V_NounTagger(finalSent)
 
 finalSent =  N_UNK_up_VerbTagger(finalSent)
+
+ #tags words between to/IN/PRP$ as N, and then tags "to" as IN  ****NEW****
+finalSent = IN_UNK_CC_NounTagger(finalSent)
 
 
 
