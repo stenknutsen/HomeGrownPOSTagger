@@ -28,7 +28,7 @@ from PhaseThreeTagging import*
 
 #s="If The Force represents some kind of cosmic consciousness, an abstract representation of a deity, the movie tells us that, even in the divine, good and evil must coexist. "
 
-s="His mother tries to tell him about the town where she grew up and, maddeningly, the boy doesn't really care, so ignores her and her voice fades into the background."
+#s="His mother tries to tell him about the town where she grew up and, maddeningly, the boy doesn't really care, so ignores her and her voice fades into the background."
 
 #s="North Korea was celebratory in its claims that it detonated its first hydrogen bomb on Wednesday."
 
@@ -41,13 +41,20 @@ s="His mother tries to tell him about the town where she grew up and, maddeningl
 
 #s="The cart banged her the minute she left."
 
-s="These changes in the county have led to debates over government overreach, income inequality and immigration."
+#s="These changes in the county have led to debates over government overreach, income inequality and immigration."
 
-s="The question at the heart of the conversation is whether the influx of refugees and migrants is changing Germany in unacceptable ways."
+#s="The question at the heart of the conversation is whether the influx of refugees and migrants is changing Germany in unacceptable ways."
 
-s="The president is proposing requiring many more people who sell guns to get federal licenses and conduct background checks."
+#s="The president is proposing requiring many more people who sell guns to get federal licenses and conduct background checks."
 
-s="Disappointed applicants complain that when it comes to discerning between hundreds of students who seem to have the grades, teacher recommendations and test scores, the process comes down to luck."
+#s="Disappointed applicants complain that when it comes to discerning between hundreds of students who seem to have the grades, teacher recommendations and test scores, the process comes down to luck."
+
+#s="Legendary rock musician David Bowie, who influenced generations of musicians and fans, died on Sunday, two days after his 69th birthday."
+
+s="But even far from his home in Virginia and past his personal prime, the first president seemed quite at home creating a tradition."
+
+
+s="In the past century, an earlier version of this fungus wiped out commercial plantings of a banana variety called Gros Michel that once dominated the global banana trade."
 
 #takes sentence, tokenizes and renders default POS tag form
 def conditionSentence(sent):
@@ -68,6 +75,9 @@ finalSent = conditionSentence(s)
 #tag anything starting in caps as NNP
 finalSent = NNPTagger(finalSent)
 
+#Tags anything starting with an int as CD  ****NEW****
+finalSent =  int_Tagger(finalSent)
+
 finalSent = tinyDictionaryTagger(finalSent)
 
 #tags unique morphological/orthographical endings (minus a few exceptions)
@@ -78,9 +88,20 @@ finalSent = endingClusterTagger(finalSent)
 #
 #
 ######################################
-
-#tags anything ***at beginning of sent*** between DT and "that" as N. Tags "that" as WDT  ****NEW****
+#tags anything between CD and IN as N  ****NEW****
+finalSent =  CD_UNK_IN_NounTagger(finalSent)
+#tags anything between CD and PUNC as N  ****NEW****
+finalSent =  CD_UNK_PUNC_NounTagger(finalSent)
+#tags anything between PRP and "to"  that ends in "s" or "ed" as V  ****NEW****
+finalSent =  PRP_s_toVerbTagger(finalSent)
+#tags anything between DT and PUNC  that ends in "s" as NNS  ****NEW****
+finalSent =  DT_s_PUNC_NounTagger(finalSent)
+#tags anything ***at beginning of sent*** between DT and "that" as N. Tags "that" as WDT
 finalSent = DT_UNK_that_NounTagger(finalSent)
+#tags anything between "who" and "to" as V  ****NEW****
+finalSent =  who_UNK_to_VerbTagger(finalSent)
+#tags anything between PRP$ and IN as N  ****NEW****
+finalSent =  PRPS_UNK_IN_NounTagger(finalSent)
 
 #tags anything following "have" verbs that ends in "ed" as VBN
 finalSent =  have_ed_VBNTagger(finalSent)
@@ -92,9 +113,9 @@ finalSent = s_him_VBZTagger(finalSent)
 #tags anything ending in "s" followed by "her" and a DT/CC/IN or PRP$ as a VBZ, and tags "her" as PRP
 finalSent =  s_her_DT_VerbTagger(finalSent)
 
-#tags anything ending in "ed" followed by him/me/them as VBD  ****NEW****
+#tags anything ending in "ed" followed by him/me/them as VBD
 finalSent =  ed_him_VBNTagger(finalSent)
-#tags anything ending in "ed" followed by "her" and a DT/CC/IN or PRP$ as a VBD, and tags "her" as PRP  ****NEW****
+#tags anything ending in "ed" followed by "her" and a DT/CC/IN or PRP$ as a VBD, and tags "her" as PRP
 finalSent =  ed_her_DT_VerbTagger(finalSent)
 
 
@@ -174,8 +195,11 @@ finalSent = DT_UNK_V_NounTagger(finalSent)
 
 finalSent =  N_UNK_up_VerbTagger(finalSent)
 
- #tags words between to/IN/PRP$ as N, and then tags "to" as IN  ****NEW****
+ #tags words between to/IN/PRP$ as N, and then tags "to" as IN
 finalSent = IN_UNK_CC_NounTagger(finalSent)
+
+#tags anything between who and N  that ends in "s" or "ed" as V  ****NEW****
+finalSent =  who_s_N_VerbTagger(finalSent)
 
 
 

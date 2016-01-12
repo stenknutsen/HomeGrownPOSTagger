@@ -16,7 +16,8 @@ endingClusterExceptions = {"witness":"UNK","witnesses":"UNK", "priest":"NN","ear
                            "evidences":"UNK","rally":"UNK","tally":"UNK","sizes":"UNK","prizes":"UNK","prize":"UNK",
                            "size":"UNK","maize":"NN","random":"UNK","seldom":"RB","ship":"UNK","worship":"UNK",
                            "ships":"UNK","worships":"UNK","pity":"UNK","fruity":"UNK","quality":"UNK","uppity":"UNK",
-                           "pities":"VBZ","static":"UNK", "kingly":"JJ"}
+                           "pities":"VBZ","static":"UNK", "kingly":"JJ","unless":"UNK","nevertheless":"UNK","regardless":"UNK",
+                           "nonetheless":"UNK","bless":"UNK","brings":"UNK","swings":"UNK","sings":"UNK"}
 
 #list of ending clusters
 #NOTE: added "ize" as VB. Will later disambiguate base and present tense form.
@@ -35,7 +36,9 @@ endingClusterList = [("ness","NN"),("nesses","NNS"),("iest","JJS"),("ation","NN"
                      ("hoods","NNS"),("dom","NN"),("doms","NNS"),("geous","JJ"),("geously","RB"),("ship","NN"),
                      ("ships","NNS"),("ity","NN"),("ities","NNS"),("ology","NN"),("ologies","NNS"),("ental","J"),
                      ("ers","NNS"),("osis","NN"),("ents","NNS"),("ors","NNS"),("aire","NN"),("aires","NNS"),("ful","J"),
-                     ("atic","J"),("ives","NNS"),("ables","NNS"), ("ians","NNS"),("ions","NNS"),("ingly","RB")]
+                     ("atic","J"),("ives","NNS"),("ables","NNS"), ("ians","NNS"),("ions","NNS"),("ingly","RB"),("ous","JJ"),
+                     ("less","JJ"),("tieth","CD"),("eenth","CD"),("icians","NNS"),("ician","NN"),("sion","NN"),("sions","NNS"),
+                     ("ings","NNS"),("iety","NN"),("ieties","NNS")]
 
 tinyDictionary = {",":",",".":".",";":";","?":"?","!":"!",":":":",#punctuation
     "a":"DT","an":"DT","any":"DT","the":"DT","this":"DT","these":"DT","those":"DT", "another":"DT", #determiners
@@ -43,7 +46,7 @@ tinyDictionary = {",":",",".":".",";":";","?":"?","!":"!",":":":",#punctuation
     "and":"CC","or":"CC", "but":"CC","&":"CC", "nor":"CC","yet":"CC",#coordingating conjuctions
     "in":"IN","by":"IN", "of":"IN","for":"IN","with":"IN","on":"IN","at":"IN","from":"IN","into":"IN","because":"IN",
     "through":"IN", "after":"IN", "over":"IN","between":"IN","before":"IN","during":"IN","under":"IN",
-    "whether":"IN", "while":"IN","about":"IN", "toward":"IN" , "towards":"IN", "as":"IN", #prepositions
+    "whether":"IN", "while":"IN","about":"IN", "toward":"IN" , "towards":"IN", "as":"IN", "during":"IN", #prepositions
     "me":"PRP","him":"PRP","us":"PRP","them":"PRP","i":"PRP","she":"PRP","he":"PRP","we":"PRP","they":"PRP",
     "it":"PRP",#personal pronouns
     "cannot":"MD","could":"MD","may":"MD", "must":"MD", "ought":"MD", "shall":"MD", "should":"MD", "would":"MD",#modals
@@ -53,9 +56,12 @@ tinyDictionary = {",":",",".":".",";":";","?":"?","!":"!",":":":",#punctuation
     "something":"NN", "nothing":"NN", "anything":"NN", "everything":"NN", "someone":"NN", "everyone":"NN",
     "anyone":"NN", "everybody":"NN", "somebody":"NN",#indefinite pronouns
     "now":"RB", "then":"RB", "always":"RB","today":"RB","yesterday":"RB", "not":"RB","n't":"RB","also":"RB", "else":"RB",
-    "never":"RB", "here":"RB", #adverbs
+    "never":"RB", "here":"RB", "once":"RB",#adverbs
     "how":"WRB", "why":"WRB","when":"WRB","where":"WRB","what":"WP","who":"WP",
-    "other":"JJ"
+    "other":"JJ", "one":"CD","two":"CD","three":"CD","four":"CD","five":"CD","six":"CD","seven":"CD","eight":"CD","nine":"CD",
+    "ten":"CD","eleven":"CD","twelve":"CD","thirteen":"CD","fourteen":"CD","fifteen":"CD","sixteen":"CD","seventeen":"CD",
+    "eighteen":"CD","nineteen":"CD","twenty":"CD","thirty":"CD","forty":"CD","fifty":"CD","sixty":"CD","seventy":"CD",
+    "eighty":"CD","ninety":"CD","hundred":"CD","thousand":"CD","million":"CD","billion":"CD"
     }
 
 #Tags anything starting with a captial letter as NNP (excluding first word in sentence)
@@ -72,6 +78,19 @@ def NNPTagger(sent):
         sentToReturn += [tup]
     return sentToReturn
 
+#Tags anything starting with an int as CD
+def int_Tagger(sent):
+    iterSent = iter(sent)
+    sentToReturn = []
+    sentToReturn += [next(iterSent)]
+    for word in iterSent:
+        token = word[0]
+        if ((token[0].isdigit())& (word[1]=="UNK")):
+            tup = (word[0], 'CD')
+        else:
+            tup = (word[0], word[1])
+        sentToReturn += [tup]
+    return sentToReturn
 
 #tags everything in tinyDictionary
 def tinyDictionaryTagger(sent):

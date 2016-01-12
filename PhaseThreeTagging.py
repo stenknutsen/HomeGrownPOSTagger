@@ -804,9 +804,191 @@ def IN_UNK_CC_NounTagger(sent):
     return sentToReturn2
 
 
+#tags anything between "who" and "to" as V
+def who_UNK_to_VerbTagger(sent):
+    sentToReturn = []
+
+    for i in range(len(sent)):
+
+        if (i-1)<0 | (i+1)>=len(sent):
+            sentToReturn += [sent[i]]
+            continue
+
+        leftContext = sent[i-1]
+        target = sent[i]
+        rightContext = sent[i+1]
+
+
+        if(leftContext[0].lower()=="who")&(rightContext[0].lower()=="to")&(target[1]=='UNK'):
+
+            newTup = (target[0], "V")
+            sentToReturn += [newTup]
+
+        else:
+            sentToReturn += [target]
+
+    return sentToReturn
+
+
+#tags anything between CD and IN as N
+def CD_UNK_IN_NounTagger(sent):
+    sentToReturn = []
+
+    for i in range(len(sent)):
+
+        if (i-1)<0 | (i+1)>=len(sent):
+            sentToReturn += [sent[i]]
+            continue
+
+        leftContext = sent[i-1]
+        target = sent[i]
+        rightContext = sent[i+1]
+
+
+        if(leftContext[1]=="CD")&(rightContext[1]=="IN")&(target[1]=='UNK'):
+
+            newTup = (target[0], "N")
+            sentToReturn += [newTup]
+
+        else:
+            sentToReturn += [target]
+
+    return sentToReturn
+
+
+#tags anything between CD and PUNC as N
+def CD_UNK_PUNC_NounTagger(sent):
+    sentToReturn = []
+
+    for i in range(len(sent)):
+
+        if (i-1)<0 | (i+1)>=len(sent):
+            sentToReturn += [sent[i]]
+            continue
+
+        leftContext = sent[i-1]
+        target = sent[i]
+        rightContext = sent[i+1]
+
+
+        if(leftContext[1]=="CD")&(rightContext[0]==".")&(target[1]=='UNK'):
+
+            newTup = (target[0], "N")
+            sentToReturn += [newTup]
+
+        else:
+            sentToReturn += [target]
+
+    return sentToReturn
 
 
 
+#tags anything between PRP$ and IN as N
+def PRPS_UNK_IN_NounTagger(sent):
+    sentToReturn = []
+
+    for i in range(len(sent)):
+
+        if (i-1)<0 | (i+1)>=len(sent):
+            sentToReturn += [sent[i]]
+            continue
+
+        leftContext = sent[i-1]
+        target = sent[i]
+        rightContext = sent[i+1]
+
+
+        if(leftContext[1]=="PRP$")&(rightContext[1]=="IN")&(target[1]=='UNK'):
+
+            newTup = (target[0], "N")
+            sentToReturn += [newTup]
+
+        else:
+            sentToReturn += [target]
+
+    return sentToReturn
+
+
+#tags anything between PRP and "to"  that ends in "s" or "ed" as V
+def PRP_s_toVerbTagger(sent):
+    sentToReturn = []
+
+    for i in range(len(sent)):
+
+        if (i-1)<0 | (i+1)>=len(sent):
+            sentToReturn += [sent[i]]
+            continue
+
+        leftContext = sent[i-1]
+        target = sent[i]
+        rightContext = sent[i+1]
+
+
+        if(leftContext[1]=="PRP")&(rightContext[0].lower()=="to")&(target[1]=='UNK')&((target[0].lower().endswith("s"))|
+                                                                                          (target[0].lower().endswith("ed"))):
+
+            newTup = (target[0], "V")
+            sentToReturn += [newTup]
+
+        else:
+            sentToReturn += [target]
+
+    return sentToReturn
+
+
+#tags anything between who and N  that ends in "s" or "ed" as V
+def who_s_N_VerbTagger(sent):
+    sentToReturn = []
+
+    for i in range(len(sent)):
+
+        if (i-1)<0 | (i+1)>=len(sent):
+            sentToReturn += [sent[i]]
+            continue
+
+        leftContext = sent[i-1]
+        target = sent[i]
+        rightContext = sent[i+1]
+
+
+        if(leftContext[0].lower()=="who")&(rightContext[1].startswith("N"))&(target[1]=='UNK')&((target[0].lower().endswith("s"))|
+                                                                                          (target[0].lower().endswith("ed"))):
+
+            newTup = (target[0], "V")
+            sentToReturn += [newTup]
+
+        else:
+            sentToReturn += [target]
+
+    return sentToReturn
+
+
+#tags anything between DT and PUNC  that ends in "s" as NNS
+def DT_s_PUNC_NounTagger(sent):
+    sentToReturn = []
+
+    for i in range(len(sent)):
+
+        if (i-1)<0 | (i+1)>=len(sent):
+            sentToReturn += [sent[i]]
+            continue
+
+        leftContext = sent[i-1]
+        target = sent[i]
+        rightContext = sent[i+1]
+
+
+        if(leftContext[1]=="DT")&((rightContext[0].lower()==",")|(rightContext[0].lower()==".")|(rightContext[0].lower()==":")|
+                                  (rightContext[0].lower()=="?")|(rightContext[0].lower()=="!")
+                                  )&(target[1]=='UNK')&(target[0].lower().endswith("s")):
+
+            newTup = (target[0], "NNS")
+            sentToReturn += [newTup]
+
+        else:
+            sentToReturn += [target]
+
+    return sentToReturn
 
 #tags anything ***at beginning of sent*** between DT and "that" as N. Tags "that" as WDT
 def DT_UNK_that_NounTagger(sent):

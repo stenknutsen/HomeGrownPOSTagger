@@ -180,7 +180,7 @@ def her_DT_PRPTagger(sent):
     return sentToReturn
 
 
-##tags words ending in "ed" followed by IN as VBN
+##tags words ending in "ed" followed by IN as V
 def ed_IN_VBNTagger(sent):
 
     sentToReturn = []
@@ -193,7 +193,7 @@ def ed_IN_VBNTagger(sent):
             if (target[0].lower()=="need"):
                 newTup = (target[0], 'NN')
             else:
-                newTup = (target[0], 'VBN')
+                newTup = (target[0], 'V')
 
             sentToReturn += [newTup]
         else:
