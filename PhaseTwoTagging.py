@@ -80,7 +80,7 @@ def to_be_VBGTagger(sent):
 
         if ((target[0].lower() == "be")|(target[0].lower() == "am")|(target[0].lower() == "is")|
             (target[0].lower() == "are")|(target[0].lower() == "was")|(target[0].lower() == "were")|
-            (target[0].lower() == "been"))&(context[0].lower().endswith("ing")):
+            (target[0].lower() == "been"))&(context[0].lower().endswith("ing")&(context[1]=="UNK")):
             newTup = (target[0],target[1])
             sentToReturn += [newTup]
             newTup = (context[0], "VBG")
@@ -258,4 +258,86 @@ def have_ed_VBNTagger(sent):
         else:
             sentToReturn += [target]
     sentToReturn += [sent[len(sent)-1]]
+    return sentToReturn
+
+
+#tags anything  *ed and out as V, an out as RP
+def ed_out_VerbTagger(sent):
+
+    sentToReturn = []
+
+    for i in range(len(sent)-1):
+        target = sent[i]
+        context = sent[i+1]
+
+        if (target[1]=="UNK")&(target[0].endswith("ed"))&(context[0].lower()=='out'):
+            if (target[0].lower()=="need"):
+                newTup = (target[0], 'NN')
+            else:
+                newTup = (target[0], 'V')
+
+            sentToReturn += [newTup]
+        else:
+            sentToReturn += [target]
+
+    sentToReturn += [sent[len(sent)-1]]
+
+    sentToReturn2 =[]
+    for i in range(len(sentToReturn)-1):
+        target = sentToReturn[i]
+        context = sentToReturn[i-1]
+        if (target[1]=="UNK")&(target[0].lower()=="out")&(context[1]=="V"):
+            newTup = (target[0],"RP")
+            sentToReturn2 += [newTup]
+        else:
+            sentToReturn2+=[target]
+
+    sentToReturn2 += [sentToReturn[len(sentToReturn)-1]]
+
+    return sentToReturn2
+
+##tags words ending in "ial" followed by N as JJ
+def ial_N_JJTagger(sent):
+
+    sentToReturn = []
+
+    for i in range(len(sent)-1):
+        target = sent[i]
+        context = sent[i+1]
+
+        if (target[1]=="UNK")&(target[0].endswith("ial"))&(context[1].startswith("N")):
+
+            newTup = (target[0], 'JJ')
+
+            sentToReturn += [newTup]
+        else:
+            sentToReturn += [target]
+    sentToReturn += [sent[len(sent)-1]]
+    return sentToReturn
+
+
+#tags anything ***at beginning of sent*** followed by "who" as NNS.
+def UNK_who_NounTagger(sent):
+    sentToReturn = []
+    first = sent[0]
+    second = sent[1]
+
+    if (first[1]== "UNK")&(second[0]=="who"):
+        newFirst = (first[0],"NNS")
+        newSecond = second
+
+    else:
+        newFirst = first
+        newSecond = second
+
+
+    sentToReturn.append(newFirst)
+    sentToReturn.append(newSecond)
+
+
+    for i in range(2,len(sent)):
+        sentToReturn.append(sent[i])
+
+
+
     return sentToReturn

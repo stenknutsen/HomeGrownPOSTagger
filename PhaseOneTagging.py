@@ -17,7 +17,9 @@ endingClusterExceptions = {"witness":"UNK","witnesses":"UNK", "priest":"NN","ear
                            "size":"UNK","maize":"NN","random":"UNK","seldom":"RB","ship":"UNK","worship":"UNK",
                            "ships":"UNK","worships":"UNK","pity":"UNK","fruity":"UNK","quality":"UNK","uppity":"UNK",
                            "pities":"VBZ","static":"UNK", "kingly":"JJ","unless":"UNK","nevertheless":"UNK","regardless":"UNK",
-                           "nonetheless":"UNK","bless":"UNK","brings":"UNK","swings":"UNK","sings":"UNK"}
+                           "nonetheless":"UNK","bless":"UNK","brings":"UNK","swings":"UNK","sings":"UNK","dollar":"NN",
+                           "spectacular":"UNK","scholar":"NN","collar":"NN","cellar":"NN","pillar":"NN","vernacular":"NN",
+                           "burglar":"NN","poplar":"NN","exemplar":"NN","survey":"UNK","journey":"UNK","space":"UNK","spaces":"UNK"}
 
 #list of ending clusters
 #NOTE: added "ize" as VB. Will later disambiguate base and present tense form.
@@ -38,7 +40,8 @@ endingClusterList = [("ness","NN"),("nesses","NNS"),("iest","JJS"),("ation","NN"
                      ("ers","NNS"),("osis","NN"),("ents","NNS"),("ors","NNS"),("aire","NN"),("aires","NNS"),("ful","J"),
                      ("atic","J"),("ives","NNS"),("ables","NNS"), ("ians","NNS"),("ions","NNS"),("ingly","RB"),("ous","JJ"),
                      ("less","JJ"),("tieth","CD"),("eenth","CD"),("icians","NNS"),("ician","NN"),("sion","NN"),("sions","NNS"),
-                     ("ings","NNS"),("iety","NN"),("ieties","NNS")]
+                     ("ings","NNS"),("iety","NN"),("ieties","NNS"),("lar","JJ"),("ceed","V"),("cede","V"),("tly","RB"),("ket","NN"),
+                     ("kets","NNS"),("ey","NN"),("eys","NNS"),("space","NN"),("spaces","NNS")]
 
 tinyDictionary = {",":",",".":".",";":";","?":"?","!":"!",":":":",#punctuation
     "a":"DT","an":"DT","any":"DT","the":"DT","this":"DT","these":"DT","those":"DT", "another":"DT", #determiners
@@ -46,19 +49,20 @@ tinyDictionary = {",":",",".":".",";":";","?":"?","!":"!",":":":",#punctuation
     "and":"CC","or":"CC", "but":"CC","&":"CC", "nor":"CC","yet":"CC",#coordingating conjuctions
     "in":"IN","by":"IN", "of":"IN","for":"IN","with":"IN","on":"IN","at":"IN","from":"IN","into":"IN","because":"IN",
     "through":"IN", "after":"IN", "over":"IN","between":"IN","before":"IN","during":"IN","under":"IN",
-    "whether":"IN", "while":"IN","about":"IN", "toward":"IN" , "towards":"IN", "as":"IN", "during":"IN", #prepositions
+    "whether":"IN", "while":"IN","about":"IN", "toward":"IN" , "towards":"IN", "as":"IN", "than":"IN",#prepositions
     "me":"PRP","him":"PRP","us":"PRP","them":"PRP","i":"PRP","she":"PRP","he":"PRP","we":"PRP","they":"PRP",
-    "it":"PRP",#personal pronouns
+    "it":"PRP", "you":"PRP", #personal pronouns
+    "more":"JJR","least":"JJS",
     "cannot":"MD","could":"MD","may":"MD", "must":"MD", "ought":"MD", "shall":"MD", "should":"MD", "would":"MD",#modals
     "have":"V","having":"VBG","has":"VBZ","be":"VB","was":"VBD","were":"VBD","been":"VBN","am":"VPB","are":"VBP", "bring":"V",
     "is":"VBZ", "do":"VBP","did":"VBD", "doing":"VBG", "done":"VBN", "does":"VBZ", "'ve":"VBP", "'d":"MD",
     "'m":"VBP", "'re":"VBP", "'ll":"MD", "had":"VBD", "need":"V", #aux verbs
     "something":"NN", "nothing":"NN", "anything":"NN", "everything":"NN", "someone":"NN", "everyone":"NN",
-    "anyone":"NN", "everybody":"NN", "somebody":"NN",#indefinite pronouns
+    "anyone":"NN", "everybody":"NN", "somebody":"NN", "people":"NNS",#indefinite pronouns
     "now":"RB", "then":"RB", "always":"RB","today":"RB","yesterday":"RB", "not":"RB","n't":"RB","also":"RB", "else":"RB",
-    "never":"RB", "here":"RB", "once":"RB",#adverbs
+    "never":"RB", "here":"RB", "once":"RB","too":"RB",#adverbs
     "how":"WRB", "why":"WRB","when":"WRB","where":"WRB","what":"WP","who":"WP",
-    "other":"JJ", "one":"CD","two":"CD","three":"CD","four":"CD","five":"CD","six":"CD","seven":"CD","eight":"CD","nine":"CD",
+    "other":"JJ", "much":"JJ","many":"JJ","one":"CD","two":"CD","three":"CD","four":"CD","five":"CD","six":"CD","seven":"CD","eight":"CD","nine":"CD",
     "ten":"CD","eleven":"CD","twelve":"CD","thirteen":"CD","fourteen":"CD","fifteen":"CD","sixteen":"CD","seventeen":"CD",
     "eighteen":"CD","nineteen":"CD","twenty":"CD","thirty":"CD","forty":"CD","fifty":"CD","sixty":"CD","seventy":"CD",
     "eighty":"CD","ninety":"CD","hundred":"CD","thousand":"CD","million":"CD","billion":"CD"
@@ -96,7 +100,7 @@ def int_Tagger(sent):
 def tinyDictionaryTagger(sent):
     sentToReturn = []
     for word in sent:
-        if ((word[0].lower() in tinyDictionary)):
+        if ((word[0].lower() in tinyDictionary)&(word[1]=="UNK")):###changed this 1.12.2016
             newTup = (word[0], tinyDictionary[word[0].lower()])
             sentToReturn += [newTup]
         else:
@@ -118,7 +122,7 @@ def endingClusterTagger(sent):
             continue
         #see if word ends in targeted ending. If so, put in newTuple
         for endingCluster in endingClusterList:
-            if word_POS_tuple[0].lower().endswith(endingCluster[0]):
+            if (word_POS_tuple[0].lower().endswith(endingCluster[0]))&(word_POS_tuple[1]=="UNK"):###changed this 1/12/2016
                 newTuple = (word_POS_tuple[0],endingCluster[1])
         #add new tuple to sentToReturn
         sentToReturn += [newTuple]

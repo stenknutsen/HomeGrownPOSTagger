@@ -54,7 +54,30 @@ from PhaseThreeTagging import*
 s="But even far from his home in Virginia and past his personal prime, the first president seemed quite at home creating a tradition."
 
 
-s="In the past century, an earlier version of this fungus wiped out commercial plantings of a banana variety called Gros Michel that once dominated the global banana trade."
+#s="In the past century, an earlier version of this fungus wiped out commercial plantings of a banana variety called Gros Michel that once dominated the global banana trade."
+
+
+#s="At least 10 people are dead and more than a dozen wounded, after an explosion struck a historic district in Istanbul Tuesday morning."
+
+#s="People who take certain popular medicines for heartburn, indigestion and acid reflux may want to proceed more cautiously, researchers reported Monday."
+
+#s="Money aside, there is something alluring to many people about wandering a vast network of underground tunnels and operating massive high-tech machinery."
+
+s="The new season will feature fewer celebrity and parody segments, largely because preschoolers often do not know the stars or understand the references."
+
+#s="Your vision of a more fulfilling life, attained by purchasing it with money, was punched in the eye by the cruel jab of reality shortly after 10:59 p.m. Saturday, when you checked your Powerball ticket and saw that you had not won."
+
+#s="Satirically pointed but slathered in the same vinegar as the rest of his jabs, it felt like part of the same sour meal."
+
+#s="Lubina, the European sea bass, was sheathed in handsome golden scales of potato and bewitchingly sauced with a reduction of red wine and port swirled with butter."
+
+s="With unobstructed countryside views and a snug workspace kitted out with a wood stove and fireplace, the 19th-century cottage is a far cry from the urban din that Montagut finds both endlessly inspiring and draining."
+
+s="It's possible to drink too much beer, but can you eat too many cherries?"
+
+#s="The California Air Resources Board has rejected Volkswagen's plan to recall cars with 2-liter diesel engines that trick emissions tests, saying the company's plan is incomplete. "
+
+#s="Ten sailors were detained by Iranian authorities on Tuesday as they sailed from Kuwait to Bahrain aboard two small riverine patrol boats."
 
 #takes sentence, tokenizes and renders default POS tag form
 def conditionSentence(sent):
@@ -75,11 +98,12 @@ finalSent = conditionSentence(s)
 #tag anything starting in caps as NNP
 finalSent = NNPTagger(finalSent)
 
-#Tags anything starting with an int as CD  ****NEW****
+#Tags anything starting with an int as CD
 finalSent =  int_Tagger(finalSent)
 
 finalSent = tinyDictionaryTagger(finalSent)
-
+#tags unique morphological/orthographical endings (minus a few exceptions)
+finalSent = endingClusterTagger(finalSent)
 #tags unique morphological/orthographical endings (minus a few exceptions)
 finalSent = endingClusterTagger(finalSent)
 #
@@ -88,19 +112,33 @@ finalSent = endingClusterTagger(finalSent)
 #
 #
 ######################################
-#tags anything between CD and IN as N  ****NEW****
+#tags words between PRP and PRPS  as V  ****NEW****
+finalSent = PRP_UNK_PRPS_VerbTagger(finalSent)
+#tags words between IN and PRP($) ending in "ing" as VBG  ****NEW****
+finalSent = IN_ing_PRP_VerbTagger(finalSent)
+#tags words between IN and "." as N  ****NEW****
+finalSent = IN_UNK_PUNC_NounTagger(finalSent)
+#tags words between MD and "to" as V  ****NEW****
+finalSent = MD_UNK_to_VerbTagger(finalSent)
+#tags anything ***at beginning of sent*** followed by "who" as NNS  ****NEW****
+finalSent =  UNK_who_NounTagger(finalSent)
+#tags words ending inbetween CD and V as N  ****NEW****
+finalSent =  CD_UNK_V_NounTagger(finalSent)
+#tags anything between *ed and out as V  ****NEW****
+finalSent =  ed_out_VerbTagger(finalSent)
+#tags anything between CD and IN as N
 finalSent =  CD_UNK_IN_NounTagger(finalSent)
-#tags anything between CD and PUNC as N  ****NEW****
+#tags anything between CD and PUNC as N
 finalSent =  CD_UNK_PUNC_NounTagger(finalSent)
-#tags anything between PRP and "to"  that ends in "s" or "ed" as V  ****NEW****
+#tags anything between PRP and "to"  that ends in "s" or "ed" as V
 finalSent =  PRP_s_toVerbTagger(finalSent)
-#tags anything between DT and PUNC  that ends in "s" as NNS  ****NEW****
+#tags anything between DT and PUNC  that ends in "s" as NNS
 finalSent =  DT_s_PUNC_NounTagger(finalSent)
 #tags anything ***at beginning of sent*** between DT and "that" as N. Tags "that" as WDT
 finalSent = DT_UNK_that_NounTagger(finalSent)
-#tags anything between "who" and "to" as V  ****NEW****
+#tags anything between "who" and "to" as V
 finalSent =  who_UNK_to_VerbTagger(finalSent)
-#tags anything between PRP$ and IN as N  ****NEW****
+#tags anything between PRP$ and IN as N
 finalSent =  PRPS_UNK_IN_NounTagger(finalSent)
 
 #tags anything following "have" verbs that ends in "ed" as VBN
@@ -117,7 +155,6 @@ finalSent =  s_her_DT_VerbTagger(finalSent)
 finalSent =  ed_him_VBNTagger(finalSent)
 #tags anything ending in "ed" followed by "her" and a DT/CC/IN or PRP$ as a VBD, and tags "her" as PRP
 finalSent =  ed_her_DT_VerbTagger(finalSent)
-
 
 
 
@@ -198,10 +235,18 @@ finalSent =  N_UNK_up_VerbTagger(finalSent)
  #tags words between to/IN/PRP$ as N, and then tags "to" as IN
 finalSent = IN_UNK_CC_NounTagger(finalSent)
 
-#tags anything between who and N  that ends in "s" or "ed" as V  ****NEW****
+#tags anything between who and N  that ends in "s" or "ed" as V
 finalSent =  who_s_N_VerbTagger(finalSent)
 
+##tags words ending in "ial" followed by N as JJ  ****NEW****
+finalSent =  ial_N_JJTagger(finalSent)
 
+#tags anything between RB and DT  that ends in "ed" as V  ****NEW****
+finalSent =  RB_ed_DT_VerbTagger(finalSent)
+#tags words between J and IN as N  ****NEW****
+finalSent = J_UNK_IN_VerbTagger(finalSent)
+#tags words between "who" and J as V  ****NEW****
+finalSent = who_UNK_J_VerbTagger(finalSent)
 
 
 print(finalSent)
