@@ -71,13 +71,23 @@ s="The new season will feature fewer celebrity and parody segments, largely beca
 
 #s="Lubina, the European sea bass, was sheathed in handsome golden scales of potato and bewitchingly sauced with a reduction of red wine and port swirled with butter."
 
-s="With unobstructed countryside views and a snug workspace kitted out with a wood stove and fireplace, the 19th-century cottage is a far cry from the urban din that Montagut finds both endlessly inspiring and draining."
+#s="With unobstructed countryside views and a snug workspace kitted out with a wood stove and fireplace, the 19th-century cottage is a far cry from the urban din that Montagut finds both endlessly inspiring and draining."
 
-s="It's possible to drink too much beer, but can you eat too many cherries?"
+##s="It's possible to drink too much beer, but can you eat too many cherries?"
 
 #s="The California Air Resources Board has rejected Volkswagen's plan to recall cars with 2-liter diesel engines that trick emissions tests, saying the company's plan is incomplete. "
 
 #s="Ten sailors were detained by Iranian authorities on Tuesday as they sailed from Kuwait to Bahrain aboard two small riverine patrol boats."
+
+s="But Mr. Obama, who campaigned for president on promises of hope and change, and vowed when he took office to transform Washington and politics itself, accepted responsibility for falling far short of that goal."
+
+#s="The company, based in Silicon Valley, is now valued at $50 billion, but many analysts rapturously say its efforts to reinvent TV could be worth several times more."
+
+s="And while much of the region is notable for sprawling meadows dotted with daffodils and storybook villages with cozy stone houses, Cheltenham feels more like a sophisticated mini metropolis."
+
+#s="The idea is that doctors can focus on treating patients, since they no longer have to wade through heaps of insurance paperwork."
+
+s="In the kitchen of a small eatery in Reyhanli, Turkey, Abu Mohammed took a break from deboning the flank of a freshly slaughtered lamb to opine on grave matters happening just across the border in Syria."
 
 #takes sentence, tokenizes and renders default POS tag form
 def conditionSentence(sent):
@@ -112,19 +122,35 @@ finalSent = endingClusterTagger(finalSent)
 #
 #
 ######################################
-#tags words between PRP and PRPS  as V  ****NEW****
+#tags words between "to" and "IN" as V, and then tags "to" as TO  ****NEW****
+finalSent = to_UNK_IN_VerbTagger(finalSent)
+#tags words between "can" and IN as V, and then tags "can" as MD  ****NEW****
+finalSent = can_UNK_IN_VerbTagger(finalSent)
+#tags "that" between V and N as IN  ****NEW****MIGHT BE MOVED FURTHER DOWN AT SOME POINT
+finalSent =  V_that_N_PrepositionTagger(finalSent)
+#tags words between IN and IN and ending in "ent" or "es" as N  ****NEW****CAN TO ADD TO THIS
+finalSent = IN_UNK_IN_NounTagger(finalSent)
+#tags words between PRP$ and "to" as N  ****NEW****
+finalSent = PRPS_UNK_to_NounTagger(finalSent)
+#tags words between a comma and DT and ending in "ing" as VBG  ****NEW****
+finalSent = COMMA_ing_DT_VerbTagger(finalSent)
+#tags words between "be" verbs  and PUNC at end of sentence as JJ  ****NEW****
+finalSent = be_UNK_PUNC_AdjectiveTagger(finalSent)
+##tags "can" as MD when followed by PRP  ****NEW****
+finalSent = can_PRP_MDTagger(finalSent)
+#tags words between PRP and PRPS  as V
 finalSent = PRP_UNK_PRPS_VerbTagger(finalSent)
-#tags words between IN and PRP($) ending in "ing" as VBG  ****NEW****
+#tags words between IN and PRP($) ending in "ing" as VBG
 finalSent = IN_ing_PRP_VerbTagger(finalSent)
-#tags words between IN and "." as N  ****NEW****
+#tags words between IN and "." as N
 finalSent = IN_UNK_PUNC_NounTagger(finalSent)
-#tags words between MD and "to" as V  ****NEW****
+#tags words between MD and "to" as V
 finalSent = MD_UNK_to_VerbTagger(finalSent)
-#tags anything ***at beginning of sent*** followed by "who" as NNS  ****NEW****
+#tags anything ***at beginning of sent*** followed by "who" as NNS
 finalSent =  UNK_who_NounTagger(finalSent)
-#tags words ending inbetween CD and V as N  ****NEW****
+#tags words ending inbetween CD and V as N
 finalSent =  CD_UNK_V_NounTagger(finalSent)
-#tags anything between *ed and out as V  ****NEW****
+#tags anything between *ed and out as V
 finalSent =  ed_out_VerbTagger(finalSent)
 #tags anything between CD and IN as N
 finalSent =  CD_UNK_IN_NounTagger(finalSent)
@@ -208,8 +234,8 @@ finalSent = modal_VB_DTTagger(finalSent)
 
 finalSent = can_might_will_VBTagger(finalSent)
 
-#keep this towards the bottom. . . . .
-finalSent = DT_ADJ_NTagger(finalSent)
+
+#finalSent = DT_ADJ_NTagger(finalSent)*********NEEDS REPAIR/REPLACEMENT
 
 ##second pass thorough this
 finalSent = DT_IN_NounTagger(finalSent)
@@ -238,15 +264,30 @@ finalSent = IN_UNK_CC_NounTagger(finalSent)
 #tags anything between who and N  that ends in "s" or "ed" as V
 finalSent =  who_s_N_VerbTagger(finalSent)
 
-##tags words ending in "ial" followed by N as JJ  ****NEW****
+##tags words ending in "ial" followed by N as JJ
 finalSent =  ial_N_JJTagger(finalSent)
 
-#tags anything between RB and DT  that ends in "ed" as V  ****NEW****
+#tags anything between RB and DT  that ends in "ed" as V
 finalSent =  RB_ed_DT_VerbTagger(finalSent)
-#tags words between J and IN as N  ****NEW****
+#tags words between J and IN as N
 finalSent = J_UNK_IN_VerbTagger(finalSent)
-#tags words between "who" and J as V  ****NEW****
+#tags words between "who" and J as V
 finalSent = who_UNK_J_VerbTagger(finalSent)
-
+#tags words between "to" and "too as V, and then tags "to" as TO  ****NEW****
+finalSent = IN_UNK_CC_NounTagger(finalSent)
+#tags words between PRP and "too" as V  ****NEW****
+finalSent = PRP_UNK_to_VerbTagger(finalSent)
+#tags words between JJ and PUNC as N  ****NEW****
+finalSent =  JJ_UNK_PUNC_NounTagger(finalSent)
+#tags words between "be" verb and TO as JJ  ****NEW****
+finalSent = be_UNK_TO_AdjectiveTagger(finalSent)
+#tags words between POS/PRP$  and V as N  ****NEW****
+finalSent = POS_UNK_V_NounTagger(finalSent)
+#tags words between J and RB as N  ****NEW****
+finalSent = J_UNK_RB_NounTagger(finalSent)
+#tags words between RB and PRP$ as V  ****NEW****TRIAL ONLY****
+finalSent = RB_UNK_PRPS_VerbTagger(finalSent)
+#tags words after V and IN ending in "ing" as VBG  ****NEW****TRIAL ONLY*****
+finalSent = V_IN_ing_VerbTagger(finalSent)
 
 print(finalSent)

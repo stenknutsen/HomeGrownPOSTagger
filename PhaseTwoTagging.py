@@ -315,6 +315,25 @@ def ial_N_JJTagger(sent):
     sentToReturn += [sent[len(sent)-1]]
     return sentToReturn
 
+##tags "can" as MD when followed by PRP
+def can_PRP_MDTagger(sent):
+
+    sentToReturn = []
+
+    for i in range(len(sent)-1):
+        target = sent[i]
+        context = sent[i+1]
+
+        if (target[1]=="UNK")&(target[0].lower()=="can")&(context[1]=="PRP"):
+
+            newTup = (target[0], 'MD')
+
+            sentToReturn += [newTup]
+        else:
+            sentToReturn += [target]
+    sentToReturn += [sent[len(sent)-1]]
+    return sentToReturn
+
 
 #tags anything ***at beginning of sent*** followed by "who" as NNS.
 def UNK_who_NounTagger(sent):
