@@ -20,7 +20,7 @@ endingClusterExceptions = {"witness":"UNK","witnesses":"UNK", "priest":"NN","ear
                            "nonetheless":"UNK","bless":"UNK","brings":"UNK","swings":"UNK","sings":"UNK","dollar":"NN",
                            "spectacular":"UNK","scholar":"NN","collar":"NN","cellar":"NN","pillar":"NN","vernacular":"NN",
                            "burglar":"NN","poplar":"NN","exemplar":"NN","survey":"UNK","journey":"UNK","space":"UNK","spaces":"UNK",
-                           "bubbly":"JJ","wobbly":"JJ","crumbly":"JJ","assembly":"UNK"}
+                           "bubbly":"JJ","wobbly":"JJ","crumbly":"JJ","assembly":"UNK","represents":"V","represent":"V","gives":"V"}
 
 #list of ending clusters
 #NOTE: added "ize" as VB. Will later disambiguate base and present tense form.
@@ -45,28 +45,29 @@ endingClusterList = [("ness","NN"),("nesses","NNS"),("iest","JJS"),("ation","NN"
                      ("kets","NNS"),("ey","NN"),("eys","NNS"),("space","NN"),("spaces","NNS"),("bly","RB"),("rance","NN")]
 
 tinyDictionary = {",":",",".":".",";":";","?":"?","!":"!",":":":","$":"$",#punctuation
-    "a":"DT","an":"DT","any":"DT","the":"DT","this":"DT","these":"DT","those":"DT", "another":"DT", #determiners
+    "a":"DT","an":"DT","any":"DT","the":"DT","this":"DT","these":"DT","those":"DT","no":"DT", #determiners
     "my":"PRP$", "your":"PRP$","its":"PRP$","our":"PRP$", "their":"PRP$","his":"PRP$",#posessive pronouns
     "and":"CC","or":"CC", "but":"CC","&":"CC", "nor":"CC","yet":"CC",#coordingating conjuctions
-    "in":"IN","by":"IN", "of":"IN","for":"IN","with":"IN","on":"IN","at":"IN","from":"IN","into":"IN","because":"IN",
-    "through":"IN", "after":"IN", "over":"IN","between":"IN","before":"IN","during":"IN","under":"IN",
-    "whether":"IN", "while":"IN","about":"IN", "toward":"IN" , "towards":"IN", "as":"IN", "than":"IN","aboard":"IN","across":"IN",#prepositions
+    "in":"IN","by":"IN", "of":"IN","for":"IN","with":"IN","on":"IN","at":"IN","from":"IN","into":"IN","because":"IN","until":"IN","till":"IN",
+    "through":"IN", "after":"IN", "over":"IN","between":"IN","before":"IN","during":"IN","under":"IN","out":"IN","since":"IN","if":"IN",
+    "whether":"IN", "while":"IN","about":"IN", "toward":"IN" , "towards":"IN", "as":"IN", "than":"IN","aboard":"IN","across":"IN",
+    "though":"IN","although":"IN",#prepositions
     "me":"PRP","him":"PRP","us":"PRP","them":"PRP","i":"PRP","she":"PRP","he":"PRP","we":"PRP","they":"PRP",
     "it":"PRP", "you":"PRP", #personal pronouns
-    "more":"JJR","least":"JJS",
+    "more":"JJR","least":"JJS","bad":"JJ", "red":"JJ",
     "cannot":"MD","could":"MD","may":"MD", "must":"MD", "ought":"MD", "shall":"MD", "should":"MD", "would":"MD",#modals
-    "have":"V","having":"VBG","has":"VBZ","be":"VB","was":"VBD","were":"VBD","been":"VBN","am":"VPB","are":"VBP", "bring":"V",
+    "have":"V","having":"VBG","has":"VBZ","be":"VB","was":"VBD","were":"VBD","been":"VBN","am":"VPB","are":"VBP", "bring":"V","being":"V",
     "is":"VBZ", "do":"VBP","did":"VBD", "doing":"VBG", "done":"VBN", "does":"VBZ", "'ve":"VBP", "'d":"MD",
     "'m":"VBP", "'re":"VBP", "'ll":"MD", "had":"VBD", "need":"V", #aux verbs
     "something":"NN", "nothing":"NN", "anything":"NN", "everything":"NN", "someone":"NN", "everyone":"NN",
     "anyone":"NN", "everybody":"NN", "somebody":"NN", "people":"NNS",#indefinite pronouns
     "now":"RB", "then":"RB", "always":"RB","today":"RB","yesterday":"RB", "not":"RB","n't":"RB","also":"RB", "else":"RB",
-    "never":"RB", "here":"RB", "once":"RB","too":"RB","often":"RB",#adverbs
-    "how":"WRB", "why":"WRB","when":"WRB","where":"WRB","what":"WP","who":"WP",
+    "never":"RB", "here":"RB", "once":"RB","too":"RB","often":"RB","ago":"RB","ususally":"RB",#adverbs
+    "how":"WRB", "why":"WRB","when":"WRB","where":"WRB","what":"WP","who":"WP","whose":"WP$",
     "other":"JJ", "much":"JJ","many":"JJ","one":"CD","two":"CD","three":"CD","four":"CD","five":"CD","six":"CD","seven":"CD","eight":"CD","nine":"CD",
     "ten":"CD","eleven":"CD","twelve":"CD","thirteen":"CD","fourteen":"CD","fifteen":"CD","sixteen":"CD","seventeen":"CD",
     "eighteen":"CD","nineteen":"CD","twenty":"CD","thirty":"CD","forty":"CD","fifty":"CD","sixty":"CD","seventy":"CD",
-    "eighty":"CD","ninety":"CD","hundred":"CD","thousand":"CD","million":"CD","billion":"CD"
+    "eighty":"CD","ninety":"CD","hundred":"CD","thousand":"CD","million":"CD","billion":"CD","thing":"NN"
     }
 
 #Tags anything starting with a captial letter as NNP (excluding first word in sentence)

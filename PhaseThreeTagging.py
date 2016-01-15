@@ -524,6 +524,34 @@ def POS_UNK_V_NounTagger(sent):
     return sentToReturn
 
 
+#tags words between POS/PRP$  and V as N
+def be_ble_IN_AdjectiveTagger(sent):
+    sentToReturn = []
+
+    for i in range(len(sent)):
+
+        if (i-1)<0 | (i+1)>=len(sent):
+            sentToReturn += [sent[i]]
+            continue
+
+        leftContext = sent[i-1]
+        target = sent[i]
+        rightContext = sent[i+1]
+
+
+        if((leftContext[0].lower()=="'s")|(leftContext[0].lower()=="is")|(leftContext[0].lower()=="was")|(leftContext[0].lower()=="were")|
+               (leftContext[0].lower()=="be"))&((rightContext[1]=="IN")|(rightContext[0].lower()=="to"))&(target[1]=='UNK'):
+
+            newTup = (target[0], "J")
+            sentToReturn += [newTup]
+
+        else:
+            sentToReturn += [target]
+
+    return sentToReturn
+
+
+
 #tags words between MD and "to" as V
 def MD_UNK_to_VerbTagger(sent):
     sentToReturn = []
@@ -564,7 +592,7 @@ def be_UNK_PUNC_AdjectiveTagger(sent):
         rightContext = sent[i+1]
 
 
-        if((leftContext[0].lower()=="'s")|(leftContext[0].lower()=="is")|(leftContext[0].lower()=="was")|
+        if(((leftContext[0].lower()=="'s")&(leftContext[1].startswith("V")))|(leftContext[0].lower()=="is")|(leftContext[0].lower()=="was")|
            (leftContext[0].lower()=="were")|(leftContext[0].lower()=="be"))&((rightContext[0] == ".")|(rightContext[0] == "!")|
                                                                              (rightContext[0] == "?"))&(target[1]=='UNK'):
 
@@ -591,9 +619,114 @@ def COMMA_ing_DT_VerbTagger(sent):
         rightContext = sent[i+1]
 
 
-        if(leftContext[0]==",")&(rightContext[1] == "DT")&(target[1]=='UNK'):
+        if(leftContext[0]==",")&(rightContext[1] == "DT")&(target[1]=='UNK')&(target[0].lower().endswith("ing")):
 
             newTup = (target[0], "VBG")
+            sentToReturn += [newTup]
+
+        else:
+            sentToReturn += [target]
+
+    return sentToReturn
+
+
+#tags words between "have" and PRP as V
+def have_UNK_PRP_VerbTagger(sent):
+    sentToReturn = []
+
+    for i in range(len(sent)):
+
+        if (i-1)<0 | (i+1)>=len(sent):
+            sentToReturn += [sent[i]]
+            continue
+
+        leftContext = sent[i-1]
+        target = sent[i]
+        rightContext = sent[i+1]
+
+
+        if((leftContext[0].lower()=="has")|(leftContext[0].lower()=="have")|(leftContext[0].lower()=="had"))&\
+                (rightContext[1] == "PRP")&(target[1]=='UNK'):
+
+            newTup = (target[0], "V")
+            sentToReturn += [newTup]
+
+        else:
+            sentToReturn += [target]
+
+    return sentToReturn
+
+#tags "to" between J and V as TO
+def J_to_V_TOTagger(sent):
+    sentToReturn = []
+
+    for i in range(len(sent)):
+
+        if (i-1)<0 | (i+1)>=len(sent):
+            sentToReturn += [sent[i]]
+            continue
+
+        leftContext = sent[i-1]
+        target = sent[i]
+        rightContext = sent[i+1]
+
+
+        if(leftContext[1].startswith("J"))&\
+                (rightContext[1].startswith("V"))&(target[1]=='UNK')&(target[0].lower()=="to"):
+
+            newTup = (target[0], "TO")
+            sentToReturn += [newTup]
+
+        else:
+            sentToReturn += [target]
+
+    return sentToReturn
+
+#tags UNK between J and V as N
+def J_UNK_V_NounTagger(sent):
+    sentToReturn = []
+
+    for i in range(len(sent)):
+
+        if (i-1)<0 | (i+1)>=len(sent):
+            sentToReturn += [sent[i]]
+            continue
+
+        leftContext = sent[i-1]
+        target = sent[i]
+        rightContext = sent[i+1]
+
+
+        if(leftContext[1].startswith("J"))&\
+                (rightContext[1].startswith("V"))&(target[1]=='UNK'):
+
+            newTup = (target[0], "N")
+            sentToReturn += [newTup]
+
+        else:
+            sentToReturn += [target]
+
+    return sentToReturn
+
+
+#tags words between a comma and DT and ending in "en" as V
+def COMMA_ed_DT_VerbTagger(sent):
+    sentToReturn = []
+
+    for i in range(len(sent)):
+
+        if (i-1)<0 | (i+1)>=len(sent):
+            sentToReturn += [sent[i]]
+            continue
+
+        leftContext = sent[i-1]
+        target = sent[i]
+        rightContext = sent[i+1]
+
+
+        if(leftContext[0]==",")&(rightContext[1] == "DT")&(target[1]=='UNK')&(target[0].lower().endswith("en")):
+
+            newTup = (target[0], "V")
             sentToReturn += [newTup]
 
         else:
@@ -706,8 +839,8 @@ def V_IN_ing_VerbTagger(sent):
 
 
 
-#tags words between IN and IN and ending in "ent" or "es" as N
-def IN_UNK_IN_NounTagger(sent):
+#tags words between IN and IN and ending in "ent" or "es" as N*********this is the old version of IN_UNK_IN_NounTagger()
+def IN_UNK_IN_NounTaggerOLD(sent):
     sentToReturn = []
 
     for i in range(len(sent)):
@@ -827,6 +960,32 @@ def PRP_UNK_PRPS_VerbTagger(sent):
         if(leftContext[1]=="PRP")&((rightContext[1]=="PRP$")|(rightContext[0].lower()=="her"))&(target[1]=='UNK'):
 
             newTup = (target[0], "V")
+            sentToReturn += [newTup]
+
+        else:
+            sentToReturn += [target]
+
+    return sentToReturn
+
+
+#tags words between PRPS and V  as N
+def PRPS_UNK_V_NounTagger(sent):
+    sentToReturn = []
+
+    for i in range(len(sent)):
+
+        if (i-1)<0 | (i+1)>=len(sent):
+            sentToReturn += [sent[i]]
+            continue
+
+        leftContext = sent[i-1]
+        target = sent[i]
+        rightContext = sent[i+1]
+
+
+        if((leftContext[1]=="PRP$")|(leftContext[1]=="WP$"))&(rightContext[1].startswith("V"))&(target[1]=="UNK"):
+
+            newTup = (target[0], "N")
             sentToReturn += [newTup]
 
         else:
@@ -1625,6 +1784,97 @@ def DT_UNK_that_NounTagger(sent):
     for i in range(3,len(sent)):
         sentToReturn.append(sent[i])
 
+    return sentToReturn
 
+#tags words no longer/sooner V as RB/RBR
+def no_longer_V_RBRTagger(sent):
+    sentToReturn = []
+    skip = 0
+
+    for i in range(len(sent)):
+
+        if skip>0:
+            skip = skip -1
+            continue
+
+        if (i)<0 | (i+2)>=len(sent):
+            sentToReturn += [sent[i]]
+            continue
+
+        leftContext = sent[i]
+        target = sent[i+1]
+        rightContext = sent[i+2]
+
+        if (leftContext[0].lower()=="no")&((target[0].lower()=="sooner")|(target[0].lower()=="longer"))&(rightContext[1].startswith("V")):
+
+            sentToReturn += [(leftContext[0],"RB")]
+            sentToReturn += [(target[0],"RBR")]
+            sentToReturn += [rightContext]
+            skip = 2
+
+        else:
+            sentToReturn += [leftContext]
+
+    return sentToReturn
+
+#tags words ending in "ed" between "another" and PRP$ as V
+def another_ed_PRPS_VerbTagger(sent):
+    sentToReturn = []
+    skip = 0
+
+    for i in range(len(sent)):
+
+        if skip>0:
+            skip = skip -1
+            continue
+
+        if (i)<0 | (i+2)>=len(sent):
+            sentToReturn += [sent[i]]
+            continue
+
+        leftContext = sent[i]
+        target = sent[i+1]
+        rightContext = sent[i+2]
+
+        if (leftContext[0].lower()=="another")&((target[0].lower().endswith("ed")))&(rightContext[1]=="PRP$"):
+
+            sentToReturn += [(leftContext[0],"DT")]
+            sentToReturn += [(target[0],"V")]
+            sentToReturn += [rightContext]
+            skip = 2
+
+        else:
+            sentToReturn += [leftContext]
+
+    return sentToReturn
+
+#tags words betweeen IN and IN as N
+def IN_UNK_IN_NounTagger(sent):
+    sentToReturn = []
+    skip = 0
+
+    for i in range(len(sent)):
+
+        if skip>0:
+            skip = skip -1
+            continue
+
+        if (i)<0 | (i+2)>=len(sent):
+            sentToReturn += [sent[i]]
+            continue
+
+        leftContext = sent[i]
+        target = sent[i+1]
+        rightContext = sent[i+2]
+
+        if (leftContext[1]=="IN")&((target[1]=="UNK"))&(rightContext[1]=="IN"):
+
+            sentToReturn += [leftContext]
+            sentToReturn += [(target[0],"N")]
+            sentToReturn += [rightContext]
+            skip = 2
+
+        else:
+            sentToReturn += [leftContext]
 
     return sentToReturn

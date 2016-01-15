@@ -1,7 +1,7 @@
 #uses immediate context (left or right) to tag POS
 
 
-#tags anything 'to' before DT or PRP$ or NNP as 'IN'(preposition)
+#tags anything 'to' before DT or PRP$ or NNP or CD as 'IN'(preposition)
 def to_INtagger(sent):
     sentToReturn = []
 
@@ -9,7 +9,7 @@ def to_INtagger(sent):
         target = sent[i]
         context = sent[i+1]
 
-        if (target[0].lower()=="to")&((context[1]=='DT')|(context[1]=='PRP$')|(context[1]=='NNP')):
+        if (target[0].lower()=="to")&((context[1]=='DT')|(context[1]=='PRP$')|(context[1]=='NNP')|(context[1]=="CD")):
             newTup = (target[0], 'IN')
             sentToReturn += [newTup]
         else:
@@ -334,6 +334,25 @@ def can_PRP_MDTagger(sent):
     sentToReturn += [sent[len(sent)-1]]
     return sentToReturn
 
+
+##tags "ing" as VBG when followed by "for"
+def ing_for_VerbTagger(sent):
+
+    sentToReturn = []
+
+    for i in range(len(sent)-1):
+        target = sent[i]
+        context = sent[i+1]
+
+        if (target[1]=="UNK")&(target[0].endswith("ing"))&(context[0].lower()=="for"):
+
+            newTup = (target[0], 'VBG')
+
+            sentToReturn += [newTup]
+        else:
+            sentToReturn += [target]
+    sentToReturn += [sent[len(sent)-1]]
+    return sentToReturn
 
 #tags anything ***at beginning of sent*** followed by "who" as NNS.
 def UNK_who_NounTagger(sent):

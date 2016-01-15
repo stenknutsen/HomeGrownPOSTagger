@@ -3,6 +3,7 @@ from nltk import*
 from PhaseOneTagging import*
 from PhaseTwoTagging import*
 from PhaseThreeTagging import*
+from PhaseFourTagging import*
 #s="He's a nice guy."
 ##s="He then emphasizes how investments in technology in particular might solve these problems."
 #s ="Take his efforts to limit carbon emissions through the Environmental Protection Agency, or put a price on carbon."
@@ -51,7 +52,6 @@ from PhaseThreeTagging import*
 
 #s="Legendary rock musician David Bowie, who influenced generations of musicians and fans, died on Sunday, two days after his 69th birthday."
 
-s="But even far from his home in Virginia and past his personal prime, the first president seemed quite at home creating a tradition."
 
 
 #s="In the past century, an earlier version of this fungus wiped out commercial plantings of a banana variety called Gros Michel that once dominated the global banana trade."
@@ -83,11 +83,46 @@ s="But Mr. Obama, who campaigned for president on promises of hope and change, a
 
 #s="The company, based in Silicon Valley, is now valued at $50 billion, but many analysts rapturously say its efforts to reinvent TV could be worth several times more."
 
-s="And while much of the region is notable for sprawling meadows dotted with daffodils and storybook villages with cozy stone houses, Cheltenham feels more like a sophisticated mini metropolis."
+s="And while much of the region is notable for sprawling meadows dotted with daffodils and storybook villages with cozy stone houses, Cheltenham feels more like a sophisticated metropolis."
 
 #s="The idea is that doctors can focus on treating patients, since they no longer have to wade through heaps of insurance paperwork."
 
-s="In the kitchen of a small eatery in Reyhanli, Turkey, Abu Mohammed took a break from deboning the flank of a freshly slaughtered lamb to opine on grave matters happening just across the border in Syria."
+#s="In the kitchen of a small eatery in Reyhanli, Turkey, Abu Mohammed took a break from deboning the flank of a freshly slaughtered lamb to opine on grave matters happening just across the border in Syria."
+
+#s="But even far from his home in Virginia and past his personal prime, the first president seemed quite at home creating a tradition."
+
+#s="The main force pulling the average age to the older end of the spectrum is a decrease in the number of teen moms, the researchers say."
+
+#s="Blessed with a rich and deep voice, the actor brought intelligence and humanity to a wide spectrum of roles, judiciously deploying what seemed to be a bottomless supply of frowns and smirks that endeared him to his fans."
+
+#s="There's a battle royale going on among the establishment candidates, all trying to edge the other out, especially in New Hampshire."
+
+#s="It's possible to drink too much beer, but can you eat too many cherries?"
+
+#s="In the case of Tesla, whose brand represents a kind of sustainable luxe, many vegans have complained that it makes no sense for an eco-friendly car to include animal products, given the significant amount of greenhouse gases the industrial agriculture sector emits."
+s="President Obama vowed to close Guantanamo Bay shortly after he took office in 2009 and has made it a point in nearly all of his State of the Union addresses, most recently in Tuesday night's speech."
+
+s="The researchers found that the women judged as least attractive earned significantly lower grades, after controlling for their ACT scores."
+
+
+s="I recommend being sick in bed especially when you are not that sick."
+
+s="Recipes using wine are notably less common today than they were half a century ago, when every fondue pot and chafing dish released rich gusts of boozy vapor."
+
+s="A local medic has been surviving on the rehydration salts he gives patients, while a business school graduate picks grass to make soup for his 70-year-old father, consulting shepherds about which ones their long-since-slaughtered flocks liked best."
+
+s="Too bad there are more than 340 shopping days till Christmas, because if it were just around the corner, I'd be urging you to buy Helen Ellis' off-the-wall stories for anyone on your list who loves satirical humor as twisted as screw-top bottles, and more effervescent than the stuff that pours out of them. "
+
+s="Though sentenced to five years in prison for the coup, Hitler wound up serving less than one year."####TWO INSTANCES BETWEEN "IN"
+
+s="The situation is so dire that some health officials in Brazil have suggested that women in places with high rates of Zika transmission should avoid getting pregnant."
+
+s="I drove to college so that my sister did not have to."
+
+s="Another submerged his hand in a pan of leftover chicken curry, to challenge his natural fastidiousness."
+
+s="A mind-boggling stellar explosion is baffling astronomers, who say this cosmic beast is so immensely powerful that no one's sure exactly what made it go boom."
+
 
 #takes sentence, tokenizes and renders default POS tag form
 def conditionSentence(sent):
@@ -122,21 +157,44 @@ finalSent = endingClusterTagger(finalSent)
 #
 #
 ######################################
-#tags words between "to" and "IN" as V, and then tags "to" as TO  ****NEW****
+#tags words ending in "ed" between "another" and PRP$ as V  ****NEW****
+finalSent = another_ed_PRPS_VerbTagger(finalSent)
+##tags "ing" as VBG when followed by "for"  ****NEW****
+finalSent = ing_for_VerbTagger(finalSent)
+#tags words between IN and "," ending in "ble" and UNK, as J and N  ****NEW****
+finalSent =  IN_able_UNK_PUNC_Tagger(finalSent)
+
+#tags word between IN, N and "." as N ****NEW****
+finalSent = IN_N_UNK_PUNC_Tagger(finalSent)
+#tags words between "IN" and "." as J and N  ****NEW****
+finalSent =  IN_UNK_UNK_PUNC_Tagger(finalSent)
+#tags words between "have" and PRP as V  ****NEW****
+finalSent = have_UNK_PRP_VerbTagger(finalSent)
+#tags words between IN and DT as J and N  ****NEW****NOT SURE ON THIS ONE. . . .
+finalSent = IN_UNK_UNK_DT_Tagger(finalSent)
+#tags words between a comma and DT and ending in "ed" as V
+finalSent = COMMA_ed_DT_VerbTagger(finalSent)
+#tags words between "DT" and "." as J and N   ****NEW****
+finalSent = ing_what_UNK_to_Tagger(finalSent)
+#tags words between "DT" and "." as J and N  ****NEW****
+finalSent = DT_UNK_UNK_PUNC_Tagger(finalSent)
+#tags words between POS/PRP$  and V as N  ****NEW****
+finalSent =  be_ble_IN_AdjectiveTagger(finalSent)
+#tags words between "to" and "IN" as V, and then tags "to" as TO
 finalSent = to_UNK_IN_VerbTagger(finalSent)
-#tags words between "can" and IN as V, and then tags "can" as MD  ****NEW****
+#tags words between "can" and IN as V, and then tags "can" as MD
 finalSent = can_UNK_IN_VerbTagger(finalSent)
-#tags "that" between V and N as IN  ****NEW****MIGHT BE MOVED FURTHER DOWN AT SOME POINT
+#tags "that" between V and N as IN  ********MIGHT BE MOVED FURTHER DOWN AT SOME POINT
 finalSent =  V_that_N_PrepositionTagger(finalSent)
-#tags words between IN and IN and ending in "ent" or "es" as N  ****NEW****CAN TO ADD TO THIS
+#tags words between IN and IN and ending in "ent" or "es" as N  ********CAN TO ADD TO THIS*****replaced OLD VERSION 1.14.2016********
 finalSent = IN_UNK_IN_NounTagger(finalSent)
-#tags words between PRP$ and "to" as N  ****NEW****
+#tags words between PRP$ and "to" as N
 finalSent = PRPS_UNK_to_NounTagger(finalSent)
-#tags words between a comma and DT and ending in "ing" as VBG  ****NEW****
+#tags words between a comma and DT and ending in "ing" as VBG
 finalSent = COMMA_ing_DT_VerbTagger(finalSent)
-#tags words between "be" verbs  and PUNC at end of sentence as JJ  ****NEW****
+#tags words between "be" verbs  and PUNC at end of sentence as JJ
 finalSent = be_UNK_PUNC_AdjectiveTagger(finalSent)
-##tags "can" as MD when followed by PRP  ****NEW****
+##tags "can" as MD when followed by PRP
 finalSent = can_PRP_MDTagger(finalSent)
 #tags words between PRP and PRPS  as V
 finalSent = PRP_UNK_PRPS_VerbTagger(finalSent)
@@ -235,8 +293,6 @@ finalSent = modal_VB_DTTagger(finalSent)
 finalSent = can_might_will_VBTagger(finalSent)
 
 
-#finalSent = DT_ADJ_NTagger(finalSent)*********NEEDS REPAIR/REPLACEMENT
-
 ##second pass thorough this
 finalSent = DT_IN_NounTagger(finalSent)
 
@@ -273,21 +329,54 @@ finalSent =  RB_ed_DT_VerbTagger(finalSent)
 finalSent = J_UNK_IN_VerbTagger(finalSent)
 #tags words between "who" and J as V
 finalSent = who_UNK_J_VerbTagger(finalSent)
-#tags words between "to" and "too as V, and then tags "to" as TO  ****NEW****
+#tags words between "to" and "too as V, and then tags "to" as TO
 finalSent = IN_UNK_CC_NounTagger(finalSent)
-#tags words between PRP and "too" as V  ****NEW****
+#tags words between PRP and "too" as V
 finalSent = PRP_UNK_to_VerbTagger(finalSent)
-#tags words between JJ and PUNC as N  ****NEW****
+#tags words between JJ and PUNC as N
 finalSent =  JJ_UNK_PUNC_NounTagger(finalSent)
-#tags words between "be" verb and TO as JJ  ****NEW****
+#tags words between "be" verb and TO as JJ
 finalSent = be_UNK_TO_AdjectiveTagger(finalSent)
-#tags words between POS/PRP$  and V as N  ****NEW****
+#tags words between POS/PRP$  and V as N
 finalSent = POS_UNK_V_NounTagger(finalSent)
-#tags words between J and RB as N  ****NEW****
+#tags words between J and RB as N
 finalSent = J_UNK_RB_NounTagger(finalSent)
-#tags words between RB and PRP$ as V  ****NEW****TRIAL ONLY****
+#tags words between RB and PRP$ as V  ********TRIAL ONLY****
 finalSent = RB_UNK_PRPS_VerbTagger(finalSent)
-#tags words after V and IN ending in "ing" as VBG  ****NEW****TRIAL ONLY*****
+#tags words after V and IN ending in "ing" as VBG  ********TRIAL ONLY*****
 finalSent = V_IN_ing_VerbTagger(finalSent)
+#tags words between PRPS and V  as N  ****NEW****
+finalSent = PRPS_UNK_V_NounTagger(finalSent)
+#tags words between N and "that" DT as V and IN ****NEW****
+finalSent = N_UNK_that_DT_Tagger(finalSent)
+#tags word between IN/PRP$, N and "." as J  ****NEW****
+finalSent =  IN_UNK_N_PUNC_Tagger(finalSent)
+
+
+###The following two functions must be in this order
+#tags "to" between J and V as TO  ****NEW****
+finalSent = J_to_V_TOTagger(finalSent)
+#tags UNK between J and V as N  ****NEW****
+finalSent = J_UNK_V_NounTagger(finalSent)
+
+
+#tags words between "DT" and "IN" as J and N ****NEW****PHASE FOUR****
+finalSent =  DT_UNK_UNK_IN_Tagger(finalSent)
+
+
+
+
+
+#####################################################
+#
+#
+#
+#
+#Funcions from here down trump anything above
+#
+#
+#
+#tags words no longer/sooner V as RB/RBR ****NEW****KEEP AT END
+finalSent =  no_longer_V_RBRTagger(finalSent)
 
 print(finalSent)
