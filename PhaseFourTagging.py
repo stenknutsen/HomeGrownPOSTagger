@@ -362,3 +362,39 @@ def N_UNK_that_DT_Tagger(sent):
             sentToReturn += [leftContext]
 
     return sentToReturn
+
+
+#tags words between DT and "," N as N
+def DT_UNK_PUNC_N_Tagger(sent):
+    sentToReturn = []
+    skip = 0
+
+    for i in range(len(sent)):
+
+        if skip>0:
+            skip = skip -1
+            continue
+
+
+        if (i)<0 | (i+3)>=len(sent):
+            sentToReturn += [sent[i]]
+            continue
+
+        leftContext = sent[i]
+        leftTarget = sent[i+1]
+        rightTarget = sent[i+2]
+        rightContext = sent[i+3]
+
+
+        if (leftContext[1]=="DT")&(leftTarget[1]=="UNK")&(rightTarget[1]==",")&(rightContext[1].startswith("N")):
+
+            sentToReturn += [leftContext]
+            sentToReturn += [(leftTarget[0], "N")]
+            sentToReturn += [rightTarget]
+            sentToReturn += [rightContext]
+            skip = 3
+
+        else:
+            sentToReturn += [leftContext]
+
+    return sentToReturn

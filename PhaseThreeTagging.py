@@ -1878,3 +1878,66 @@ def IN_UNK_IN_NounTagger(sent):
             sentToReturn += [leftContext]
 
     return sentToReturn
+
+#tags "to" as TO between V and "."
+def V_to_PUNC_TOTagger(sent):
+    sentToReturn = []
+    skip = 0
+
+    for i in range(len(sent)):
+
+        if skip>0:
+            skip = skip -1
+            continue
+
+        if (i)<0 | (i+2)>=len(sent):
+            sentToReturn += [sent[i]]
+            continue
+
+        leftContext = sent[i]
+        target = sent[i+1]
+        rightContext = sent[i+2]
+
+        if (leftContext[1].startswith("V"))&((target[1]=="UNK")&(target[0].lower()=="to"))&(rightContext[1]=="."):
+
+            sentToReturn += [leftContext]
+            sentToReturn += [(target[0],"TO")]
+            sentToReturn += [rightContext]
+            skip = 2
+
+        else:
+            sentToReturn += [leftContext]
+
+    return sentToReturn
+
+
+#tags words following V and RB and ending in "ing" as VBG
+def V_RB_ing_VerbTagger(sent):
+    sentToReturn = []
+    skip = 0
+
+    for i in range(len(sent)):
+
+        if skip>0:
+            skip = skip -1
+            continue
+
+        if (i)<0 | (i+2)>=len(sent):
+            sentToReturn += [sent[i]]
+            continue
+
+        leftContext = sent[i]
+        target = sent[i+1]
+        rightContext = sent[i+2]
+
+        if (leftContext[1].startswith("V"))&((target[1]=="RB"))&(rightContext[0].lower().endswith("ing")):
+
+            sentToReturn += [leftContext]
+            sentToReturn += [target]
+            sentToReturn += [(rightContext[0],"VBG")]
+            skip = 2
+
+        else:
+            sentToReturn += [leftContext]
+
+    return sentToReturn
