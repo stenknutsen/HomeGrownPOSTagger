@@ -4,6 +4,10 @@ from PhaseOneTagging import*
 from PhaseTwoTagging import*
 from PhaseThreeTagging import*
 from PhaseFourTagging import*
+from PhaseFiveTagging import*
+
+s="After seven years of research and writing, Wouk had a draft of 1000 pages, which he presented to his wife who worked closely with him on all his books."
+s="But while the companies were promising, Mr. Rubin invested in several technologies that had industry observers scratching their heads about his overall direction."
 s="Though sentenced to five years in prison for the coup, Hitler wound up serving less than one year."####TWO INSTANCES BETWEEN "IN"
 s="I drove to college so that my sister did not have to."
 #s="He's a nice guy."
@@ -11,9 +15,13 @@ s="I drove to college so that my sister did not have to."
 #s ="Take his efforts to limit carbon emissions through the Environmental Protection Agency, or put a price on carbon."
 #s=  "It was going to give people small sums of money to see whether the market forces, the information held by different people being aggregated in the market, could serve as a kind of predictive tool to lay alongside all the other predictive tools that people use."
 #s="it was brillig, and the slithy toves did gyre and gimble in the wabe all mimsy were the borogoves and the mome raths outgrabe."
-#s="And, Levenson says that according to the prevailing science of the time, there was a clear explanation for that: another planet that we hadn't yet discovered, inside the orbit of Mercury, that could tug it just slightly off its expected course."
+
+
+#**JUST**s="And, Levenson says that according to the prevailing science of the time, there was a clear explanation for that: another planet that we hadn't yet discovered, inside the orbit of Mercury, that could tug it just slightly off its expected course."
+
+
 #s = "He emphasizes, a study suggests that's because the pain of loneliness activates the immune pattern of a primordial response commonly known as fight or flight or qualities of childhood."
-#s = "It was going to give people small sums of money to see whether the market forces, the information held by different people being aggregated in the market, could serve as a kind of predictive tool to lay alongside all the other predictive tools that people use."
+s = "It was going to give people small sums of money to see whether the market forces, the information held by different people being aggregated in the market, could serve as a kind of predictive tool to lay alongside all the other predictive tools that people use."
 #####s="Slowly, as the beautiful, unbound melodies introduced by his knife-edged saxophone remained in liquid currency, we realized that he had rewritten the rulebook."
 ##s="The rise of vegetables and focus on food waste are the culmination of more than a decade's worth of government, consumer and food and environmental activists' concerns that have finally trickled into the mainstream."
 ######s = "But the current process of diagnosis amounts to giving a questionnaire to parents and doctors."
@@ -24,7 +32,7 @@ s="I drove to college so that my sister did not have to."
 
 ##s="With North Korea announcing it conducted a nuclear test of a hydrogen bomb, China, India, Russia and other nations are condemning the move."
 
-#s="The intentions of all of our policy statements are the same: to translate the best available data on child health and development into recommendations that help parents, health care providers and policymakers work together to foster children's optimal well-being."
+s="The intentions of all of our policy statements are the same: to translate the best available data on child health and development into recommendations that help parents, health care providers and policymakers work together to foster children's optimal well-being."
 
 
 #s="Being a Star Wars fan, I approached the movie theater with trepidation, worried that the new episode would flop. "
@@ -85,11 +93,11 @@ s="But Mr. Obama, who campaigned for president on promises of hope and change, a
 
 #s="The company, based in Silicon Valley, is now valued at $50 billion, but many analysts rapturously say its efforts to reinvent TV could be worth several times more."
 
-s="And while much of the region is notable for sprawling meadows dotted with daffodils and storybook villages with cozy stone houses, Cheltenham feels more like a sophisticated metropolis."
+#s="And while much of the region is notable for sprawling meadows dotted with daffodils and storybook villages with cozy stone houses, Cheltenham feels more like a sophisticated metropolis."
 
 #s="The idea is that doctors can focus on treating patients, since they no longer have to wade through heaps of insurance paperwork."
 
-#s="In the kitchen of a small eatery in Reyhanli, Turkey, Abu Mohammed took a break from deboning the flank of a freshly slaughtered lamb to opine on grave matters happening just across the border in Syria."
+##JUST##s="In the kitchen of a small eatery in Reyhanli, Turkey, Abu Mohammed took a break from deboning the flank of a freshly slaughtered lamb to opine on grave matters happening just across the border in Syria."
 
 #s="But even far from his home in Virginia and past his personal prime, the first president seemed quite at home creating a tradition."
 
@@ -97,7 +105,7 @@ s="And while much of the region is notable for sprawling meadows dotted with daf
 
 #s="Blessed with a rich and deep voice, the actor brought intelligence and humanity to a wide spectrum of roles, judiciously deploying what seemed to be a bottomless supply of frowns and smirks that endeared him to his fans."
 
-#s="There's a battle royale going on among the establishment candidates, all trying to edge the other out, especially in New Hampshire."
+s="There's a battle royale going on among the establishment candidates, all trying to edge the other out, especially in New Hampshire."
 #s="Another submerged his hand in a pan of leftover chicken curry, to challenge his natural fastidiousness."
 #s="It's possible to drink too much beer, but can you eat too many cherries?"
 
@@ -105,20 +113,48 @@ s="And while much of the region is notable for sprawling meadows dotted with daf
 
 s="President Obama vowed to close Guantanamo Bay shortly after he took office in 2009 and has made it a point in nearly all of his State of the Union addresses, most recently in Tuesday night's speech."
 
-s="The researchers found that the women judged as least attractive earned significantly lower grades, after controlling for their ACT scores."
+#s="The researchers found that the women judged as least attractive earned significantly lower grades, after controlling for their ACT scores."
 
 
-s="I recommend being sick in bed especially when you are not that sick."
+#s="I recommend being sick in bed especially when you are not that sick."
 
-s="Recipes using wine are notably less common today than they were half a century ago, when every fondue pot and chafing dish released rich gusts of boozy vapor."
+#s="Recipes using wine are notably less common today than they were half a century ago, when every fondue pot and chafing dish released rich gusts of boozy vapor."
 
-s="A local medic has been surviving on the rehydration salts he gives patients, while a business school graduate picks grass to make soup for his 70-year-old father, consulting shepherds about which ones their long-since-slaughtered flocks liked best."
+#s="A local medic has been surviving on the rehydration salts he gives patients, while a business school graduate picks grass to make soup for his 70-year-old father, consulting shepherds about which ones their long-since-slaughtered flocks liked best."
 
 s="Too bad there are more than 340 shopping days till Christmas, because if it were just around the corner, I'd be urging you to buy Helen Ellis' off-the-wall stories for anyone on your list who loves satirical humor as twisted as screw-top bottles, and more effervescent than the stuff that pours out of them."
 
 #s="The situation is so dire that some health officials in Brazil have suggested that women in places with high rates of Zika transmission should avoid getting pregnant."
 
 #s="A mind-boggling stellar explosion is baffling astronomers, who say this cosmic beast is so immensely powerful that no one's sure exactly what made it go boom."
+
+#s="Anders Kvernberg was deep in the vaults of the National Library of Norway when a beautiful atlas caught his eye."
+
+s="As part of the landmark deal, Iran agreed to reduce its stockpile of uranium, remove centrifuges and allow for more intrusive inspection, among other things. "
+#s="I agreed that it was a good idea and dutifully made the referral to the gastroenterologist."
+#s="When the report came back a few weeks later, I was pleased to learn there were no polyps found."
+#s="And tracking acts of violence against animals may help law enforcement intervene before that develops into violence against people."
+s="Given these considerable challenges, it isn't surprising that cooking from scratch is the exception in our country's schools."
+
+
+s="Just a few years later, the Plaza wound up in bankruptcy protection, part of a vast and humiliating restructuring of some $900 million of personal debt that Mr. Trump owed to a consortium of banks."
+
+s="Their feces can set off asthma symptoms and cause allergic reactions in some people."
+
+s="I like to give the dough a refrigerated rest, for a few hours at least, preferably overnight."
+s="At the spiritual heart of the pinboard is a small black and white snap of Susan Sontag that overlaps with a photograph of Virginia Woolf's ink-stained desktop."
+
+s="Thanks to the startup boom, a host of companies have recently sprung up that aim to make everything from headphones to ballerina flats perfectly personal, with intuitive sites and apps that allow you to explore your own preferences in great detail."
+
+s="Though more contemporary than the five museums built before it (three of which are in castles), this one, like the others, recreates, in a pleasurably primitive way, the experience of scaling a mountain."
+
+#s="The terms were laid out last July by Iran, the U.S. and five other world powers."
+
+
+
+
+
+
 
 
 #takes sentence, tokenizes and renders default POS tag form
@@ -154,6 +190,30 @@ finalSent = endingClusterTagger(finalSent)
 #
 #
 ######################################
+#tags words between PRP$ and "can" as N and "can" as MD  ****NEW****
+finalSent = PRPS_UNK_can_NounTagger(finalSent)
+#tags words after DT and "able" as N  ****NEW****
+finalSent = DT_able_UNK_NounTagger(finalSent)
+#                                           ****NEW****
+finalSent = PRPS_UNK_s_UNK_PUNC_Tagger(finalSent)
+#tags words  and between PRP and into as V  ****NEW****
+finalSent = PRP_UNK_into_VerbTagger(finalSent)
+#tags words  and between that and into as V  ****NEW****
+finalSent = that_UNK_into_VerbTagger(finalSent)
+#                                               *****NEW*****
+finalSent =  DT_UNK_UNK_PUNC_N_Tagger(finalSent)
+#tags words between "who" and "ly" IN as V, RB  ****NEW****
+finalSent = who_UNK_ly_IN_Tagger(finalSent)
+##tags "which" followed by PRP as WDT  ****NEW****
+finalSent = which_PRP_WDTTagger(finalSent)
+#tags words between "be so" and "that" as J  *****NEW*****
+finalSent = be_so_UNK_that_Tagger(finalSent)
+#tags words between "who" and DT as V       ****NEW****
+finalSent = who_UNK_DT_VerbTagger(finalSent)
+#tags words between PRP$/DT and "who" as N  ****NEW****
+finalSent = PRPS_UNK_who_NounTagger(finalSent)
+#tags DT UNK that as DT N WDT              *****NEW*****
+finalSent =  DT_UNK_that_WDTTagger(finalSent)
 #tags words ending in "ed" between "another" and PRP$ as V
 finalSent = another_ed_PRPS_VerbTagger(finalSent)
 ##tags "ing" as VBG when followed by "for"
@@ -205,8 +265,8 @@ finalSent = MD_UNK_to_VerbTagger(finalSent)
 finalSent =  UNK_who_NounTagger(finalSent)
 #tags words ending inbetween CD and V as N
 finalSent =  CD_UNK_V_NounTagger(finalSent)
-#tags anything between *ed and out as V
-finalSent =  ed_out_VerbTagger(finalSent)
+#tags anything between d and out as V  ****NEW****MODIFIED 1.16.2016**** changed from "ed" to "d" and removed need for UNK target
+finalSent =  d_out_VerbTagger(finalSent)
 #tags anything between CD and IN as N
 finalSent =  CD_UNK_IN_NounTagger(finalSent)
 #tags anything between CD and PUNC as N
@@ -215,8 +275,8 @@ finalSent =  CD_UNK_PUNC_NounTagger(finalSent)
 finalSent =  PRP_s_toVerbTagger(finalSent)
 #tags anything between DT and PUNC  that ends in "s" as NNS
 finalSent =  DT_s_PUNC_NounTagger(finalSent)
-#tags anything ***at beginning of sent*** between DT and "that" as N. Tags "that" as WDT
-finalSent = DT_UNK_that_NounTagger(finalSent)
+#tags anything ***at beginning of sent*** between DT and "that" as N. Tags "that" as WDT****MADE OBSOLETE BY
+#finalSent = DT_UNK_that_NounTagger(finalSent)**********************************************DT_UNK_THAT_WDTTagger
 #tags anything between "who" and "to" as V
 finalSent =  who_UNK_to_VerbTagger(finalSent)
 #tags anything between PRP$ and IN as N
@@ -242,84 +302,50 @@ finalSent =  ed_her_DT_VerbTagger(finalSent)
 
 #tags instances of 'to' that are prepositions. Uses context.
 finalSent = to_INtagger(finalSent)
-
 finalSent = ed_IN_VBNTagger(finalSent)
 ##order of these rules matters!*
 finalSent = to_RB_TOtagger(finalSent)
-
-#
 finalSent = to_AUX_TOtagger(finalSent)
-
-#
 finalSent = to_be_VBGTagger(finalSent)
-
-
 finalSent = PRP_isVBZTagger(finalSent)
-
 finalSent = existentialThereTagger(finalSent)
-
 finalSent = her_DT_PRPTagger(finalSent)
-
-#phase three tagging
 #
 #
 #
-
+#
 finalSent = to_DT_VerbTagger(finalSent)
-
 finalSent = to_UNK_PRP_VerbTagger(finalSent)
-
 finalSent = DT_noun_POSTagger(finalSent)
-
 finalSent = DT_IN_NounTagger(finalSent)
-
 finalSent = N_DT_VerbTagger(finalSent)
-
 finalSent = DT_PuctuationNounTagger(finalSent)
-
 finalSent = N_by_VerbTagger(finalSent)
-
 finalSent = MD_as_VerbTagger(finalSent)
-
 finalSent = IN_that_PucntuationTagging(finalSent)
-
 finalSent = that_P_VThatTagger(finalSent)
-
 finalSent = modal_VB_DTTagger(finalSent)
-
 finalSent = can_might_will_VBTagger(finalSent)
 
 
 ##second pass thorough this
 finalSent = DT_IN_NounTagger(finalSent)
-
 finalSent = PRP_IN_VerbTagger(finalSent)
-
 finalSent = have_DT_VBNTagger(finalSent)
-
 finalSent = IN_DT_VBGTagger(finalSent)
-
 finalSent = PRP_DT_VerbTagger(finalSent)
-
 finalSent = N_ing_PRP_VerbTagger(finalSent)
-
 finalSent = MD_UNK_PUNC_VerbTagger(finalSent)
-
 finalSent = DT_UNK_WRB_NounTagger(finalSent)
-
 finalSent = DT_UNK_V_NounTagger(finalSent)
-
 finalSent =  N_UNK_up_VerbTagger(finalSent)
 
  #tags words between to/IN/PRP$ as N, and then tags "to" as IN
 finalSent = IN_UNK_CC_NounTagger(finalSent)
-
 #tags anything between who and N  that ends in "s" or "ed" as V
 finalSent =  who_s_N_VerbTagger(finalSent)
-
 ##tags words ending in "ial" followed by N as JJ
 finalSent =  ial_N_JJTagger(finalSent)
-
 #tags anything between RB and DT  that ends in "ed" as V
 finalSent =  RB_ed_DT_VerbTagger(finalSent)
 #tags words between J and IN as N
@@ -352,8 +378,25 @@ finalSent =  IN_UNK_N_PUNC_Tagger(finalSent)
 finalSent =  V_to_PUNC_TOTagger(finalSent)
 #tags words between DT and "," N as N
 finalSent = DT_UNK_PUNC_N_Tagger(finalSent)
-#tags words following V and RB and ending in "ing" as VBG 
+#tags words following V and RB and ending in "ing" as VBG
 finalSent = V_RB_ing_VerbTagger(finalSent)
+##tags "around" followed by DT or N as IN  ****NEW****
+finalSent = around_DT_PrepositionTagger(finalSent)
+#tags words between "that"(WDT) and "out" as V  ****NEW****
+finalSent =  that_UNK_out_VerbTagger(finalSent)
+#tags words between IN and N "that" as J  ****NEW****
+finalSent = IN_UNK_N_that_Tagger(finalSent)
+#tags "that" between N and V as WDT  ****NEW****
+finalSent = N_that_V_WDTTagger(finalSent)
+#tags wprds ending in "ing" and between N and PRP$ as VBG ****NEW****
+finalSent = N_ing_PRPS_VerbTagger(finalSent)
+#tags words between J "to" and "there as TO V   ****NEW****
+finalSent = J_to_UNK_there_Tagger(finalSent)
+#tags words between MD and "off" as V and "off" as RB  ****NEW****
+finalSent = MD_UNK_off_NounTagger(finalSent)
+
+
+
 
 
 ###The following two functions must be in this order
@@ -365,9 +408,25 @@ finalSent = J_UNK_V_NounTagger(finalSent)
 
 #tags words between "DT" and "IN" as J and N ****PHASE FOUR****
 finalSent =  DT_UNK_UNK_IN_Tagger(finalSent)
+#tags words between PRP "to" and N as V  ****NEW****************TRIAL ONLY*************
+finalSent = PRP_to_UNK_N_Tagger(finalSent)
+#tags words  and between N and TO as V   ****NEW****
+finalSent = N_UNK_TO_VerbTagger(finalSent)
+
+##the following two fuctions must reamin in this order . . . . .
+#tags words between DT and "to V" as N TO ****NEW****
+finalSent = DT_UNK_to_V_Tagger(finalSent)
+#tags words between DT and V as J N  ****NEW****
+finalSent = DT_UNK_UNK_V_Tagger(finalSent)
 
 
+#tags words between PRP and TO
+finalSent = PRP_UNK_TO_VerbTagger(finalSent)
 
+
+#####PHAsE FIVE************
+#tags N around "and"                               *****NEW*****
+finalSent = IN_N_and_UNK_PUNC_Tagger(finalSent)
 
 
 #####################################################
@@ -381,5 +440,9 @@ finalSent =  DT_UNK_UNK_IN_Tagger(finalSent)
 #
 #tags words no longer/sooner V as RB/RBR ****KEEP AT END
 finalSent =  no_longer_V_RBRTagger(finalSent)
+#tags "as UNK as" as RB JJ IN                       *****NEW*****
+finalSent = as_UNK_as_AdjectiveTagger(finalSent)
+#tags "more UNK than" as RBR JJ IN  ****NEW****
+finalSent = more_UNK_than_AdjectiveTagger(finalSent)
 
 print(finalSent)

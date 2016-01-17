@@ -262,7 +262,7 @@ def have_ed_VBNTagger(sent):
 
 
 #tags anything  *ed and out as V, an out as RP
-def ed_out_VerbTagger(sent):
+def d_out_VerbTagger(sent):
 
     sentToReturn = []
 
@@ -270,7 +270,7 @@ def ed_out_VerbTagger(sent):
         target = sent[i]
         context = sent[i+1]
 
-        if (target[1]=="UNK")&(target[0].endswith("ed"))&(context[0].lower()=='out'):
+        if (target[0].endswith("d"))&(context[0].lower()=='out'):
             if (target[0].lower()=="need"):
                 newTup = (target[0], 'NN')
             else:
@@ -353,6 +353,45 @@ def ing_for_VerbTagger(sent):
             sentToReturn += [target]
     sentToReturn += [sent[len(sent)-1]]
     return sentToReturn
+
+##tags "around" followed by DT or N as IN
+def around_DT_PrepositionTagger(sent):
+
+    sentToReturn = []
+
+    for i in range(len(sent)-1):
+        target = sent[i]
+        context = sent[i+1]
+
+        if (target[0].lower()=="around")&((context[1].startswith("N"))|(context[1]=="DT")):
+
+            newTup = (target[0], 'IN')
+
+            sentToReturn += [newTup]
+        else:
+            sentToReturn += [target]
+    sentToReturn += [sent[len(sent)-1]]
+    return sentToReturn
+
+##tags "which" followed by PRP as WDT
+def which_PRP_WDTTagger(sent):
+
+    sentToReturn = []
+
+    for i in range(len(sent)-1):
+        target = sent[i]
+        context = sent[i+1]
+
+        if (target[0].lower()=="which")&(context[1]=="PRP"):
+
+            newTup = (target[0], 'WDT')
+
+            sentToReturn += [newTup]
+        else:
+            sentToReturn += [target]
+    sentToReturn += [sent[len(sent)-1]]
+    return sentToReturn
+
 
 #tags anything ***at beginning of sent*** followed by "who" as NNS.
 def UNK_who_NounTagger(sent):

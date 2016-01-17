@@ -44,25 +44,25 @@ endingClusterList = [("ness","NN"),("nesses","NNS"),("iest","JJS"),("ation","NN"
                      ("ings","NNS"),("iety","NN"),("ieties","NNS"),("lar","JJ"),("ceed","V"),("cede","V"),("tly","RB"),("ket","NN"),
                      ("kets","NNS"),("ey","NN"),("eys","NNS"),("space","NN"),("spaces","NNS"),("bly","RB"),("rance","NN")]
 
-tinyDictionary = {",":",",".":".",";":";","?":"?","!":"!",":":":","$":"$",#punctuation
-    "a":"DT","an":"DT","any":"DT","the":"DT","this":"DT","these":"DT","those":"DT","no":"DT", #determiners
+tinyDictionary = {",":",",".":".",";":";","?":"?","!":"!",":":":","$":"$","(":"(",")":")",#punctuation
+    "a":"DT","an":"DT","any":"DT","the":"DT","this":"DT","these":"DT","those":"DT","no":"DT","some":"DT","all":"DT", #determiners
     "my":"PRP$", "your":"PRP$","its":"PRP$","our":"PRP$", "their":"PRP$","his":"PRP$",#posessive pronouns
     "and":"CC","or":"CC", "but":"CC","&":"CC", "nor":"CC","yet":"CC",#coordingating conjuctions
     "in":"IN","by":"IN", "of":"IN","for":"IN","with":"IN","on":"IN","at":"IN","from":"IN","into":"IN","because":"IN","until":"IN","till":"IN",
-    "through":"IN", "after":"IN", "over":"IN","between":"IN","before":"IN","during":"IN","under":"IN","out":"IN","since":"IN","if":"IN",
-    "whether":"IN", "while":"IN","about":"IN", "toward":"IN" , "towards":"IN", "as":"IN", "than":"IN","aboard":"IN","across":"IN",
+    "through":"IN", "after":"IN", "over":"IN","between":"IN","before":"IN","during":"IN","under":"IN","out":"IN","since":"IN","if":"IN","among":"IN",
+    "whether":"IN", "while":"IN","about":"IN", "toward":"IN" , "towards":"IN", "as":"IN", "than":"IN","aboard":"IN","across":"IN", "against":"IN",
     "though":"IN","although":"IN",#prepositions
     "me":"PRP","him":"PRP","us":"PRP","them":"PRP","i":"PRP","she":"PRP","he":"PRP","we":"PRP","they":"PRP",
-    "it":"PRP", "you":"PRP", #personal pronouns
-    "more":"JJR","least":"JJS","bad":"JJ", "red":"JJ",
+    "it":"PRP", "you":"PRP", #personal pronouns;
+    "more":"JJR","least":"JJS","bad":"JJ", "red":"JJ","few":"JJ","last":"JJ","first":"JJ",
     "cannot":"MD","could":"MD","may":"MD", "must":"MD", "ought":"MD", "shall":"MD", "should":"MD", "would":"MD",#modals
     "have":"V","having":"VBG","has":"VBZ","be":"VB","was":"VBD","were":"VBD","been":"VBN","am":"VPB","are":"VBP", "bring":"V","being":"V",
     "is":"VBZ", "do":"VBP","did":"VBD", "doing":"VBG", "done":"VBN", "does":"VBZ", "'ve":"VBP", "'d":"MD",
     "'m":"VBP", "'re":"VBP", "'ll":"MD", "had":"VBD", "need":"V", #aux verbs
-    "something":"NN", "nothing":"NN", "anything":"NN", "everything":"NN", "someone":"NN", "everyone":"NN",
+    "something":"NN", "nothing":"NN", "anything":"NN", "everything":"NN", "someone":"NN", "everyone":"NN","woman":"NN","women":"NNS",
     "anyone":"NN", "everybody":"NN", "somebody":"NN", "people":"NNS",#indefinite pronouns
-    "now":"RB", "then":"RB", "always":"RB","today":"RB","yesterday":"RB", "not":"RB","n't":"RB","also":"RB", "else":"RB",
-    "never":"RB", "here":"RB", "once":"RB","too":"RB","often":"RB","ago":"RB","ususally":"RB",#adverbs
+    "now":"RB", "then":"RB", "always":"RB","today":"RB","yesterday":"RB", "not":"RB","n't":"RB","also":"RB", "else":"RB","even":"RB",
+    "never":"RB", "here":"RB", "once":"RB","too":"RB","often":"RB","ago":"RB","ususally":"RB","later":"RB","ideed":"RB", #adverbs
     "how":"WRB", "why":"WRB","when":"WRB","where":"WRB","what":"WP","who":"WP","whose":"WP$",
     "other":"JJ", "much":"JJ","many":"JJ","one":"CD","two":"CD","three":"CD","four":"CD","five":"CD","six":"CD","seven":"CD","eight":"CD","nine":"CD",
     "ten":"CD","eleven":"CD","twelve":"CD","thirteen":"CD","fourteen":"CD","fifteen":"CD","sixteen":"CD","seventeen":"CD",
@@ -102,7 +102,7 @@ def int_Tagger(sent):
 def tinyDictionaryTagger(sent):
     sentToReturn = []
     for word in sent:
-        if ((word[0].lower() in tinyDictionary)&(word[1]=="UNK")):###changed this 1.12.2016
+        if ((word[0].lower() in tinyDictionary)&(word[1]=="UNK")|(word[0].lower()=="i")):###changed this 1.12.2016
             newTup = (word[0], tinyDictionary[word[0].lower()])
             sentToReturn += [newTup]
         else:

@@ -398,3 +398,256 @@ def DT_UNK_PUNC_N_Tagger(sent):
             sentToReturn += [leftContext]
 
     return sentToReturn
+
+
+#tags words between PRP "to" and N as V
+def PRP_to_UNK_N_Tagger(sent):
+    sentToReturn = []
+    skip = 0
+
+    for i in range(len(sent)):
+
+        if skip>0:
+            skip = skip -1
+            continue
+
+
+        if (i)<0 | (i+3)>=len(sent):
+            sentToReturn += [sent[i]]
+            continue
+
+        leftContext = sent[i]
+        leftTarget = sent[i+1]
+        rightTarget = sent[i+2]
+        rightContext = sent[i+3]
+
+
+        if (leftContext[1]=="PRP")&(leftTarget[0].lower()=="to")&(rightTarget[1]=="UNK")&(rightContext[1].startswith("N")):
+
+            sentToReturn += [leftContext]
+            sentToReturn += [(leftTarget[0], "TO")]
+            sentToReturn += [(rightTarget[0],"V")]
+            sentToReturn += [rightContext]
+            skip = 3
+
+        else:
+            sentToReturn += [leftContext]
+
+    return sentToReturn
+
+
+#tags words between DT and "to V" as N TO
+def DT_UNK_to_V_Tagger(sent):
+    sentToReturn = []
+    skip = 0
+
+    for i in range(len(sent)):
+
+        if skip>0:
+            skip = skip -1
+            continue
+
+
+        if (i)<0 | (i+3)>=len(sent):
+            sentToReturn += [sent[i]]
+            continue
+
+        leftContext = sent[i]
+        leftTarget = sent[i+1]
+        rightTarget = sent[i+2]
+        rightContext = sent[i+3]
+
+
+        if (leftContext[1]=="DT")&(leftTarget[1]=="UNK")&(rightTarget[0].lower()=="to")&(rightContext[1].startswith("V")):
+
+            sentToReturn += [leftContext]
+            sentToReturn += [(leftTarget[0], "N")]
+            sentToReturn += [(rightTarget[0],"TO")]
+            sentToReturn += [rightContext]
+            skip = 3
+
+        else:
+            sentToReturn += [leftContext]
+
+    return sentToReturn
+
+
+
+
+
+#tags words between DT and V as J N
+def DT_UNK_UNK_V_Tagger(sent):
+    sentToReturn = []
+    skip = 0
+
+    for i in range(len(sent)):
+
+        if skip>0:
+            skip = skip -1
+            continue
+
+
+        if (i)<0 | (i+3)>=len(sent):
+            sentToReturn += [sent[i]]
+            continue
+
+        leftContext = sent[i]
+        leftTarget = sent[i+1]
+        rightTarget = sent[i+2]
+        rightContext = sent[i+3]
+
+
+        if (leftContext[1]=="DT")&(leftTarget[1]=="UNK")&(rightTarget[1]=="UNK")&(rightContext[1].startswith("V")):
+
+            sentToReturn += [leftContext]
+            sentToReturn += [(leftTarget[0], "J")]
+            sentToReturn += [(rightTarget[0],"N")]
+            sentToReturn += [rightContext]
+            skip = 3
+
+        else:
+            sentToReturn += [leftContext]
+
+    return sentToReturn
+
+
+#tags words between "be so" and "that" as J
+def be_so_UNK_that_Tagger(sent):
+    sentToReturn = []
+    skip = 0
+
+    for i in range(len(sent)):
+
+        if skip>0:
+            skip = skip -1
+            continue
+
+
+        if (i)<0 | (i+3)>=len(sent):
+            sentToReturn += [sent[i]]
+            continue
+
+        leftContext = sent[i]
+        leftTarget = sent[i+1]
+        rightTarget = sent[i+2]
+        rightContext = sent[i+3]
+
+
+        if ((leftContext[0].lower()=="are")|(leftContext[0].lower()=="is")|(leftContext[0].lower()=="was")|(leftContext[0].lower()=="were"))&\
+                (leftTarget[0].lower()=="so")&(rightTarget[1]=="UNK")&(rightContext[0]=="that"):
+
+            sentToReturn += [leftContext]
+            sentToReturn += [(leftTarget[0], "RB")]
+            sentToReturn += [(rightTarget[0],"J")]
+            sentToReturn += [(rightContext[0],"IN")]
+            skip = 3
+
+        else:
+            sentToReturn += [leftContext]
+
+    return sentToReturn
+
+#tags words between IN and N "that" as J
+def IN_UNK_N_that_Tagger(sent):
+    sentToReturn = []
+    skip = 0
+
+    for i in range(len(sent)):
+
+        if skip>0:
+            skip = skip -1
+            continue
+
+
+        if (i)<0 | (i+3)>=len(sent):
+            sentToReturn += [sent[i]]
+            continue
+
+        leftContext = sent[i]
+        leftTarget = sent[i+1]
+        rightTarget = sent[i+2]
+        rightContext = sent[i+3]
+
+
+        if (leftContext[1]=="IN")&(leftTarget[1]=="UNK")&(rightTarget[1].startswith("N"))&(rightContext[0].lower()=="that"):
+
+            sentToReturn += [leftContext]
+            sentToReturn += [(leftTarget[0], "J")]
+            sentToReturn += [rightTarget]
+            sentToReturn += [rightContext]
+            skip = 3
+
+        else:
+            sentToReturn += [leftContext]
+
+    return sentToReturn
+
+#tags words between "who" and "ly" IN as V, RB
+def who_UNK_ly_IN_Tagger(sent):
+    sentToReturn = []
+    skip = 0
+
+    for i in range(len(sent)):
+
+        if skip>0:
+            skip = skip -1
+            continue
+
+
+        if (i)<0 | (i+3)>=len(sent):
+            sentToReturn += [sent[i]]
+            continue
+
+        leftContext = sent[i]
+        leftTarget = sent[i+1]
+        rightTarget = sent[i+2]
+        rightContext = sent[i+3]
+
+
+        if (leftContext[0].lower()=="who")&(leftTarget[1]=="UNK")&(rightTarget[0].endswith("ly"))&(rightContext[1]=="IN"):
+
+            sentToReturn += [leftContext]
+            sentToReturn += [(leftTarget[0], "V")]
+            sentToReturn += [(rightTarget[0],"RB")]
+            sentToReturn += [rightContext]
+            skip = 3
+
+        else:
+            sentToReturn += [leftContext]
+
+    return sentToReturn
+
+#tags words between J "to" and "there as TO V
+def J_to_UNK_there_Tagger(sent):
+    sentToReturn = []
+    skip = 0
+
+    for i in range(len(sent)):
+
+        if skip>0:
+            skip = skip -1
+            continue
+
+
+        if (i)<0 | (i+3)>=len(sent):
+            sentToReturn += [sent[i]]
+            continue
+
+        leftContext = sent[i]
+        leftTarget = sent[i+1]
+        rightTarget = sent[i+2]
+        rightContext = sent[i+3]
+
+
+        if (leftContext[1].startswith("J"))&(leftTarget[0].lower()=="to")&(rightTarget[1]=="UNK")&(rightContext[0].lower()=="there"):
+
+            sentToReturn += [leftContext]
+            sentToReturn += [(leftTarget[0], "TO")]
+            sentToReturn += [(rightTarget[0],"V")]
+            sentToReturn += [rightContext]
+            skip = 3
+
+        else:
+            sentToReturn += [leftContext]
+
+    return sentToReturn
