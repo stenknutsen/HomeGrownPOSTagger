@@ -393,6 +393,138 @@ def which_PRP_WDTTagger(sent):
     return sentToReturn
 
 
+
+#tags words afet IN ending in "ine(s)" as N
+def IN_ine_NounTagger(sent):
+    sentToReturn = []
+    skip = 0
+
+    for i in range(len(sent)):
+
+        if skip>0:
+            skip = skip -1
+            continue
+
+        if (i)<0 | (i+1)>=len(sent):
+            sentToReturn += [sent[i]]
+            continue
+
+        leftContext = sent[i]
+        target = sent[i+1]
+
+
+        if ((leftContext[1]=="IN")|(leftContext[1]=="DT"))&(target[1]=="UNK")&((target[0].lower().endswith("ine"))|(target[0].lower().endswith("ines"))):
+
+            sentToReturn += [leftContext]
+            sentToReturn += [(target[0], "N")]
+
+            skip = 1
+
+        else:
+            sentToReturn += [leftContext]
+
+    return sentToReturn
+
+
+
+
+
+#tags words ending in "ism(s)" followed by "that" as N
+def ism_that_NounTagger(sent):
+    sentToReturn = []
+    skip = 0
+
+    for i in range(len(sent)):
+
+        if skip>0:
+            skip = skip -1
+            continue
+
+        if (i)<0 | (i+1)>=len(sent):
+            sentToReturn += [sent[i]]
+            continue
+
+        leftContext = sent[i]
+        target = sent[i+1]
+
+
+        if (leftContext[1]=="UNK")&((leftContext[0].lower().endswith("ism"))|(leftContext[0].lower().endswith("isms")))&(target[1]=="UNK")&(target[0].lower()=="that"):
+
+            sentToReturn += [(leftContext[0],"N")]
+            sentToReturn += [(target[0], "WDT")]
+
+            skip = 1
+
+        else:
+            sentToReturn += [leftContext]
+
+    return sentToReturn
+
+
+#tags "so that" as IN IN
+def so_that_PrepositionTagger(sent):
+    sentToReturn = []
+    skip = 0
+
+    for i in range(len(sent)):
+
+        if skip>0:
+            skip = skip -1
+            continue
+
+        if (i)<0 | (i+1)>=len(sent):
+            sentToReturn += [sent[i]]
+            continue
+
+        leftContext = sent[i]
+        target = sent[i+1]
+
+
+        if (leftContext[1]=="UNK")&(leftContext[0].lower()=="so")&(target[1]=="UNK")&(target[0].lower()=="that"):
+
+            sentToReturn += [(leftContext[0],"IN")]
+            sentToReturn += [(target[0], "IN")]
+
+            skip = 1
+
+        else:
+            sentToReturn += [leftContext]
+
+    return sentToReturn
+
+
+
+#tags "own" as JJ when precede by PRP$
+def PRPS_own_AdjectiveTagger(sent):
+    sentToReturn = []
+    skip = 0
+
+    for i in range(len(sent)):
+
+        if skip>0:
+            skip = skip -1
+            continue
+
+        if (i)<0 | (i+1)>=len(sent):
+            sentToReturn += [sent[i]]
+            continue
+
+        leftContext = sent[i]
+        target = sent[i+1]
+
+
+        if (leftContext[1]=="PRP$")&(target[1]=="UNK")&(target[0].lower()=="own"):
+
+            sentToReturn += [leftContext]
+            sentToReturn += [(target[0], "JJ")]
+
+            skip = 1
+
+        else:
+            sentToReturn += [leftContext]
+
+    return sentToReturn
+
 #tags anything ***at beginning of sent*** followed by "who" as NNS.
 def UNK_who_NounTagger(sent):
     sentToReturn = []

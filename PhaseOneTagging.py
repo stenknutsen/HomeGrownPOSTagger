@@ -51,8 +51,8 @@ tinyDictionary = {",":",",".":".",";":";","?":"?","!":"!",":":":","$":"$","(":"(
     "in":"IN","by":"IN", "of":"IN","for":"IN","with":"IN","on":"IN","at":"IN","from":"IN","into":"IN","because":"IN","until":"IN","till":"IN",
     "through":"IN", "after":"IN", "over":"IN","between":"IN","before":"IN","during":"IN","under":"IN","out":"IN","since":"IN","if":"IN","among":"IN",
     "whether":"IN", "while":"IN","about":"IN", "toward":"IN" , "towards":"IN", "as":"IN", "than":"IN","aboard":"IN","across":"IN", "against":"IN",
-    "though":"IN","although":"IN",#prepositions
-    "me":"PRP","him":"PRP","us":"PRP","them":"PRP","i":"PRP","she":"PRP","he":"PRP","we":"PRP","they":"PRP",
+    "though":"IN","although":"IN","upon":"IN",#prepositions
+    "me":"PRP","him":"PRP","us":"PRP","them":"PRP","i":"PRP","she":"PRP","he":"PRP","we":"PRP","they":"PRP","her":"P",
     "it":"PRP", "you":"PRP", #personal pronouns;
     "more":"JJR","least":"JJS","bad":"JJ", "red":"JJ","few":"JJ","last":"JJ","first":"JJ",
     "cannot":"MD","could":"MD","may":"MD", "must":"MD", "ought":"MD", "shall":"MD", "should":"MD", "would":"MD",#modals
@@ -62,12 +62,12 @@ tinyDictionary = {",":",",".":".",";":";","?":"?","!":"!",":":":","$":"$","(":"(
     "something":"NN", "nothing":"NN", "anything":"NN", "everything":"NN", "someone":"NN", "everyone":"NN","woman":"NN","women":"NNS",
     "anyone":"NN", "everybody":"NN", "somebody":"NN", "people":"NNS",#indefinite pronouns
     "now":"RB", "then":"RB", "always":"RB","today":"RB","yesterday":"RB", "not":"RB","n't":"RB","also":"RB", "else":"RB","even":"RB",
-    "never":"RB", "here":"RB", "once":"RB","too":"RB","often":"RB","ago":"RB","ususally":"RB","later":"RB","ideed":"RB", #adverbs
+    "never":"RB", "here":"RB", "once":"RB","too":"RB","often":"RB","ago":"RB","ususally":"RB","later":"RB","ideed":"RB","nearly":"RB", #adverbs
     "how":"WRB", "why":"WRB","when":"WRB","where":"WRB","what":"WP","who":"WP","whose":"WP$",
     "other":"JJ", "much":"JJ","many":"JJ","one":"CD","two":"CD","three":"CD","four":"CD","five":"CD","six":"CD","seven":"CD","eight":"CD","nine":"CD",
     "ten":"CD","eleven":"CD","twelve":"CD","thirteen":"CD","fourteen":"CD","fifteen":"CD","sixteen":"CD","seventeen":"CD",
     "eighteen":"CD","nineteen":"CD","twenty":"CD","thirty":"CD","forty":"CD","fifty":"CD","sixty":"CD","seventy":"CD",
-    "eighty":"CD","ninety":"CD","hundred":"CD","thousand":"CD","million":"CD","billion":"CD","thing":"NN"
+    "eighty":"CD","ninety":"CD","hundred":"CD","thousand":"CD","million":"CD","billion":"CD","thing":"NN","several":"JJ"
     }
 
 #Tags anything starting with a captial letter as NNP (excluding first word in sentence)

@@ -651,3 +651,215 @@ def J_to_UNK_there_Tagger(sent):
             sentToReturn += [leftContext]
 
     return sentToReturn
+
+#tags words between IN NN and as J when ending in comma or period
+def IN_UNK_NN_PUNC_Tagger(sent):
+    sentToReturn = []
+    skip = 0
+
+    for i in range(len(sent)):
+
+        if skip>0:
+            skip = skip -1
+            continue
+
+
+        if (i)<0 | (i+3)>=len(sent):
+            sentToReturn += [sent[i]]
+            continue
+
+        leftContext = sent[i]
+        leftTarget = sent[i+1]
+        rightTarget = sent[i+2]
+        rightContext = sent[i+3]
+
+
+        if (leftContext[1]=="IN")&(leftTarget[1]=="UNK")&(rightTarget[1].startswith("N"))&((rightContext[0]==",")|(rightContext[0]==".")):
+
+            sentToReturn += [leftContext]
+            sentToReturn += [(leftTarget[0], "J")]
+            sentToReturn += [rightTarget]
+            sentToReturn += [rightContext]
+            skip = 3
+
+        else:
+            sentToReturn += [leftContext]
+
+    return sentToReturn
+
+
+#tags words between that and PRP as V
+def that_UNK_PRP_to_Tagger(sent):
+    sentToReturn = []
+    skip = 0
+
+    for i in range(len(sent)):
+
+        if skip>0:
+            skip = skip -1
+            continue
+
+
+        if (i)<0 | (i+3)>=len(sent):
+            sentToReturn += [sent[i]]
+            continue
+
+        leftContext = sent[i]
+        leftTarget = sent[i+1]
+        rightTarget = sent[i+2]
+        rightContext = sent[i+3]
+
+
+        if (leftContext[0].lower()=="that")&(leftTarget[1]=="UNK")&(rightTarget[1]=="PRP")&(rightContext[0].lower()=="to"):
+
+            sentToReturn += [(leftContext[0],"WDT")]
+            sentToReturn += [(leftTarget[0], "V")]
+            sentToReturn += [rightTarget]
+            sentToReturn += [rightContext]
+            skip = 3
+
+        else:
+            sentToReturn += [leftContext]
+
+    return sentToReturn
+
+
+#tags words between CD and "'" as NNS POS and N
+def CD_UNK_PUNC_UNK_Tagger(sent):
+    sentToReturn = []
+    skip = 0
+
+    for i in range(len(sent)):
+
+        if skip>0:
+            skip = skip -1
+            continue
+
+
+        if (i)<0 | (i+3)>=len(sent):
+            sentToReturn += [sent[i]]
+            continue
+
+        leftContext = sent[i]
+        leftTarget = sent[i+1]
+        rightTarget = sent[i+2]
+        rightContext = sent[i+3]
+
+
+        if (leftContext[1]=="CD")&(leftTarget[1]=="UNK")&(rightTarget[0]=="'")&(rightContext[1]=="UNK"):
+
+            sentToReturn += [leftContext]
+            sentToReturn += [(leftTarget[0], "NNS")]
+            sentToReturn += [(rightTarget[0],"POS")]
+            sentToReturn += [(rightContext[0],"N")]
+            skip = 3
+
+        else:
+            sentToReturn += [leftContext]
+
+    return sentToReturn
+
+#tags words between CD and "ing" as NNS VBG
+def CD_UNK_ing_on_Tagger(sent):
+    sentToReturn = []
+    skip = 0
+
+    for i in range(len(sent)):
+
+        if skip>0:
+            skip = skip -1
+            continue
+
+
+        if (i)<0 | (i+3)>=len(sent):
+            sentToReturn += [sent[i]]
+            continue
+
+        leftContext = sent[i]
+        leftTarget = sent[i+1]
+        rightTarget = sent[i+2]
+        rightContext = sent[i+3]
+
+
+        if (leftContext[1]=="CD")&(leftTarget[1]=="UNK")&(rightTarget[0].lower().endswith("ing"))&(rightContext[0].lower()=="on"):
+
+            sentToReturn += [leftContext]
+            sentToReturn += [(leftTarget[0], "NNS")]
+            sentToReturn += [(rightTarget[0],"VBG")]
+            sentToReturn += [rightContext]
+            skip = 3
+
+        else:
+            sentToReturn += [leftContext]
+
+    return sentToReturn
+
+#tags words after "a" and before "," as J N
+def a_UNK_UNK_PUNC_Tagger(sent):
+    sentToReturn = []
+    skip = 0
+
+    for i in range(len(sent)):
+
+        if skip>0:
+            skip = skip -1
+            continue
+
+
+        if (i)<0 | (i+3)>=len(sent):
+            sentToReturn += [sent[i]]
+            continue
+
+        leftContext = sent[i]
+        leftTarget = sent[i+1]
+        rightTarget = sent[i+2]
+        rightContext = sent[i+3]
+
+
+        if (leftContext[0].lower()=="a")&(leftTarget[1]=="UNK")&(rightTarget[1]=="UNK")&(rightContext[0]==","):
+
+            sentToReturn += [leftContext]
+            sentToReturn += [(leftTarget[0], "J")]
+            sentToReturn += [(rightTarget[0],"N")]
+            sentToReturn += [rightContext]
+            skip = 3
+
+        else:
+            sentToReturn += [leftContext]
+
+    return sentToReturn
+
+#
+def to_UNK_N_that_Tagger(sent):
+    sentToReturn = []
+    skip = 0
+
+    for i in range(len(sent)):
+
+        if skip>0:
+            skip = skip -1
+            continue
+
+
+        if (i)<0 | (i+3)>=len(sent):
+            sentToReturn += [sent[i]]
+            continue
+
+        leftContext = sent[i]
+        leftTarget = sent[i+1]
+        rightTarget = sent[i+2]
+        rightContext = sent[i+3]
+
+
+        if (leftContext[0].lower()=="to")&(leftTarget[1]=="UNK")&(rightTarget[1].startswith("N"))&(rightContext[0].lower()=="that"):
+
+            sentToReturn += [(leftContext[0],"TO")]
+            sentToReturn += [(leftTarget[0], "N")]
+            sentToReturn += [rightTarget]
+            sentToReturn += [rightContext]
+            skip = 3
+
+        else:
+            sentToReturn += [leftContext]
+
+    return sentToReturn

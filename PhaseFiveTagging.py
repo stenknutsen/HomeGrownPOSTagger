@@ -114,3 +114,80 @@ def PRPS_UNK_s_UNK_PUNC_Tagger(sent):
             sentToReturn += [leftContext]
 
     return sentToReturn
+
+
+#
+def to_UNK_how_to_UNK_Tagger(sent):
+    sentToReturn = []
+    skip = 0
+
+    for i in range(len(sent)):
+
+        if skip>0:
+            skip = skip -1
+            continue
+
+
+        if (i)<0 | (i+4)>=len(sent):
+            sentToReturn += [sent[i]]
+            continue
+
+        leftContext = sent[i]
+        leftTarget = sent[i+1]
+        centerTarget = sent[i+2]
+        rightTarget = sent[i+3]
+        rightContext = sent[i+4]
+
+
+        if (leftContext[0].lower()=="to")&(leftTarget[1]=="UNK")&(centerTarget[0].lower()=="how")&(rightTarget[0].lower()=="to")&\
+                (rightContext[1]=="UNK"):
+
+            sentToReturn += [(leftContext[0],"TO")]
+            sentToReturn += [(leftTarget[0],"V")]
+            sentToReturn += [centerTarget]
+            sentToReturn += [(rightTarget[0],"TO")]
+            sentToReturn += [(rightContext[0],"V")]
+            skip = 4
+
+        else:
+            sentToReturn += [leftContext]
+
+    return sentToReturn
+
+#
+def when_PRPS_N_UNK_RB_Tagger(sent):
+    sentToReturn = []
+    skip = 0
+
+    for i in range(len(sent)):
+
+        if skip>0:
+            skip = skip -1
+            continue
+
+
+        if (i)<0 | (i+4)>=len(sent):
+            sentToReturn += [sent[i]]
+            continue
+
+        leftContext = sent[i]
+        leftTarget = sent[i+1]
+        centerTarget = sent[i+2]
+        rightTarget = sent[i+3]
+        rightContext = sent[i+4]
+
+
+        if (leftContext[0].lower()=="when")&(leftTarget[1]=="PRP$")&(centerTarget[1].startswith("N"))&(rightTarget[1]=="UNK")&\
+                (rightContext[1]=="RB"):
+
+            sentToReturn += [leftContext]
+            sentToReturn += [leftTarget]
+            sentToReturn += [centerTarget]
+            sentToReturn += [(rightTarget[0],"VBD")]
+            sentToReturn += [rightContext]
+            skip = 4
+
+        else:
+            sentToReturn += [leftContext]
+
+    return sentToReturn
