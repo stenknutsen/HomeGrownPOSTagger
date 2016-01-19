@@ -794,6 +794,43 @@ def CD_UNK_ing_on_Tagger(sent):
 
     return sentToReturn
 
+#tags words between CD and "there" as NNS
+def CD_UNK_there_PUNC_Tagger(sent):
+    sentToReturn = []
+    skip = 0
+
+    for i in range(len(sent)):
+
+        if skip>0:
+            skip = skip -1
+            continue
+
+
+        if (i)<0 | (i+3)>=len(sent):
+            sentToReturn += [sent[i]]
+            continue
+
+        leftContext = sent[i]
+        leftTarget = sent[i+1]
+        rightTarget = sent[i+2]
+        rightContext = sent[i+3]
+
+
+        if (leftContext[1]=="CD")&(leftTarget[1]=="UNK")&(rightTarget[0].lower()=="there")&((rightContext[0]==",")|(rightContext[0]==".")):
+
+            sentToReturn += [leftContext]
+            sentToReturn += [(leftTarget[0], "NNS")]
+            sentToReturn += [(rightTarget[0],"RB")]
+            sentToReturn += [rightContext]
+            skip = 3
+
+        else:
+            sentToReturn += [leftContext]
+
+    return sentToReturn
+
+
+
 #tags words after "a" and before "," as J N
 def a_UNK_UNK_PUNC_Tagger(sent):
     sentToReturn = []
@@ -856,6 +893,78 @@ def to_UNK_N_that_Tagger(sent):
             sentToReturn += [(leftContext[0],"TO")]
             sentToReturn += [(leftTarget[0], "N")]
             sentToReturn += [rightTarget]
+            sentToReturn += [rightContext]
+            skip = 3
+
+        else:
+            sentToReturn += [leftContext]
+
+    return sentToReturn
+
+#
+def IN_UNK_PUNC_so_Tagger(sent):
+    sentToReturn = []
+    skip = 0
+
+    for i in range(len(sent)):
+
+        if skip>0:
+            skip = skip -1
+            continue
+
+
+        if (i)<0 | (i+3)>=len(sent):
+            sentToReturn += [sent[i]]
+            continue
+
+        leftContext = sent[i]
+        leftTarget = sent[i+1]
+        rightTarget = sent[i+2]
+        rightContext = sent[i+3]
+
+
+        if (leftContext[1]=="IN")&(leftTarget[1]=="UNK")&(rightTarget[0]==",")&(rightContext[0].lower()=="so"):
+
+            sentToReturn += [leftContext]
+            sentToReturn += [(leftTarget[0], "N")]
+            sentToReturn += [rightTarget]
+            sentToReturn += [rightContext]
+            skip = 3
+
+        else:
+            sentToReturn += [leftContext]
+
+    return sentToReturn
+
+
+#
+def MD_UNK_better_IN_Tagger(sent):
+    sentToReturn = []
+    skip = 0
+
+    for i in range(len(sent)):
+
+        if skip>0:
+            skip = skip -1
+            continue
+
+
+        if (i)<0 | (i+3)>=len(sent):
+            sentToReturn += [sent[i]]
+            continue
+
+        leftContext = sent[i]
+        leftTarget = sent[i+1]
+        rightTarget = sent[i+2]
+        rightContext = sent[i+3]
+
+
+        if ((leftContext[1]=="MD")|((leftContext[1]=="UNK")&((leftContext[0].lower()=="will")|(leftContext[0].lower()=="must"))))&\
+                (leftTarget[1]=="UNK")&(rightTarget[0].lower()=="better")&(rightContext[1]=="IN"):
+
+            sentToReturn += [(leftContext[0],"MD")]
+            sentToReturn += [(leftTarget[0], "V")]
+            sentToReturn += [(rightTarget[0],"RB")]
             sentToReturn += [rightContext]
             skip = 3
 

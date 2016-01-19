@@ -9,8 +9,8 @@ from PhaseFiveTagging import*
 
 
 
-
-
+s="Nationalism is the result of identification and differentiation and it follows from the similarities and differences we see between ourselves and others."
+s="The character also possesses a velvety purr, a deliberate choice for an actor who can rage with the best of them."
 s="President Obama took a moment in his final State of the Union Address Tuesday to voice optimism that people have the power to bring an end to the worldwide menace of malaria."
 s="The alcohol in wine evaporates more quickly than water and is mostly gone after 30 minutes' cooking."
 s="Since then, aid workers have reported horrifying scenes of malnutrition and deprivation."
@@ -98,13 +98,18 @@ s="I want to suggest a connective spirit of listening, so that we can become our
 #s="When my relationship unraveled nearly two years ago, I decided to suspend my career as an actuary in Boston and take a long vacation in Costa Rica, where I planned to learn how to surf and do yoga."
 #s="Our businesslike efforts to measure and improve quality are now blocking the altruism, indeed the love, that motivates people to enter the helping professions."
 #s="One Palestinian official told Emily he wasn't aware of a previous case like this one, where a staffer for the negotiating team was accused of spying for Israel."
-s="The character also possesses a velvety purr, a deliberate choice for an actor who can rage with the best of them."
-s="Experts have not pointed to a single, dominant reason for this rise in homicides in Baltimore, nor have they definitively established any kind of causal link between the unrest in April after Freddie Gray's death and the increase in killings."
-s="After four weeks there, I was traveling by car with several friends I had met at surf school when we came upon a red-faced, middle-aged woman hitchhiking on the outskirts of a small village."
-s="On a freezing June night, fourteen-year-old Esme Grace huddles in her upper-floor bedroom as a shotgun's blast reverberates over and over in the bowels of her family's lopsided, isolated house. "
-s="Doug Carmean, a Microsoft computer designer who commutes daily between Seattle and Redmond Wash said he had encountered the Tesla Autopilot offramp bug and found it scary."
 
+#s="Experts have not pointed to a single, dominant reason for this rise in homicides in Baltimore, nor have they definitively established any kind of causal link between the unrest in April after Freddie Gray's death and the increase in killings."
+#s="After four weeks there, I was traveling by car with several friends I had met at surf school when we came upon a red-faced, middle-aged woman hitchhiking on the outskirts of a small village."
+#s="On a freezing June night, fourteen-year-old Esme Grace huddles in her bedroom as a shotgun's blast reverberates over and over in the bowels of her family's lopsided, isolated house. "
+#s="Doug Carmean, a Microsoft computer designer who commutes daily between Seattle and Redmond Wash said he had encountered the Tesla Autopilot offramp bug and found it scary."
+s="We were reminded of that yesterday when SpaceX tried to land a Falcon 9 rocket on a barge in the Pacific."
+#s="Fields was worried she had suffered a stroke or was showing signs of early dementia."
 
+#s="Television executives have been frustrated because Mr. Sarandos has at times suggested Netflix shows would fare better than what is on cable and broadcast television."
+
+s="The new guidelines emphasize a lifelong eating pattern that contains adequate essential nutrients, a caloric intake that supports a healthy body weight and foods that reduce the risk of chronic disease."
+s="Armed Iranian military personnel boarded the two American vessels while other Iranians kept watch behind machine guns mounted on their vessels."
 
 
 #takes sentence, tokenizes and renders default POS tag form
@@ -140,27 +145,35 @@ finalSent = endingClusterTagger(finalSent)
 #
 #
 ######################################
-#tags "own" as JJ when precede by PRP$  *****NEW*****
+#                               *****NEW*****
+finalSent = at_times_Tagger(finalSent)
+#                               ****NEW****
+finalSent = MD_UNK_better_IN_Tagger(finalSent)
+#tags IN "that" as DT  *****NEW*****
+finalSent = IN_that_Tagger(finalSent)
+#tags words between CD and "there" as NNS  *****NEW****
+finalSent =  CD_UNK_there_PUNC_Tagger(finalSent)
+#tags "own" as JJ when precede by PRP$
 finalSent = PRPS_own_AdjectiveTagger(finalSent)
-#tags words between DT's as N  *****NEW*****
+#tags words between DT's as N
 finalSent =  DT_UNK_DT_NounTagger(finalSent)
-#tags "so that" as IN IN  *****NEW*****
+#tags "so that" as IN IN
 finalSent= so_that_PrepositionTagger(finalSent)
-#tags words ending in "ism(s)" followed by "that" as N  ****NEW****
+#tags words ending in "ism(s)" followed by "that" as N
 finalSent = ism_that_NounTagger(finalSent)
-#tags words afet IN ending in "ine" as N   ****NEW*****
+#tags words afet IN ending in "ine" as N
 finalSent = IN_ine_NounTagger(finalSent)
-#tags words between CD and "ing" as NNS VBG    ****NEW****
+#tags words between CD and "ing" as NNS VBG
 finalSent = CD_UNK_ing_on_Tagger(finalSent)
-#tags words between CD and "'" as NNS POS and N  ****NEW****
+#tags words between CD and "'" as NNS POS and N
 finalSent = CD_UNK_PUNC_UNK_Tagger(finalSent)
-#                                           ****NEW****
+#
 finalSent = to_UNK_how_to_UNK_Tagger(finalSent)
-#tags words between that and PRP as V  ****NEW****
+#tags words between that and PRP as V
 finalSent = that_UNK_PRP_to_Tagger(finalSent)
-#tags words between "that" and "to" as V  *****NEW****
+#tags words between "that" and "to" as V
 finalSent = that_UNK_to_VerbTagger(finalSent)
-#tags words ending in "s" following DT CD as NNS  ****NEW****
+#tags words ending in "s" following DT CD as NNS
 finalSent = DT_CD_s_NounTagger(finalSent)
 #tags words between PRP$ and "can" as N and "can" as MD
 finalSent = PRPS_UNK_can_NounTagger(finalSent)
@@ -288,7 +301,7 @@ finalSent = her_DT_PRPTagger(finalSent)
 #
 finalSent = to_DT_VerbTagger(finalSent)
 finalSent = to_UNK_PRP_VerbTagger(finalSent)
-finalSent = DT_noun_POSTagger(finalSent)
+finalSent = DT_noun_POSTagger(finalSent)#########THIS WILL NEED TO BE CHANGED . .. . .
 finalSent = DT_IN_NounTagger(finalSent)
 finalSent = N_DT_VerbTagger(finalSent)
 finalSent = DT_PuctuationNounTagger(finalSent)
@@ -367,21 +380,26 @@ finalSent = N_ing_PRPS_VerbTagger(finalSent)
 finalSent = J_to_UNK_there_Tagger(finalSent)
 #tags words between MD and "off" as V and "off" as RB
 finalSent = MD_UNK_off_NounTagger(finalSent)
-#tags words between IN NN and as J when ending in comma or period  ****NEW*****
+#tags words between IN NN and as J when ending in comma or period
 finalSent = IN_UNK_NN_PUNC_Tagger(finalSent)
-#tags words between RB and "up" as V and tags "up" as IN  ****NEW****
+#tags words between RB and "up" as V and tags "up" as IN
 finalSent = RB_UNK_up_VerbTagger(finalSent)
-#tags words between IN and V as N  ****NEW****
+#tags words between IN and V as N
 finalSent = IN_UNK_V_NounTagger(finalSent)
-#tags words between PRP$ and N as J  ****NEW****
+#tags words between PRP$ and N as J
 finalSent = PRPS_UNK_N_AdjectiveTagger(finalSent)
-#tags words between CD and RB as NNS  ****NEW****
+#tags words between CD and RB as NNS
 finalSent = CD_UNK_RB_NounTagger(finalSent)
-#tags words after "a" and before "," as J N  ****NEW****TRAIAL ONLY***********
+#tags words after "a" and before "," as J N  *******TRIAL ONLY***********
 finalSent = a_UNK_UNK_PUNC_Tagger(finalSent)
-#                                           ****NEW****
+#
 finalSent =  to_UNK_N_that_Tagger(finalSent)
-
+#                                           *****NEW*****
+finalSent = the_UNK_RB_UNK_a_Tagger(finalSent)
+#                                           *****NEW*****
+finalSent = IN_UNK_PUNC_so_Tagger(finalSent)
+#                                           *****NEW*****
+finalSent = at_times_UNK_VerbTagger(finalSent)
 
 
 
@@ -410,7 +428,7 @@ finalSent = DT_UNK_UNK_V_Tagger(finalSent)
 finalSent = PRP_UNK_TO_VerbTagger(finalSent)
 
 
-#####PHAsE FIVE************
+#####PHASE FIVE************
 #tags N around "and"
 finalSent = IN_N_and_UNK_PUNC_Tagger(finalSent)
 #

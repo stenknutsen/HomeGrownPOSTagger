@@ -191,3 +191,41 @@ def when_PRPS_N_UNK_RB_Tagger(sent):
             sentToReturn += [leftContext]
 
     return sentToReturn
+
+#
+def the_UNK_RB_UNK_a_Tagger(sent):
+    sentToReturn = []
+    skip = 0
+
+    for i in range(len(sent)):
+
+        if skip>0:
+            skip = skip -1
+            continue
+
+
+        if (i)<0 | (i+4)>=len(sent):
+            sentToReturn += [sent[i]]
+            continue
+
+        leftContext = sent[i]
+        leftTarget = sent[i+1]
+        centerTarget = sent[i+2]
+        rightTarget = sent[i+3]
+        rightContext = sent[i+4]
+
+
+        if (leftContext[0].lower()=="the")&(leftTarget[1]=="UNK")&(centerTarget[1]=="RB")&(rightTarget[1]=="UNK")&\
+                (rightContext[0].lower()=="a"):
+
+            sentToReturn += [leftContext]
+            sentToReturn += [(leftTarget[0],"N")]
+            sentToReturn += [centerTarget]
+            sentToReturn += [(rightTarget[0],"V")]
+            sentToReturn += [rightContext]
+            skip = 4
+
+        else:
+            sentToReturn += [leftContext]
+
+    return sentToReturn

@@ -525,6 +525,72 @@ def PRPS_own_AdjectiveTagger(sent):
 
     return sentToReturn
 
+
+
+#tags IN "that" as DT
+def IN_that_Tagger(sent):
+    sentToReturn = []
+    skip = 0
+
+    for i in range(len(sent)):
+
+        if skip>0:
+            skip = skip -1
+            continue
+
+        if (i)<0 | (i+1)>=len(sent):
+            sentToReturn += [sent[i]]
+            continue
+
+        leftContext = sent[i]
+        target = sent[i+1]
+
+
+        if (leftContext[1]=="IN")&(target[1]=="UNK")&(target[0].lower()=="that"):
+
+            sentToReturn += [leftContext]
+            sentToReturn += [(target[0], "DT")]
+
+            skip = 1
+
+        else:
+            sentToReturn += [leftContext]
+
+    return sentToReturn
+
+
+#
+def at_times_Tagger(sent):
+    sentToReturn = []
+    skip = 0
+
+    for i in range(len(sent)):
+
+        if skip>0:
+            skip = skip -1
+            continue
+
+        if (i)<0 | (i+1)>=len(sent):
+            sentToReturn += [sent[i]]
+            continue
+
+        leftContext = sent[i]
+        target = sent[i+1]
+
+
+        if (leftContext[0].lower()=="at")&(target[1]=="UNK")&(target[0].lower()=="times"):
+
+            sentToReturn += [leftContext]
+            sentToReturn += [(target[0], "NNS")]
+
+            skip = 1
+
+        else:
+            sentToReturn += [leftContext]
+
+    return sentToReturn
+
+
 #tags anything ***at beginning of sent*** followed by "who" as NNS.
 def UNK_who_NounTagger(sent):
     sentToReturn = []

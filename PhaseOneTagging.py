@@ -42,7 +42,8 @@ endingClusterList = [("ness","NN"),("nesses","NNS"),("iest","JJS"),("ation","NN"
                      ("atic","J"),("ives","NNS"),("ables","NNS"), ("ians","NNS"),("ions","NNS"),("ingly","RB"),("ous","JJ"),
                      ("less","JJ"),("tieth","CD"),("eenth","CD"),("icians","NNS"),("ician","NN"),("sion","NN"),("sions","NNS"),
                      ("ings","NNS"),("iety","NN"),("ieties","NNS"),("lar","JJ"),("ceed","V"),("cede","V"),("tly","RB"),("ket","NN"),
-                     ("kets","NNS"),("ey","NN"),("eys","NNS"),("space","NN"),("spaces","NNS"),("bly","RB"),("rance","NN")]
+                     ("kets","NNS"),("ey","NN"),("eys","NNS"),("space","NN"),("spaces","NNS"),("bly","RB"),("rance","NN"),
+                     ("ism","NN"),("isms","NNS")]
 
 tinyDictionary = {",":",",".":".",";":";","?":"?","!":"!",":":":","$":"$","(":"(",")":")",#punctuation
     "a":"DT","an":"DT","any":"DT","the":"DT","this":"DT","these":"DT","those":"DT","no":"DT","some":"DT","all":"DT", #determiners
@@ -62,7 +63,7 @@ tinyDictionary = {",":",",".":".",";":";","?":"?","!":"!",":":":","$":"$","(":"(
     "something":"NN", "nothing":"NN", "anything":"NN", "everything":"NN", "someone":"NN", "everyone":"NN","woman":"NN","women":"NNS",
     "anyone":"NN", "everybody":"NN", "somebody":"NN", "people":"NNS",#indefinite pronouns
     "now":"RB", "then":"RB", "always":"RB","today":"RB","yesterday":"RB", "not":"RB","n't":"RB","also":"RB", "else":"RB","even":"RB",
-    "never":"RB", "here":"RB", "once":"RB","too":"RB","often":"RB","ago":"RB","ususally":"RB","later":"RB","ideed":"RB","nearly":"RB", #adverbs
+    "never":"RB", "here":"RB", "once":"RB","too":"RB","often":"RB","ago":"RB","ususally":"RB","later":"RB","ideed":"RB","nearly":"RB","so":"RB", #adverbs
     "how":"WRB", "why":"WRB","when":"WRB","where":"WRB","what":"WP","who":"WP","whose":"WP$",
     "other":"JJ", "much":"JJ","many":"JJ","one":"CD","two":"CD","three":"CD","four":"CD","five":"CD","six":"CD","seven":"CD","eight":"CD","nine":"CD",
     "ten":"CD","eleven":"CD","twelve":"CD","thirteen":"CD","fourteen":"CD","fifteen":"CD","sixteen":"CD","seventeen":"CD",

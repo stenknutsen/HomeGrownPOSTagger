@@ -2639,3 +2639,36 @@ def DT_UNK_DT_NounTagger(sent):
             sentToReturn += [leftContext]
 
     return sentToReturn
+
+
+#
+def at_times_UNK_VerbTagger(sent):
+    sentToReturn = []
+    skip = 0
+
+    for i in range(len(sent)):
+
+        if skip>0:
+            skip = skip -1
+            continue
+
+        if (i)<0 | (i+2)>=len(sent):
+            sentToReturn += [sent[i]]
+            continue
+
+        leftContext = sent[i]
+        target = sent[i+1]
+        rightContext = sent[i+2]
+
+        if (leftContext[0].lower()=="at")&(target[0].lower()=="times")&(rightContext[1]=="UNK")&\
+                (rightContext[0].lower().endswith("ed")):
+
+            sentToReturn += [leftContext]
+            sentToReturn += [target]
+            sentToReturn += [(rightContext[0],"V")]
+            skip = 2
+
+        else:
+            sentToReturn += [leftContext]
+
+    return sentToReturn
