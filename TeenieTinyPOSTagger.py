@@ -110,6 +110,16 @@ s="We were reminded of that yesterday when SpaceX tried to land a Falcon 9 rocke
 
 s="The new guidelines emphasize a lifelong eating pattern that contains adequate essential nutrients, a caloric intake that supports a healthy body weight and foods that reduce the risk of chronic disease."
 s="Armed Iranian military personnel boarded the two American vessels while other Iranians kept watch behind machine guns mounted on their vessels."
+s="The justices raised the possibility of a broad decision by taking the unusual step of adding their own question to the case, asking the parties to address whether Mr. Obama had violated his constitutional obligations to enforce the nation's laws."
+s="Death in America is frequently compared unfavorably with death in other countries, where people may not be as focused on extending life with every possible intervention."
+s="The show regularly sends up expectations of female beauty but also takes on, for example, the complicated rivalries in certain kinds of relationships between women. "
+s="Their new alliance comes as the onetime detente between Trump and Cruz, the two top outsider candidates in the crowded race, has come to an end. "
+s="Everything had seemed to go wrong in Commander Price's final deployment, which began in September."
+s="Mr. Snyder, facing the biggest crisis of his tenure, cited repeated missteps by members of his administration, including misunderstanding regulations and failing to identify the presence of lead in Flint's drinking water."
+s="The cart that Mother Courage and her three children pull in the original is now a battered truck, from which she sells pretty much anything soldiers and desperate civilians will buy. "
+s="The session is not about restoring his mental health; it's about bringing his testosterone level back to performance level, like Viagra for the psyche."
+
+
 
 
 #takes sentence, tokenizes and renders default POS tag form
@@ -145,13 +155,17 @@ finalSent = endingClusterTagger(finalSent)
 #
 #
 ######################################
-#                               *****NEW*****
+#tags words ending in "*ed" before PRP$ as V
+finalSent = ded_PRPS_VerbTagger(finalSent)
+#tags words ending in "*ed" before DT as V
+finalSent =  ded_DT_VerbTagger(finalSent)
+#
 finalSent = at_times_Tagger(finalSent)
-#                               ****NEW****
+#
 finalSent = MD_UNK_better_IN_Tagger(finalSent)
-#tags IN "that" as DT  *****NEW*****
+#tags IN "that" as DT
 finalSent = IN_that_Tagger(finalSent)
-#tags words between CD and "there" as NNS  *****NEW****
+#tags words between CD and "there" as NNS
 finalSent =  CD_UNK_there_PUNC_Tagger(finalSent)
 #tags "own" as JJ when precede by PRP$
 finalSent = PRPS_own_AdjectiveTagger(finalSent)
@@ -394,11 +408,11 @@ finalSent = CD_UNK_RB_NounTagger(finalSent)
 finalSent = a_UNK_UNK_PUNC_Tagger(finalSent)
 #
 finalSent =  to_UNK_N_that_Tagger(finalSent)
-#                                           *****NEW*****
+#
 finalSent = the_UNK_RB_UNK_a_Tagger(finalSent)
-#                                           *****NEW*****
+#
 finalSent = IN_UNK_PUNC_so_Tagger(finalSent)
-#                                           *****NEW*****
+#
 finalSent = at_times_UNK_VerbTagger(finalSent)
 
 

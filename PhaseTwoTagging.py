@@ -616,3 +616,77 @@ def UNK_who_NounTagger(sent):
 
 
     return sentToReturn
+
+#tags words ending in "*ed" before DT as V
+def ded_DT_VerbTagger(sent):
+    sentToReturn = []
+    skip = 0
+
+    for i in range(len(sent)):
+
+        if skip>0:
+            skip = skip -1
+            continue
+
+        if (i)<0 | (i+1)>=len(sent):
+            sentToReturn += [sent[i]]
+            continue
+
+        leftContext = sent[i]
+        target = sent[i+1]
+
+
+        if ((leftContext[0].lower().endswith("ded"))|(leftContext[0].lower().endswith("ced"))|(leftContext[0].lower().endswith("fed"))|
+            (leftContext[0].lower().endswith("ged"))|(leftContext[0].lower().endswith("hed"))|(leftContext[0].lower().endswith("ied"))|
+            (leftContext[0].lower().endswith("ked"))|(leftContext[0].lower().endswith("led"))|(leftContext[0].lower().endswith("med"))|
+            (leftContext[0].lower().endswith("ned"))|(leftContext[0].lower().endswith("ped"))|(leftContext[0].lower().endswith("red"))|
+            (leftContext[0].lower().endswith("sed"))|(leftContext[0].lower().endswith("ted"))|(leftContext[0].lower().endswith("ued"))|
+            (leftContext[0].lower().endswith("ved"))|(leftContext[0].lower().endswith("wed"))|(leftContext[0].lower().endswith("xed"))|
+            (leftContext[0].lower().endswith("yed"))|(leftContext[0].lower().endswith("zed")))&(leftContext[1]=="UNK")&(target[1]=="DT"):
+
+            sentToReturn += [(leftContext[0],"V")]
+            sentToReturn += [target]
+
+            skip = 1
+
+        else:
+            sentToReturn += [leftContext]
+
+    return sentToReturn
+
+#tags words ending in "*ed" before PRP$ as V
+def ded_PRPS_VerbTagger(sent):
+    sentToReturn = []
+    skip = 0
+
+    for i in range(len(sent)):
+
+        if skip>0:
+            skip = skip -1
+            continue
+
+        if (i)<0 | (i+1)>=len(sent):
+            sentToReturn += [sent[i]]
+            continue
+
+        leftContext = sent[i]
+        target = sent[i+1]
+
+
+        if ((leftContext[0].lower().endswith("ded"))|(leftContext[0].lower().endswith("ced"))|(leftContext[0].lower().endswith("fed"))|
+            (leftContext[0].lower().endswith("ged"))|(leftContext[0].lower().endswith("hed"))|(leftContext[0].lower().endswith("ied"))|
+            (leftContext[0].lower().endswith("ked"))|(leftContext[0].lower().endswith("led"))|(leftContext[0].lower().endswith("med"))|
+            (leftContext[0].lower().endswith("ned"))|(leftContext[0].lower().endswith("ped"))|(leftContext[0].lower().endswith("red"))|
+            (leftContext[0].lower().endswith("sed"))|(leftContext[0].lower().endswith("ted"))|(leftContext[0].lower().endswith("ued"))|
+            (leftContext[0].lower().endswith("ved"))|(leftContext[0].lower().endswith("wed"))|(leftContext[0].lower().endswith("xed"))|
+            (leftContext[0].lower().endswith("yed"))|(leftContext[0].lower().endswith("zed")))&(leftContext[1]=="UNK")&(target[1]=="PRP$"):
+
+            sentToReturn += [(leftContext[0],"V")]
+            sentToReturn += [target]
+
+            skip = 1
+
+        else:
+            sentToReturn += [leftContext]
+
+    return sentToReturn
