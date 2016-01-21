@@ -2672,3 +2672,67 @@ def at_times_UNK_VerbTagger(sent):
             sentToReturn += [leftContext]
 
     return sentToReturn
+
+
+#tags anything between PRP's as V
+def PRP_UNK_PRP_VerbTagger(sent):
+    sentToReturn = []
+    skip = 0
+
+    for i in range(len(sent)):
+
+        if skip>0:
+            skip = skip -1
+            continue
+
+        if (i)<0 | (i+2)>=len(sent):
+            sentToReturn += [sent[i]]
+            continue
+
+        leftContext = sent[i]
+        target = sent[i+1]
+        rightContext = sent[i+2]
+
+        if (leftContext[1]=="PRP")&(target[1]=="UNK")&(target[0].lower()!="that")&(rightContext[1]=="PRP"):
+
+            sentToReturn += [leftContext]
+            sentToReturn += [(target[0],"V")]
+            sentToReturn += [rightContext]
+            skip = 2
+
+        else:
+            sentToReturn += [leftContext]
+
+    return sentToReturn
+
+#tags words after "will" and before "." or ";" or ":" as VB, and "will" as MD
+def will_UNK_PUNC_VerbTagger(sent):
+    sentToReturn = []
+    skip = 0
+
+    for i in range(len(sent)):
+
+        if skip>0:
+            skip = skip -1
+            continue
+
+        if (i)<0 | (i+2)>=len(sent):
+            sentToReturn += [sent[i]]
+            continue
+
+        leftContext = sent[i]
+        target = sent[i+1]
+        rightContext = sent[i+2]
+
+        if (leftContext[0].lower()=="will")&(leftContext[1]=="UNK")&(target[1]=="UNK")&((rightContext[1]==".")|(rightContext[1]==";")|
+                                                                                        (rightContext[1]==".")):
+
+            sentToReturn += [(leftContext[0],"MD")]
+            sentToReturn += [(target[0],"VB")]
+            sentToReturn += [rightContext]
+            skip = 2
+
+        else:
+            sentToReturn += [leftContext]
+
+    return sentToReturn

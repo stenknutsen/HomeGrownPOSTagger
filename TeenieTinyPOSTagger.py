@@ -7,8 +7,9 @@ from PhaseFourTagging import*
 from PhaseFiveTagging import*
 
 
-
-
+s="The official and others who talked with NPR asked not to be identified since the Defense Department hasn't decided officially whether to try to withdraw the troops from the Sinai."
+#s="The cart that Mother Courage and her three children pull in the original is now a battered truck, from which she sells pretty much anything soldiers and desperate civilians will buy. "
+#s="The session is not about restoring his mental health; it's about bringing his testosterone level back to performance level, like Viagra for the psyche."
 s="Nationalism is the result of identification and differentiation and it follows from the similarities and differences we see between ourselves and others."
 s="The character also possesses a velvety purr, a deliberate choice for an actor who can rage with the best of them."
 s="President Obama took a moment in his final State of the Union Address Tuesday to voice optimism that people have the power to bring an end to the worldwide menace of malaria."
@@ -111,15 +112,18 @@ s="We were reminded of that yesterday when SpaceX tried to land a Falcon 9 rocke
 s="The new guidelines emphasize a lifelong eating pattern that contains adequate essential nutrients, a caloric intake that supports a healthy body weight and foods that reduce the risk of chronic disease."
 s="Armed Iranian military personnel boarded the two American vessels while other Iranians kept watch behind machine guns mounted on their vessels."
 s="The justices raised the possibility of a broad decision by taking the unusual step of adding their own question to the case, asking the parties to address whether Mr. Obama had violated his constitutional obligations to enforce the nation's laws."
-s="Death in America is frequently compared unfavorably with death in other countries, where people may not be as focused on extending life with every possible intervention."
-s="The show regularly sends up expectations of female beauty but also takes on, for example, the complicated rivalries in certain kinds of relationships between women. "
-s="Their new alliance comes as the onetime detente between Trump and Cruz, the two top outsider candidates in the crowded race, has come to an end. "
-s="Everything had seemed to go wrong in Commander Price's final deployment, which began in September."
-s="Mr. Snyder, facing the biggest crisis of his tenure, cited repeated missteps by members of his administration, including misunderstanding regulations and failing to identify the presence of lead in Flint's drinking water."
-s="The cart that Mother Courage and her three children pull in the original is now a battered truck, from which she sells pretty much anything soldiers and desperate civilians will buy. "
-s="The session is not about restoring his mental health; it's about bringing his testosterone level back to performance level, like Viagra for the psyche."
+#s="Death in America is frequently compared unfavorably with death in other countries, where people may not be as focused on extending life with every possible intervention."
+#s="The show regularly sends up expectations of female beauty but also takes on, for example, the complicated rivalries in certain kinds of relationships between women. "
+#s="Their new alliance comes as the onetime detente between Trump and Cruz, the two top outsider candidates in the crowded race, has come to an end. "
+#s="Everything had seemed to go wrong in Commander Price's final deployment, which commenced in September."
+#s="Mr. Snyder, facing the biggest crisis of his tenure, cited repeated missteps by members of his administration, including misunderstanding regulations and failing to identify the presence of lead in Flint's drinking water."
 
-
+#s="In the continental United States, the year was the second-warmest on record, punctuated by a December that was both the hottest and the wettest since record-keeping began."
+s="Hillary Clinton dismissed a report that emails she sent on her private email server contained a high level of classified material."
+s="The S&P even fell below the lows it reached last August, following China's decision to devalue its currency."
+s="Universal public higher education recognizes that college must be affordable for all if it is to help drive our economy and our democracy."
+s="Statistical analysis suggested all along that the claims were false, and that the slowdown was, at most, a minor blip in an inexorable trend, perhaps caused by a temporary increase in the absorption of heat by the Pacific Ocean."
+s="What is striking, the scientists said, is that the orbits of all six loop outward in the same quadrant of the solar system and are tilted at about the same angle. "
 
 
 #takes sentence, tokenizes and renders default POS tag form
@@ -155,10 +159,36 @@ finalSent = endingClusterTagger(finalSent)
 #
 #
 ######################################
+
+#                                           *****NEW*****
+finalSent = whether_to_UNK_to_Tagger(finalSent)
+
+#tags words ending in "est" following "the" as JJS  ****NEW****
+finalSent = the_est_AdjectiveTagger(finalSent)
+#tags words ending in "er" followed by "than" as JJS  ****NEW****
+finalSent =  er_than_AdjectiveTagger(finalSent)
+#tags words ending in "*ed" after "which" as V and "which" as WDT  *****NEW*****
+finalSent = which_ded_VerbTagger(finalSent)
+#tags words after "will" and before "." or ";" or ":" as VB, and "will" as MD  ****NEW****
+finalSent =  will_UNK_PUNC_VerbTagger(finalSent)
+#tags words ending in "ls" after PRP as V  *****NEW*****
+finalSent = PRP_ls_VerbTagger(finalSent)
+#tags words ending in "*ed" after PRP as V  *****NEW*****
+finalSent = PRP_ded_VerbTagger(finalSent)
+#tags words ending in "*ed" before IN as V  *****NEW*****
+finalSent = ded_IN_VerbTagger(finalSent)
 #tags words ending in "*ed" before PRP$ as V
 finalSent = ded_PRPS_VerbTagger(finalSent)
 #tags words ending in "*ed" before DT as V
 finalSent =  ded_DT_VerbTagger(finalSent)
+
+
+
+#tags words ending in "*ed" after "have" verbs as VBN  ****NEW****
+finalSent = have_ded_VerbTagger(finalSent)
+
+#tags anything between PRP's as V   *****NEW*****
+finalSent = PRP_UNK_PRP_VerbTagger(finalSent)
 #
 finalSent = at_times_Tagger(finalSent)
 #
@@ -414,6 +444,8 @@ finalSent = the_UNK_RB_UNK_a_Tagger(finalSent)
 finalSent = IN_UNK_PUNC_so_Tagger(finalSent)
 #
 finalSent = at_times_UNK_VerbTagger(finalSent)
+#tags words ending in "*ed" before RB as VBN  ****NEW****
+finalSent = ded_RB_VerbTagger(finalSent)
 
 
 

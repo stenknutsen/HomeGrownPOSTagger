@@ -493,6 +493,36 @@ def so_that_PrepositionTagger(sent):
     return sentToReturn
 
 
+#tags words ending in "er" followed by "than" as JJS
+def er_than_AdjectiveTagger(sent):
+    sentToReturn = []
+    skip = 0
+
+    for i in range(len(sent)):
+
+        if skip>0:
+            skip = skip -1
+            continue
+
+        if (i)<0 | (i+1)>=len(sent):
+            sentToReturn += [sent[i]]
+            continue
+
+        leftContext = sent[i]
+        target = sent[i+1]
+
+
+        if (leftContext[1]=="UNK")&(leftContext[0].lower().endswith("er"))&(leftContext[0].lower()!="her")&(target[0].lower()=="than"):
+
+            sentToReturn += [(leftContext[0],"JJS")]
+            sentToReturn += [target]
+
+            skip = 1
+
+        else:
+            sentToReturn += [leftContext]
+
+    return sentToReturn
 
 #tags "own" as JJ when precede by PRP$
 def PRPS_own_AdjectiveTagger(sent):
@@ -591,6 +621,44 @@ def at_times_Tagger(sent):
     return sentToReturn
 
 
+
+#tags words ending in "est" following "the" as JJS
+def the_est_AdjectiveTagger(sent):
+    sentToReturn = []
+    skip = 0
+
+    for i in range(len(sent)):
+
+        if skip>0:
+            skip = skip -1
+            continue
+
+        if (i)<0 | (i+1)>=len(sent):
+            sentToReturn += [sent[i]]
+            continue
+
+        leftContext = sent[i]
+        target = sent[i+1]
+
+
+        if ((target[0].lower().endswith("test"))|(target[0].lower().endswith("best"))|(target[0].lower().endswith("cest"))|
+            (target[0].lower().endswith("dest"))|(target[0].lower().endswith("gest"))|(target[0].lower().endswith("hest"))|
+            (target[0].lower().endswith("iest"))|(target[0].lower().endswith("kest"))|(target[0].lower().endswith("lest"))|
+            (target[0].lower().endswith("mest"))|(target[0].lower().endswith("nest"))|(target[0].lower().endswith("pest"))|
+            (target[0].lower().endswith("sest"))|(target[0].lower().endswith("yest")))&\
+            (target[0].lower()!="contest")&(target[0].lower()!="digest")&(target[0].lower()!="nest")&(leftContext[0].lower()=="the")&\
+            (target[0].lower()!="test")&(target[0].lower()!="pest")&(target[1]=="UNK"):
+
+            sentToReturn += [leftContext]
+            sentToReturn += [(target[0], "JJS")]
+
+            skip = 1
+
+        else:
+            sentToReturn += [leftContext]
+
+    return sentToReturn
+
 #tags anything ***at beginning of sent*** followed by "who" as NNS.
 def UNK_who_NounTagger(sent):
     sentToReturn = []
@@ -654,6 +722,44 @@ def ded_DT_VerbTagger(sent):
 
     return sentToReturn
 
+#tags words ending in "*ed" before RB as VBN
+def ded_RB_VerbTagger(sent):
+    sentToReturn = []
+    skip = 0
+
+    for i in range(len(sent)):
+
+        if skip>0:
+            skip = skip -1
+            continue
+
+        if (i)<0 | (i+1)>=len(sent):
+            sentToReturn += [sent[i]]
+            continue
+
+        leftContext = sent[i]
+        target = sent[i+1]
+
+
+        if ((leftContext[0].lower().endswith("ded"))|(leftContext[0].lower().endswith("ced"))|(leftContext[0].lower().endswith("fed"))|
+            (leftContext[0].lower().endswith("ged"))|(leftContext[0].lower().endswith("hed"))|(leftContext[0].lower().endswith("ied"))|
+            (leftContext[0].lower().endswith("ked"))|(leftContext[0].lower().endswith("led"))|(leftContext[0].lower().endswith("med"))|
+            (leftContext[0].lower().endswith("ned"))|(leftContext[0].lower().endswith("ped"))|(leftContext[0].lower().endswith("red"))|
+            (leftContext[0].lower().endswith("sed"))|(leftContext[0].lower().endswith("ted"))|(leftContext[0].lower().endswith("ued"))|
+            (leftContext[0].lower().endswith("ved"))|(leftContext[0].lower().endswith("wed"))|(leftContext[0].lower().endswith("xed"))|
+            (leftContext[0].lower().endswith("yed"))|(leftContext[0].lower().endswith("zed")))&(leftContext[1]=="UNK")&(target[1]=="RB"):
+
+            sentToReturn += [(leftContext[0],"VBN")]
+            sentToReturn += [target]
+
+            skip = 1
+
+        else:
+            sentToReturn += [leftContext]
+
+    return sentToReturn
+
+
 #tags words ending in "*ed" before PRP$ as V
 def ded_PRPS_VerbTagger(sent):
     sentToReturn = []
@@ -683,6 +789,193 @@ def ded_PRPS_VerbTagger(sent):
 
             sentToReturn += [(leftContext[0],"V")]
             sentToReturn += [target]
+
+            skip = 1
+
+        else:
+            sentToReturn += [leftContext]
+
+    return sentToReturn
+
+
+#tags words ending in "*ed" before IN as V
+def ded_IN_VerbTagger(sent):
+    sentToReturn = []
+    skip = 0
+
+    for i in range(len(sent)):
+
+        if skip>0:
+            skip = skip -1
+            continue
+
+        if (i)<0 | (i+1)>=len(sent):
+            sentToReturn += [sent[i]]
+            continue
+
+        leftContext = sent[i]
+        target = sent[i+1]
+
+
+        if ((leftContext[0].lower().endswith("ded"))|(leftContext[0].lower().endswith("ced"))|(leftContext[0].lower().endswith("fed"))|
+            (leftContext[0].lower().endswith("ged"))|(leftContext[0].lower().endswith("hed"))|(leftContext[0].lower().endswith("ied"))|
+            (leftContext[0].lower().endswith("ked"))|(leftContext[0].lower().endswith("led"))|(leftContext[0].lower().endswith("med"))|
+            (leftContext[0].lower().endswith("ned"))|(leftContext[0].lower().endswith("ped"))|(leftContext[0].lower().endswith("red"))|
+            (leftContext[0].lower().endswith("sed"))|(leftContext[0].lower().endswith("ted"))|(leftContext[0].lower().endswith("ued"))|
+            (leftContext[0].lower().endswith("ved"))|(leftContext[0].lower().endswith("wed"))|(leftContext[0].lower().endswith("xed"))|
+            (leftContext[0].lower().endswith("yed"))|(leftContext[0].lower().endswith("zed")))&(leftContext[1]=="UNK")&(target[1]=="IN"):
+
+            sentToReturn += [(leftContext[0],"V")]
+            sentToReturn += [target]
+
+            skip = 1
+
+        else:
+            sentToReturn += [leftContext]
+
+    return sentToReturn
+
+#tags words ending in "*ed" after PRP as V
+def PRP_ded_VerbTagger(sent):
+    sentToReturn = []
+    skip = 0
+
+    for i in range(len(sent)):
+
+        if skip>0:
+            skip = skip -1
+            continue
+
+        if (i)<0 | (i+1)>=len(sent):
+            sentToReturn += [sent[i]]
+            continue
+
+        leftContext = sent[i]
+        target = sent[i+1]
+
+
+        if ((target[0].lower().endswith("ded"))|(target[0].lower().endswith("ced"))|(target[0].lower().endswith("fed"))|
+            (target[0].lower().endswith("ged"))|(target[0].lower().endswith("hed"))|(target[0].lower().endswith("ied"))|
+            (target[0].lower().endswith("ked"))|(target[0].lower().endswith("led"))|(target[0].lower().endswith("med"))|
+            (target[0].lower().endswith("ned"))|(target[0].lower().endswith("ped"))|(target[0].lower().endswith("red"))|
+            (target[0].lower().endswith("sed"))|(target[0].lower().endswith("ted"))|(target[0].lower().endswith("ued"))|
+            (target[0].lower().endswith("ved"))|(target[0].lower().endswith("wed"))|(target[0].lower().endswith("xed"))|
+            (target[0].lower().endswith("yed"))|(target[0].lower().endswith("zed")))&(target[1]=="UNK")&(leftContext[1]=="PRP"):
+
+            sentToReturn += [leftContext]
+            sentToReturn += [(target[0],"V")]
+
+            skip = 1
+
+        else:
+            sentToReturn += [leftContext]
+
+    return sentToReturn
+
+#tags words ending in "ls" after PRP as V
+def PRP_ls_VerbTagger(sent):
+    sentToReturn = []
+    skip = 0
+
+    for i in range(len(sent)):
+
+        if skip>0:
+            skip = skip -1
+            continue
+
+        if (i)<0 | (i+1)>=len(sent):
+            sentToReturn += [sent[i]]
+            continue
+
+        leftContext = sent[i]
+        target = sent[i+1]
+
+
+        if ((target[0].lower().endswith("ls"))|(target[0].lower().endswith("bs"))|(target[0].lower().endswith("ds"))|
+            (target[0].lower().endswith("es"))|(target[0].lower().endswith("fs"))|(target[0].lower().endswith("gs"))|
+            (target[0].lower().endswith("hs"))|(target[0].lower().endswith("ks"))|(target[0].lower().endswith("ms"))|
+            (target[0].lower().endswith("ns"))|(target[0].lower().endswith("ps"))|(target[0].lower().endswith("rs"))|
+            (target[0].lower().endswith("ses"))|(target[0].lower().endswith("ts"))|(target[0].lower().endswith("ws"))|
+            (target[0].lower().endswith("zes")))&(target[1]=="UNK")&(leftContext[1]=="PRP"):
+
+            sentToReturn += [leftContext]
+            sentToReturn += [(target[0],"V")]
+
+            skip = 1
+
+        else:
+            sentToReturn += [leftContext]
+
+    return sentToReturn
+
+#tags words ending in "*ed" after "which" as V and "which" as WDT
+def which_ded_VerbTagger(sent):
+    sentToReturn = []
+    skip = 0
+
+    for i in range(len(sent)):
+
+        if skip>0:
+            skip = skip -1
+            continue
+
+        if (i)<0 | (i+1)>=len(sent):
+            sentToReturn += [sent[i]]
+            continue
+
+        leftContext = sent[i]
+        target = sent[i+1]
+
+
+        if ((target[0].lower().endswith("ded"))|(target[0].lower().endswith("ced"))|(target[0].lower().endswith("fed"))|
+            (target[0].lower().endswith("ged"))|(target[0].lower().endswith("hed"))|(target[0].lower().endswith("ied"))|
+            (target[0].lower().endswith("ked"))|(target[0].lower().endswith("led"))|(target[0].lower().endswith("med"))|
+            (target[0].lower().endswith("ned"))|(target[0].lower().endswith("ped"))|(target[0].lower().endswith("red"))|
+            (target[0].lower().endswith("sed"))|(target[0].lower().endswith("ted"))|(target[0].lower().endswith("ued"))|
+            (target[0].lower().endswith("ved"))|(target[0].lower().endswith("wed"))|(target[0].lower().endswith("xed"))|
+            (target[0].lower().endswith("yed"))|(target[0].lower().endswith("zed")))&(target[1]=="UNK")&\
+            (leftContext[1]=="UNK")&(leftContext[0].lower()=="which"):
+
+            sentToReturn += [(leftContext[0],"WDT")]
+            sentToReturn += [(target[0],"VBD")]
+
+            skip = 1
+
+        else:
+            sentToReturn += [leftContext]
+
+    return sentToReturn
+
+#tags words ending in "*ed" after "have" verbs as VBN
+def have_ded_VerbTagger(sent):
+    sentToReturn = []
+    skip = 0
+
+    for i in range(len(sent)):
+
+        if skip>0:
+            skip = skip -1
+            continue
+
+        if (i)<0 | (i+1)>=len(sent):
+            sentToReturn += [sent[i]]
+            continue
+
+        leftContext = sent[i]
+        target = sent[i+1]
+
+
+        if ((target[0].lower().endswith("ded"))|(target[0].lower().endswith("ced"))|(target[0].lower().endswith("fed"))|
+            (target[0].lower().endswith("ged"))|(target[0].lower().endswith("hed"))|(target[0].lower().endswith("ied"))|
+            (target[0].lower().endswith("ked"))|(target[0].lower().endswith("led"))|(target[0].lower().endswith("med"))|
+            (target[0].lower().endswith("ned"))|(target[0].lower().endswith("ped"))|(target[0].lower().endswith("red"))|
+            (target[0].lower().endswith("sed"))|(target[0].lower().endswith("ted"))|(target[0].lower().endswith("ued"))|
+            (target[0].lower().endswith("ved"))|(target[0].lower().endswith("wed"))|(target[0].lower().endswith("xed"))|
+            (target[0].lower().endswith("yed"))|(target[0].lower().endswith("zed")))&(target[1]=="UNK")&\
+                ((leftContext[0].lower()=="have")|(leftContext[0].lower()=="had")|(leftContext[0].lower()=="has")):
+
+            sentToReturn += [leftContext]
+            sentToReturn += [(target[0],"VBN")]
 
             skip = 1
 

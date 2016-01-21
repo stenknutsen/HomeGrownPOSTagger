@@ -62,7 +62,7 @@ def DT_UNK_UNK_PUNC_Tagger(sent):
         rightContext = sent[i+3]
 
 
-        if ((leftContext[1]=="DT"))&(leftTarget[1]=="UNK")&(rightTarget[1]=="UNK")&(rightContext[1]=="."):
+        if ((leftContext[1]=="DT"))&(leftTarget[1]=="UNK")&(rightTarget[1]=="UNK")&((rightContext[1]==".")|(rightContext[1]==";")):
 
             sentToReturn += [leftContext]
 
@@ -102,7 +102,7 @@ def IN_UNK_UNK_PUNC_Tagger(sent):
         rightContext = sent[i+3]
 
 
-        if ((leftContext[1]=="IN"))&(leftTarget[1]=="UNK")&(rightTarget[1]=="UNK")&(rightContext[1]=="."):
+        if ((leftContext[1]=="IN"))&(leftTarget[1]=="UNK")&(rightTarget[1]=="UNK")&((rightContext[1]==".")|(rightContext[1]==";")):
 
             sentToReturn += [leftContext]
 
@@ -143,7 +143,7 @@ def IN_N_UNK_PUNC_Tagger(sent):
         rightContext = sent[i+3]
 
 
-        if ((leftContext[1]=="IN")|(leftContext[1]=="PRP$"))&(leftTarget[1].startswith("N"))&(rightTarget[1]=="UNK")&(rightContext[1]=="."):
+        if ((leftContext[1]=="IN")|(leftContext[1]=="PRP$"))&(leftTarget[1].startswith("N"))&(rightTarget[1]=="UNK")&((rightContext[1]==".")|(rightContext[1]==";")):
 
             sentToReturn += [leftContext]
 
@@ -183,7 +183,7 @@ def IN_UNK_N_PUNC_Tagger(sent):
         rightContext = sent[i+3]
 
 
-        if ((leftContext[1]=="IN")|(leftContext[1]=="PRP$"))&(leftTarget[1]=="UNK")&(rightTarget[1].startswith("N"))&(rightContext[1]=="."):
+        if ((leftContext[1]=="IN")|(leftContext[1]=="PRP$"))&(rightTarget[1]=="UNK")&((rightContext[1]==".")|(rightContext[1]==";")):
 
             sentToReturn += [leftContext]
 
@@ -191,7 +191,7 @@ def IN_UNK_N_PUNC_Tagger(sent):
             sentToReturn += [(leftTarget[0], "J")]
 
 
-            sentToReturn += [rightTarget]
+            sentToReturn += [(rightTarget[0],"N")]
 
             sentToReturn += [rightContext]
             skip = 3
@@ -965,6 +965,41 @@ def MD_UNK_better_IN_Tagger(sent):
             sentToReturn += [(leftContext[0],"MD")]
             sentToReturn += [(leftTarget[0], "V")]
             sentToReturn += [(rightTarget[0],"RB")]
+            sentToReturn += [rightContext]
+            skip = 3
+
+        else:
+            sentToReturn += [leftContext]
+
+    return sentToReturn
+
+#
+def whether_to_UNK_to_Tagger(sent):
+    sentToReturn = []
+    skip = 0
+
+    for i in range(len(sent)):
+
+        if skip>0:
+            skip = skip -1
+            continue
+
+
+        if (i)<0 | (i+3)>=len(sent):
+            sentToReturn += [sent[i]]
+            continue
+
+        leftContext = sent[i]
+        leftTarget = sent[i+1]
+        rightTarget = sent[i+2]
+        rightContext = sent[i+3]
+
+
+        if (leftContext[0].lower()=="whether")&(leftTarget[0].lower()=="to")&(rightTarget[1]=="UNK")&(rightContext[0].lower()=="to"):
+
+            sentToReturn += [leftContext]
+            sentToReturn += [(leftTarget[0], "TO")]
+            sentToReturn += [(rightTarget[0],"VB")]
             sentToReturn += [rightContext]
             skip = 3
 
