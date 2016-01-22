@@ -43,7 +43,7 @@ endingClusterList = [("ness","NN"),("nesses","NNS"),("iest","JJS"),("ation","NN"
                      ("less","JJ"),("tieth","CD"),("eenth","CD"),("icians","NNS"),("ician","NN"),("sion","NN"),("sions","NNS"),
                      ("ings","NNS"),("iety","NN"),("ieties","NNS"),("lar","JJ"),("ceed","V"),("cede","V"),("tly","RB"),("ket","NN"),
                      ("kets","NNS"),("ey","NN"),("eys","NNS"),("space","NN"),("spaces","NNS"),("bly","RB"),("rance","NN"),
-                     ("ism","NN"),("isms","NNS"),("tist","NN"),("tists","NNS")]### add *ors, NNS
+                     ("ism","NN"),("isms","NNS"),("tist","NN"),("tists","NNS"),("ors","NNS")]
 
 tinyDictionary = {",":",",".":".",";":";","?":"?","!":"!",":":":","$":"$","(":"(",")":")",#punctuation
     "a":"DT","an":"DT","any":"DT","the":"DT","this":"DT","these":"DT","those":"DT","no":"DT","some":"DT","all":"DT","both":"DT", #determiners
