@@ -124,6 +124,11 @@ s="The S&P even fell below the lows it reached last August, following China's de
 s="Universal public higher education recognizes that college must be affordable for all if it is to help drive our economy and our democracy."
 s="Statistical analysis suggested all along that the claims were false, and that the slowdown was, at most, a minor blip in an inexorable trend, perhaps caused by a temporary increase in the absorption of heat by the Pacific Ocean."
 s="What is striking, the scientists said, is that the orbits of all six loop outward in the same quadrant of the solar system and are tilted at about the same angle. "
+s="After 47 years in the spotlight, more than 250 million albums sold, six Grammys, a Tony, an Oscar and a knighthood, Elton John still gets the jitters when he steps onstage. "
+s="Instead, Mr. John has injected himself ever more forcefully, and candidly, into pop culture - and art, and politics. "
+s="Mr. Trump barely dwelled on them, saying in an interview that he was already looking ahead to the prospect of a general election matchup against Mrs. Clinton, a former secretary of state and senator."
+
+
 
 
 #takes sentence, tokenizes and renders default POS tag form
