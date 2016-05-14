@@ -7,7 +7,7 @@ from PhaseFourTagging import*
 from PhaseFiveTagging import*
 
 
-
+s="For hours each night, they worked in a shadow laboratory lit by a single lamp, passing bottles of urine through a hand-size hole in the wall, to be ready for testing the next day, he said."
 
 
 
