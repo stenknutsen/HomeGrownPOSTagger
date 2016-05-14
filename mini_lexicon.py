@@ -3535,6 +3535,8 @@ noun_prop={"new":"NNP",
 "harold":"NNP",
 "oxford":"NNP",
 "brad":"NNP",
+"trump":"NNP",
+"twitter":"NNP",
 "emma":"NNP",
 "rebecca":"NNP",
 "tour":"NNP",
@@ -12012,6 +12014,15 @@ keys_verb_en = set(verb_en.keys())
 keys_verb_inf_lex = set(verb_inf_lex.keys())
 keys_verb_ing = set(verb_ing.keys())
 
+whole_lexicon_dict = dict(adj, **adv)
+whole_lexicon_dict = dict(whole_lexicon_dict, **noun_pl)
+whole_lexicon_dict = dict(whole_lexicon_dict, **noun_sg)
+whole_lexicon_dict = dict(whole_lexicon_dict, **verb_3sg)
+whole_lexicon_dict = dict(whole_lexicon_dict, **verb)
+whole_lexicon_dict = dict(whole_lexicon_dict, **verb_ed)
+whole_lexicon_dict = dict(whole_lexicon_dict, **verb_en)
+whole_lexicon_dict = dict(whole_lexicon_dict, **verb_inf_lex)
+whole_lexicon_dict = dict(whole_lexicon_dict, **verb_ing)
 """
 keys_adj = (['b','c','d'])
 keys_adv = (['e','f','g','h'])
@@ -12039,4 +12050,5 @@ for i in dict_keys:
         common_keys = set.union(set(common_keys),set(intersection_all))
 
 
-
+#create dictionary of common_keys
+common_dict = dict.fromkeys(common_keys, 0)

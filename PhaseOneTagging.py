@@ -1,5 +1,7 @@
 import headers
-
+from mini_lexicon import noun_prop
+from mini_lexicon import common_dict
+from mini_lexicon import whole_lexicon_dict
 #In this phase of tagging, there will be no consideration of context.
 #Unambigous, closed-class(and nearly closed-class) morphemes will be tagged.
 #Morphemes are also tagged by unique orthographic features.
@@ -86,6 +88,24 @@ def NNPTagger(sent):
         sentToReturn += [tup]
     return sentToReturn
 
+#Tags anything starting with a captial letter as NNP (excluding first word in sentence)
+def new_NNPTagger(sent):
+    iterSent = iter(sent)
+    sentToReturn = []
+    sentToReturn += [next(iterSent)]
+    for word in iterSent:
+        token = word[0]
+        if ((token[0].isupper())&(word[1]=="UNK")):
+            if word[0].lower() in noun_prop:
+                tup = (word[0], 'NNP')
+            else:
+                tup = (word[0], word[1])
+        else:
+                tup = (word[0], word[1])
+        sentToReturn += [tup]
+    return sentToReturn
+
+
 #Tags anything starting with an int as CD
 def int_Tagger(sent):
     iterSent = iter(sent)
@@ -133,3 +153,25 @@ def endingClusterTagger(sent):
 
     return sentToReturn
 
+#tags everything in lexicon, minus common_dict
+def lexicon_tagger(sent):
+    sentToReturn = []
+    newTuple = ()
+    for word_POS_tuple in sent:
+        #set to existing tuple by defaut
+        newTuple = word_POS_tuple
+        #if the word is one of the exceptions, add to sentToReturn and keep going
+        if word_POS_tuple[0].lower() in common_dict:
+            newTuple = (word_POS_tuple[0],"UNK?")
+            sentToReturn += [newTuple]
+            continue
+        #see if word ends in targeted ending. If so, put in newTuple
+        if ((word_POS_tuple[0].lower() in whole_lexicon_dict)&(word_POS_tuple[1]=="UNK")):
+            newTup = (word_POS_tuple[0], whole_lexicon_dict[word_POS_tuple[0].lower()])
+            sentToReturn += [newTup]
+        else:
+            sentToReturn += [word_POS_tuple]
+        #add new tuple to sentToReturn
+        #sentToReturn += [newTuple]
+
+    return sentToReturn
