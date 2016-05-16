@@ -6,10 +6,14 @@ from PhaseOneTagging import lexicon_tagger
 from PhaseOneTagging import tinyDictionaryTagger
 
 s="But Mr. Maduro, who succeeded Hugo Chavez, went on television and rejected the effort, describing the move as a bid to undermine him and privatize the hospital system."
-s="To reclaim their stories from erasure is to confront the unnoticed heartbreak inherent in a great metropolis, in the striving and missed chances of so many lives gone by."
-s="But women were checked when they entered their dorms, and my hall mates constantly ratted out my friends and me just for smoking cigarettes."
-s="Though his wife and two children felt fine, others in the wedding party were feeling the effects of the elevation. "
-s="In the morning, when he pulled himself out of bed, the sheets were soaked with sweat."
+
+s="Though their support for Mr. Trump is often qualified, this change of heart is one of the more remarkable turns in an erratic and precedent-defying Republican campaign. "
+
+s="Some Amazon fulfillment center workers see unions as a way to gain more influence on pay, how job assignments are doled out and the handling of workplace complaints."
+
+s="But it was a large enough diversion of television dollars to digital media to be of real symbolic importance."
+s="If we cut that off, we push television executives into new levels of subliminal trickery."
+
 
 #takes sentence, tokenizes and renders default POS tag form
 def conditionSentence(sent):

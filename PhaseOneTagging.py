@@ -120,11 +120,11 @@ def int_Tagger(sent):
         sentToReturn += [tup]
     return sentToReturn
 
-#tags everything in tinyDictionary
+#tags everything in tinyDictionary. Removed  from line 127
 def tinyDictionaryTagger(sent):
     sentToReturn = []
     for word in sent:
-        if ((word[0].lower() in tinyDictionary)&(word[1]=="UNK")|(word[0].lower()=="i")):###changed this 1.12.2016
+        if ((word[0].lower() in tinyDictionary)&(word[1]=="UNK")|(word[0].lower()=="i")):
             newTup = (word[0], tinyDictionary[word[0].lower()])
             sentToReturn += [newTup]
         else:
@@ -161,7 +161,7 @@ def lexicon_tagger(sent):
         #set to existing tuple by defaut
         newTuple = word_POS_tuple
         #if the word is one of the exceptions, add to sentToReturn and keep going
-        if word_POS_tuple[0].lower() in common_dict:
+        if ((word_POS_tuple[0].lower() in common_dict)&(word_POS_tuple[1]=="UNK")):
             newTuple = (word_POS_tuple[0],"UNK?")
             sentToReturn += [newTuple]
             continue
