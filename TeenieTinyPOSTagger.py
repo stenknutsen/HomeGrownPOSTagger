@@ -7,7 +7,7 @@ from PhaseFourTagging import*
 from PhaseFiveTagging import*
 
 
-s="For hours each night, they worked in a shadow laboratory lit by a single lamp, passing bottles of urine through a hand-size hole in the wall, to be ready for testing the next day, he said."
+s="Over the course of several hours after Omar Mateen attacked the Pulse nightclub and took hostages, he told police negotiators that he planned to strap bombs to four people, Mayor Buddy Dyer said."
 
 
 
